@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    tools:context="co.kr.bigwordenglish.MainActivity"
+    android:orientation="vertical">
+
+    <TextView android:id="@+id/title_tv" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="카테고리 이름" android:gravity="center" />
+</LinearLayout>
