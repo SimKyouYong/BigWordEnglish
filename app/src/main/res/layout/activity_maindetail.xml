@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="co.kr.bigwordenglish.MainActivity" >
+
+    <RelativeLayout android:id="@+id/top_lay" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentTop="true" >
+        <TextView android:id="@+id/name_tv" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_centerInParent="true" android:text="제목" android:textColor="#000000" android:textSize="20dp" android:gravity="center_horizontal"/>
+        <Button android:id="@+id/home_btn" android:layout_width="50dp" android:layout_height="wrap_content" />
+        <Button android:id="@+id/setting_btn" android:layout_width="50dp" android:layout_height="wrap_content" android:layout_alignParentRight="true" />
+        <Button android:id="@+id/find_btn" android:layout_width="50dp" android:layout_height="wrap_content" android:layout_toLeftOf="@+id/setting_btn" />
+    </RelativeLayout>
+
+    <LinearLayout android:id="@+id/division_lay" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_below="@+id/top_lay" android:weightSum="10">
+        <TextView android:id="@+id/division_tv01" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.8" android:layout_marginLeft="10dp" android:layout_marginRight="5dp" android:text="출제횟수"/>
+        <TextView android:id="@+id/division_tv02" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="4.4" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:text="단어[발음] / 뜻"/>
+        <TextView android:id="@+id/division_tv03" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.4" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:text="난이도"/>
+        <TextView android:id="@+id/division_tv04" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:text="발음"/>
+        <TextView android:id="@+id/division_tv05" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2" android:layout_marginLeft="5dp" android:layout_marginRight="10dp" android:text="단어"/>
+
+    </LinearLayout>
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/division_lay" android:layout_above="@+id/setting_lay" android:layout_marginTop="10dp" >
+        <LinearLayout android:id="@+id/category_lay" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" >
+        </LinearLayout>
+    </ScrollView>
+
+
+    <LinearLayout android:id="@+id/setting_lay" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_above="@+id/bot_lay">
+        <Button android:id="@+id/setting_btn01" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginLeft="10dp" android:layout_marginRight="5dp" android:text="단어가리기"/>
+        <Button android:id="@+id/setting_btn02" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:text="뜻가리기"/>
+        <Button android:id="@+id/setting_btn03" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:text="예문보기"/>
+        <Button android:id="@+id/setting_btn04" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:text="단어장"/>
+        <Button android:id="@+id/setting_btn05" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginLeft="5dp" android:layout_marginRight="10dp" android:text="설정"/>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/bot_lay" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:orientation="vertical">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="광고영역" android:gravity="center" />
+    </LinearLayout>
+</RelativeLayout>

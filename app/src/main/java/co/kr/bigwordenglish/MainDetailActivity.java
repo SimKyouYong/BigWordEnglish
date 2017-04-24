@@ -1,7 +1,6 @@
 package co.kr.bigwordenglish;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,34 +9,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-/*
-* 공지사항 api
-* url : NoticeSel.php
-* param : 없음
-* return :
-* $key_index = 인덱스
-  $title = 제목
-  $body = 안에 내용(이미지 url 올거임 이거 그냥 이미지 뷰 해주셈)
-  $date = 날짜
-  $ea = 조회수
-* */
-public class MainActivity extends AppCompatActivity {
+
+public class MainDetailActivity extends AppCompatActivity {
 
 
     private LinearLayout mCategoryLay;
-    private TextView mTitleTv;
+    private TextView mNoTv, mWordTv, mLevelTv;
+    private ImageView mPronunciationTv , mMemoTv;
     public LayoutInflater mLayoutInflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_maindetail);
 
         mLayoutInflater         	=	(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mCategoryLay                = (LinearLayout) findViewById(R.id.category_lay);
@@ -76,37 +67,32 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 메인 리스트 레이아웃
      * @param item 메인 리스트 데이터
-     * @param categorylay 메인 화면
+     * @param detaillistlay 메인 화면
      */
-    public void MainListLayout(final ArrayList<String> item, final LinearLayout categorylay) {
+    public void MainListLayout(final ArrayList<String> item, final LinearLayout detaillistlay) {
 
-        categorylay.removeAllViews();
+        detaillistlay.removeAllViews();
 
         for (int i = 0 ; i < item.size(); i++) {
             final int pos = i;
-            View view = mLayoutInflater.inflate(R.layout.little_categorylist, null);
+            View view = mLayoutInflater.inflate(R.layout.little_detaillist, null);
 
-            mTitleTv   =  (TextView) view.findViewById(R.id.title_tv);
-            mTitleTv.setText(item.get(i));
-            mTitleTv.setOnClickListener(new View.OnClickListener() {
+            mNoTv   =  (TextView) view.findViewById(R.id.no_tv); // 출제횟수
+            mWordTv   =  (TextView) view.findViewById(R.id.word_tv); // 단어
+            mLevelTv   =  (TextView) view.findViewById(R.id.level_tv); // 난이도
+            mPronunciationTv   =  (ImageView) view.findViewById(R.id.pronunciation_tv); // 발음
+            mMemoTv   =  (ImageView) view.findViewById(R.id.memo_tv); // 단어장
+
+            mNoTv.setText(item.get(i));
+            mNoTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = null;
-//                    Toast.makeText(MainActivity.this, "클릭한 포지션 --> " + pos, Toast.LENGTH_SHORT).show();
-                    if (item.get(pos).equals("영화") || item.get(pos).equals("드라마")) {
-                        // 영화나 드라마 일경우 디비셀렉 다시해서 재호출
-                        MainListLayout(SELECT_Phone("EgDb.db" , ""), mCategoryLay);
-                        Toast.makeText(MainActivity.this, "디비셀렉 다시해서 재호출 --> " + item.get(pos), Toast.LENGTH_SHORT).show();
-                    }else {
-                        intent = new Intent(MainActivity.this, MainDetailActivity.class);
-                        startActivity(intent);
-                        Toast.makeText(MainActivity.this, "이거슨 인텐트--> " + item.get(pos), Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(MainDetailActivity.this, "클릭한 포지션 --> " + pos, Toast.LENGTH_SHORT).show();
 
                 }
             });
 
-            categorylay.addView(view);
+            detaillistlay.addView(view);
         }
 
     }
