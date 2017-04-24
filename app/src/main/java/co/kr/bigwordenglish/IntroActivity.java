@@ -90,7 +90,8 @@ public class IntroActivity extends AppCompatActivity {
             if (msg.arg1 == 0) {
                 String res = (String) msg.obj;
                 //Log.e("CHECK", "RESULT  -> " + res);
-                String ver = Check_Preferences.getAppPreferences(getApplicationContext(), "version");
+
+                String ver = Check_Preferences.getAppPreferences(getApplicationContext(), "version").equals("") ? "0" : Check_Preferences.getAppPreferences(getApplicationContext(), "version");
                 //Log.e("SKY", "ver  -> " + ver);
                 if (!ver.equals("")) {
                     local_Ver = Float.parseFloat(ver);
@@ -99,13 +100,13 @@ public class IntroActivity extends AppCompatActivity {
                     //Log.e("SKY", "Server_Ver :: " + Server_Ver);
                     if (local_Ver < Server_Ver) {
                         // 다운로드
-                        new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "police_db.db");
+                        new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "EgDb.db");
                     } else {
                         MainMove();
                     }
                 } else {
                     // 최초버전.. 무조건 다운로드
-                    new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "police_db.db");
+                    new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "EgDb.db");
                 }
             }
         }
@@ -134,10 +135,10 @@ public class IntroActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            mDlg = new ProgressDialog(mContext, AlertDialog.THEME_HOLO_LIGHT);
+            mDlg = new ProgressDialog(getApplicationContext(), AlertDialog.THEME_HOLO_LIGHT);
             mDlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             mDlg.setMessage("로딩중");
-            mDlg.show();
+            //mDlg.show();
 
             super.onPreExecute();
         }
@@ -147,8 +148,8 @@ public class IntroActivity extends AppCompatActivity {
 
             int count = 0;
             try {
-                String str = dataSet.SERVER + "police_db.db";
-                String DEFAULT_FILE_PATH = dataSet.Local_Path + "/police_db.db";
+                String str = dataSet.SERVER + "EgDb.db";
+                String DEFAULT_FILE_PATH = dataSet.Local_Path + "/EgDb.db";
                 Log.e("SKY", "STR :: " + str);
 
                 URL url = new URL(str);
@@ -195,13 +196,13 @@ public class IntroActivity extends AppCompatActivity {
         protected void onProgressUpdate(String... progress) {
             // Log.e("SKY" , "progress size :: " + progress.length);
             // Log.e("SKY" , "progress 0 :: " + progress[0]);
-            mDlg.setProgress(Integer.parseInt(progress[0]));
+            //mDlg.setProgress(Integer.parseInt(progress[0]));
         }
 
         @SuppressWarnings("deprecation")
         @Override
         protected void onPostExecute(String unused) {
-            mDlg.dismiss();
+            //mDlg.dismiss();
             Check_Preferences.setAppPreferences(IntroActivity.this, "version","" + Server_Ver);
             MainMove();
         }

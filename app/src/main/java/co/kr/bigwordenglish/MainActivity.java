@@ -1,8 +1,12 @@
 package co.kr.bigwordenglish;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -15,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private LinearLayout mCategoryLay;
-    private ArrayList<String> mMenuItem = new ArrayList<String>();
     private TextView mTitleTv;
     public LayoutInflater mLayoutInflater;
 
@@ -24,21 +27,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mLayoutInflater	=	(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mLayoutInflater         	=	(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mCategoryLay                = (LinearLayout) findViewById(R.id.category_lay);
 
-        mCategoryLay = (LinearLayout) findViewById(R.id.category_lay);
 
-        mMenuItem.add("카테고리1-1");
-        mMenuItem.add("카테고리1-2");
-        mMenuItem.add("카테고리1 All 단어");
-        mMenuItem.add("카테고리2-1");
-        mMenuItem.add("카테고리2-2");
-        mMenuItem.add("카테고리 All 단어");
+        MainListLayout(SELECT_Phone("EgDb.db" , ""), mCategoryLay);    // 대표메뉴 UI 추가
 
-        MainListLayout(mMenuItem, mCategoryLay);    // 대표메뉴 UI 추가
 
     }
+    private ArrayList<String> SELECT_Phone(String DB , String Where)		//디비 값 조회해서 저장하기
+    {
+        ArrayList<String> arr = new ArrayList<String>();
+        try{
+            //  db파일 읽어오기
+            SQLiteDatabase db = openOrCreateDatabase(DB, Context.MODE_PRIVATE, null);
+            // 쿼리로 db의 커서 획득
+            Cursor cur = db.rawQuery("SELECT * FROM `Main_Category`;", null);
+            // 처음 레코드로 이동
+            while(cur.moveToNext()){
+                // 읽은값 출력
+                Log.e("SKY",cur.getString(0)+"/"+cur.getString(1));
+                arr.add(""+cur.getString(1));
+            }
+            cur.close();
+            db.close();
 
+        }
+        catch (SQLException se) {
+            // TODO: handle exception
+            Log.e("selectData()Error! : ",se.toString());
+        }
+        return arr;
+
+    }
 
     /**
      * 메인 리스트 레이아웃
@@ -54,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             View view = mLayoutInflater.inflate(R.layout.little_categorylist, null);
 
             mTitleTv   =  (TextView) view.findViewById(R.id.title_tv); // 타이틀 제목
-            mTitleTv.setText(mMenuItem.get(i));
+            mTitleTv.setText(item.get(i));
             mTitleTv.setOnClickListener(new View.OnClickListener() {    // 답글 삭제버튼
                 @Override
                 public void onClick(View v) {
