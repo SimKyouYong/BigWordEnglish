@@ -15,6 +15,17 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/*
+* 공지사항 api
+* url : NoticeSel.php
+* param : 없음
+* return :
+* $key_index = 인덱스
+  $title = 제목
+  $body = 안에 내용(이미지 url 올거임 이거 그냥 이미지 뷰 해주셈)
+  $date = 날짜
+  $ea = 조회수
+* */
 public class MainActivity extends AppCompatActivity {
 
 
