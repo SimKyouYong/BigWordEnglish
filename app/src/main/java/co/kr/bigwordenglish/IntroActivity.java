@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 
 import java.io.BufferedInputStream;
@@ -26,7 +27,6 @@ import java.util.Map;
 import co.kr.bigwordenglish.common.Check_Preferences;
 import co.kr.bigwordenglish.common.CommonUtil;
 import co.kr.bigwordenglish.common.MySQLiteOpenHelper;
-import co.kr.bigwordenglish.util.Log;
 import co.kr.sky.AccumThread;
 
 
