@@ -14,7 +14,7 @@ public class CommonUtil {
 	static {
 		_instance = new CommonUtil();
 		try {								 
-			_instance.SERVER = 	   		"http://snap40.cafe24.com/BigWordEgs/";
+				_instance.SERVER = 	   		"http://snap40.cafe24.com/BigWordEgs/";
 			_instance.Local_Path = 	   	"/data/data/co.kr.bigwordenglish/databases";
 
 			
