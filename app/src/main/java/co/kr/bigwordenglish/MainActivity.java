@@ -81,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
             //  db파일 읽어오기
             SQLiteDatabase db = openOrCreateDatabase(DB, Context.MODE_PRIVATE, null);
             // 쿼리로 db의 커서 획득
-            Cursor cur = db.rawQuery("SELECT * FROM `Main_Category` " + Where, null);
+            String sql = "SELECT * FROM `Category_Sub` " + Where;
+            Log.e("SKY", "sql :: " + sql);
+            Cursor cur = db.rawQuery(sql, null);
             // 처음 레코드로 이동
             while(cur.moveToNext()){
                 // 읽은값 출력
@@ -119,9 +121,10 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = null;
 //                    Toast.makeText(MainActivity.this, "클릭한 포지션 --> " + pos, Toast.LENGTH_SHORT).show();
+                    Log.e("SKY","item.get(pos).getCategory() :: " +item.get(pos).getCategory());
                     if (item.get(pos).getCategory().equals("영화") || item.get(pos).getCategory().equals("드라마")) {
                         // 영화나 드라마 일경우 디비셀렉 다시해서 재호출
-                        SELECT_SUB("EgDb.db" , "where category = '" + item.get(pos).getKey_index() + "'");
+                        SELECT_SUB("EgDb.db" , "where Category_Sub_Key = '" + item.get(pos).getKey_index() + "'");
                     }else {
                         intent = new Intent(MainActivity.this, MainDetailActivity.class);
                         intent.putExtra("OBJ" , item.get(pos));
