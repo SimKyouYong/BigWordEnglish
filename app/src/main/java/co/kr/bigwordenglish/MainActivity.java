@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
         mCategoryLay                = (LinearLayout) findViewById(R.id.category_lay);
 
 
-        MainListLayout(SELECT_Phone("EgDb.db" , ""), mCategoryLay);
+        MainListLayout(SELECT_MainLabel("EgDb.db" , ""), mCategoryLay);
 
 
     }
-    private ArrayList<Mianobj> SELECT_Phone(String DB , String Where)		//디비 값 조회해서 저장하기
+    private ArrayList<Mianobj> SELECT_MainLabel(String DB , String Where)		//디비 값 조회해서 저장하기
     {
         ArrayList<Mianobj> arr = new ArrayList<Mianobj>();
         try{
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         return arr;
 
     }
-    private ArrayList<Mianobj> SELECT_SUB(String DB , String Where)		//디비 값 조회해서 저장하기
+    private ArrayList<Mianobj> SELECT_SUBLabel(String DB , String Where)		//디비 값 조회해서 저장하기
     {
         ArrayList<Mianobj> arr = new ArrayList<Mianobj>();
         try{
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("SKY","item.get(pos).getCategory() :: " +item.get(pos).getCategory());
                     if (item.get(pos).getCategory().equals("영화") || item.get(pos).getCategory().equals("드라마")) {
                         // 영화나 드라마 일경우 디비셀렉 다시해서 재호출
-                        SELECT_SUB("EgDb.db" , "where Category_Sub_Key = '" + item.get(pos).getKey_index() + "'");
+                        SELECT_SUBLabel("EgDb.db" , "where Category_Sub_Key = '" + item.get(pos).getKey_index() + "'");
                         intent = new Intent(MainActivity.this, MainSubActivity.class);
                         intent.putExtra("OBJ" , item.get(pos).getKey_index());
                         startActivity(intent);
