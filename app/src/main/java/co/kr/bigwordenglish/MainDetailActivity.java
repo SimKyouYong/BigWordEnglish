@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import co.kr.bigwordenglish.adapter.Word_Adapter;
 import co.kr.bigwordenglish.obj.Mianobj;
 
 /*
@@ -22,11 +23,12 @@ import co.kr.bigwordenglish.obj.Mianobj;
 * */
 public class MainDetailActivity extends AppCompatActivity {
 
+    private Word_Adapter m_Adapter;
 
     private LinearLayout mCategoryLay;
     private TextView mNoTv, mWordTv, mLevelTv;
     private ImageView mPronunciationTv , mMemoTv;
-    public LayoutInflater mLayoutInflater;
+    private LayoutInflater mLayoutInflater;
 
     private Mianobj obj;
 
