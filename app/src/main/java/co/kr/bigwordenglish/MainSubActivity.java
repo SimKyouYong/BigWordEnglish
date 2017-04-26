@@ -18,34 +18,33 @@ import java.util.ArrayList;
 
 import co.kr.bigwordenglish.obj.Mianobj;
 
-/*
-* 공지사항 api
-* url : NoticeSel.php
-* param : 없음
-* return :
-* $key_index = 인덱스
-  $title = 제목
-  $body = 안에 내용(이미지 url 올거임 이거 그냥 이미지 뷰 해주셈)
-  $date = 날짜
-  $ea = 조회수
-* */
-public class MainActivity extends AppCompatActivity {
+public class MainSubActivity extends AppCompatActivity {
 
 
     private LinearLayout mCategoryLay;
     private TextView mTitleTv;
     public LayoutInflater mLayoutInflater;
+    private String mIndexKey;
+    private Intent mIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_mainsub);
 
         mLayoutInflater         	=	(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mCategoryLay                = (LinearLayout) findViewById(R.id.category_lay);
 
+        mIntent = getIntent();
 
-        MainListLayout(SELECT_Phone("EgDb.db" , ""), mCategoryLay);
+        if (mIntent != null) {
+            mIndexKey = mIntent.getStringExtra("OBJ");
+        }
+
+        Log.i("MainSubActivity" , "mIndexKey --> " + mIndexKey);
+
+
+//        MainListLayout(SELECT_Phone("EgDb.db" , ""), mCategoryLay);
 
 
     }
@@ -125,14 +124,11 @@ public class MainActivity extends AppCompatActivity {
                     if (item.get(pos).getCategory().equals("영화") || item.get(pos).getCategory().equals("드라마")) {
                         // 영화나 드라마 일경우 디비셀렉 다시해서 재호출
                         SELECT_SUB("EgDb.db" , "where Category_Sub_Key = '" + item.get(pos).getKey_index() + "'");
-                        intent = new Intent(MainActivity.this, MainSubActivity.class);
-                        intent.putExtra("OBJ" , item.get(pos).getKey_index());
-                        startActivity(intent);
                     }else {
-                        intent = new Intent(MainActivity.this, MainDetailActivity.class);
+                        intent = new Intent(MainSubActivity.this, MainDetailActivity.class);
                         intent.putExtra("OBJ" , item.get(pos));
                         startActivity(intent);
-                        Toast.makeText(MainActivity.this, "이거슨 인텐트--> " + item.get(pos), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainSubActivity.this, "이거슨 인텐트--> " + item.get(pos), Toast.LENGTH_SHORT).show();
                     }
 
                 }

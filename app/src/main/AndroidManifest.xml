@@ -8,8 +8,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".IntroActivity">
-            <intent-filter>
+        <activity android:name=".IntroActivity" android:theme="@style/AppTheme.NoActionBar" >
+
+         <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -17,10 +18,14 @@
         </activity>
 
         <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity android:name=".MainDetailActivity"
-            android:theme="@style/AppTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity android:name=".MainSubActivity"
+            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
+
     </application>
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />

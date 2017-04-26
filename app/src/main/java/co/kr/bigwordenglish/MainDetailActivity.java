@@ -30,8 +30,8 @@ public class MainDetailActivity extends AppCompatActivity {
     private ImageView mPronunciationTv , mMemoTv;
     public LayoutInflater mLayoutInflater;
 
-
     private Mianobj obj;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
