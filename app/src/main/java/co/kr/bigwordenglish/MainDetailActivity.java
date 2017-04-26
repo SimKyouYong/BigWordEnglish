@@ -8,11 +8,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -71,39 +69,5 @@ public class MainDetailActivity extends AppCompatActivity {
             // TODO: handle exception
             Log.e("selectData()Error! : ",se.toString());
         }
-
-    }
-
-    /**
-     * 메인 리스트 레이아웃
-     * @param item 메인 리스트 데이터
-     * @param detaillistlay 메인 화면
-     */
-    public void MainListLayout(final ArrayList<String> item, final LinearLayout detaillistlay) {
-
-        detaillistlay.removeAllViews();
-
-        for (int i = 0 ; i < item.size(); i++) {
-            final int pos = i;
-            View view = mLayoutInflater.inflate(R.layout.little_detaillist, null);
-
-            mNoTv   =  (TextView) view.findViewById(R.id.no_tv); // 출제횟수
-            mWordTv   =  (TextView) view.findViewById(R.id.word_tv); // 단어
-            mLevelTv   =  (TextView) view.findViewById(R.id.level_tv); // 난이도
-            mPronunciationTv   =  (ImageView) view.findViewById(R.id.pronunciation_tv); // 발음
-            mMemoTv   =  (ImageView) view.findViewById(R.id.memo_tv); // 단어장
-
-            mNoTv.setText(item.get(i));
-            mNoTv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(MainDetailActivity.this, "클릭한 포지션 --> " + pos, Toast.LENGTH_SHORT).show();
-
-                }
-            });
-
-            detaillistlay.addView(view);
-        }
-
     }
 }
