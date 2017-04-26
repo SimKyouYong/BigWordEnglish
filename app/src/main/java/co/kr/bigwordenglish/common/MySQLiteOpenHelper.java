@@ -18,7 +18,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
 	static String NAME = "hellow.sqlite";		//sqlite 占싱몌옙 占쏙옙占쏙옙 
 	static CursorFactory FACTORY = null;		//커占쏙옙 占십깍옙화 
-	static String PACKEGE = "co.kr.app.helloweurope";	//占쏙옙키占쏙옙 占싱몌옙 占쏙옙占쏙옙 
+	static String PACKEGE = "co.kr.bigwordenglish";	//占쏙옙키占쏙옙 占싱몌옙 占쏙옙占쏙옙
 	static String DB = "hellow_db.db";			//칼占싸몌옙 占쏙옙占� 占싱몌옙 占쏙옙占쏙옙 
 	static int VERSION  = 1;					//占쏙옙占� 占쏙옙占쏙옙 
 	public MySQLiteOpenHelper(Context context) {
