@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 //                    Toast.makeText(MainActivity.this, "클릭한 포지션 --> " + pos, Toast.LENGTH_SHORT).show();
                     if (item.get(pos).getCategory().equals("영화") || item.get(pos).getCategory().equals("드라마")) {
                         // 영화나 드라마 일경우 디비셀렉 다시해서 재호출
-                        SELECT_SUB("EgDb.db" , "where Category_Sub_Key = '" + item.get(pos).getKey_index() + "'");
+                        SELECT_SUB("EgDb.db" , "where category = '" + item.get(pos).getKey_index() + "'");
                     }else {
                         intent = new Intent(MainActivity.this, MainDetailActivity.class);
                         intent.putExtra("OBJ" , item.get(pos));
