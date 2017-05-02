@@ -32,7 +32,7 @@ import co.kr.sky.AccumThread;
 
 /**
  * Created by suwun on 2017-04-18.
- * 인트로 클래스
+ * 인트로 클래스 test
  * @since 0, 1
  */
 
