@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     //버튼 리스너 구현 부분
-    View.OnClickListener setting_btn = new View.OnClickListener() {
+    View.OnClickListener btnListener = new View.OnClickListener() {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.setting_btn:
