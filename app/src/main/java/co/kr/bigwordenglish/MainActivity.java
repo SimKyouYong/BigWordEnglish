@@ -17,18 +17,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import co.kr.bigwordenglish.obj.Mianobj;
-
-/*
-* 공지사항 api
-* url : NoticeSel.php
-* param : 없음
-* return :
-* $key_index = 인덱스
-  $title = 제목
-  $body = 안에 내용(이미지 url 올거임 이거 그냥 이미지 뷰 해주셈)
-  $date = 날짜
-  $ea = 조회수
-* */
 public class MainActivity extends AppCompatActivity {
 
 
@@ -48,7 +36,20 @@ public class MainActivity extends AppCompatActivity {
         MainListLayout(SELECT_MainLabel("EgDb.db" , ""), mCategoryLay);
 
 
+        findViewById(R.id.setting_btn).setOnClickListener(btnListener);
+
     }
+    //버튼 리스너 구현 부분
+    View.OnClickListener setting_btn = new View.OnClickListener() {
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.setting_btn:
+                    Log.e("SKY" , "-- setting_btn --");
+
+                    break;
+            }
+        }
+    };
     private ArrayList<Mianobj> SELECT_MainLabel(String DB , String Where)		//디비 값 조회해서 저장하기
     {
         ArrayList<Mianobj> arr = new ArrayList<Mianobj>();
