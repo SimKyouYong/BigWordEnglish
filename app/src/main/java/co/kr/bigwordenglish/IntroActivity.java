@@ -96,8 +96,8 @@ public class IntroActivity extends AppCompatActivity {
                 if (!ver.equals("")) {
                     local_Ver = Float.parseFloat(ver);
                     Server_Ver = Float.parseFloat(res);
-                    //Log.e("SKY", "local_Ver :: " + local_Ver);
-                    //Log.e("SKY", "Server_Ver :: " + Server_Ver);
+                    Log.e("SKY", "local_Ver :: " + local_Ver);
+                    Log.e("SKY", "Server_Ver :: " + Server_Ver);
                     if (local_Ver < Server_Ver) {
                         // 다운로드
                         new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "EgDb.db");
@@ -105,6 +105,7 @@ public class IntroActivity extends AppCompatActivity {
                         MainMove();
                     }
                 } else {
+                	Log.e("SKY", "local_Ver :: null");
                     // 최초버전.. 무조건 다운로드
                     new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "EgDb.db");
                 }
