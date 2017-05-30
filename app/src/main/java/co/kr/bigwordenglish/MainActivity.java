@@ -1,8 +1,5 @@
 package co.kr.bigwordenglish;
 
-import java.util.ArrayList;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,32 +15,74 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.fsn.cauly.CaulyAdInfo;
+import com.fsn.cauly.CaulyAdInfoBuilder;
+import com.fsn.cauly.CaulyAdView;
+import com.fsn.cauly.CaulyAdViewListener;
+
+import java.util.ArrayList;
+
 import co.kr.bigwordenglish.obj.Mianobj;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CaulyAdViewListener{
 
 	private LinearLayout mCategoryLay;
 	private TextView mTitleTv;
 	public LayoutInflater mLayoutInflater;
+
+
+	private LinearLayout adWrapper = null;
+	private CaulyAdView xmlAdView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_menu);
 
-		// mLayoutInflater = (LayoutInflater)
-		// getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		// mCategoryLay = (LinearLayout) findViewById(R.id.category_lay);
-		//
-		//
-		// MainListLayout(SELECT_MainLabel("EgDb.db" , ""), mCategoryLay);
-		//
-		//
-		// findViewById(R.id.setting_btn).setOnClickListener(btnListener);
-
+		initCauly();
 		onClickEvent();
 	}
+	private void initCauly(){
+		// CloseAd 초기화
+		CaulyAdInfo closeAdInfo = new CaulyAdInfoBuilder("modukcJI").build();
+		// 선택사항: XML의 AdView 항목을 찾아 Listener 설정
+		xmlAdView = (CaulyAdView) findViewById(R.id.xmladview);
+		xmlAdView.setAdViewListener(this);
 
+		adWrapper = (LinearLayout) findViewById(R.id.adWrapper);
+	}
+
+	@Override
+	public void onReceiveAd(CaulyAdView adView, boolean isChargeableAd) {
+		// 광고 수신 성공 & 노출된 경우 호출됨.
+		// 수신된 광고가 무료 광고인 경우 isChargeableAd 값이 false 임.
+		if (isChargeableAd == false) {
+			Log.e("SKY", "free banner AD received.");
+		}
+		else {
+			Log.e("SKY", "normal banner AD received.");
+		}
+	}
+
+	@Override
+	public void onFailedToReceiveAd(CaulyAdView adView, int errorCode, String errorMsg) {
+		// 배너 광고 수신 실패할 경우 호출됨.
+		Log.e("SKY", "failed to receive banner AD.");
+		adWrapper.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void onShowLandingScreen(CaulyAdView adView) {
+		// 광고 배너를 클릭하여 랜딩 페이지가 열린 경우 호출됨.
+		Log.e("SKY", "banner AD landing screen opened.");
+	}
+
+	@Override
+	public void onCloseLandingScreen(CaulyAdView adView) {
+		// 광고 배너를 클릭하여 열린 랜딩 페이지가 닫힌 경우 호출됨.
+		Log.e("SKY", "banner AD landing screen closed.");
+	}
 	private void onClickEvent() {
 		((Button) findViewById(R.id.btn_setting))
 				.setOnClickListener(new OnClickListener() {

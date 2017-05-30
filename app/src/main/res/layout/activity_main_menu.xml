@@ -1,12 +1,34 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:orientation="vertical" >
+    >
+
+    <LinearLayout
+        android:id="@+id/adWrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <com.fsn.cauly.CaulyAdView
+            xmlns:app="http://schemas.android.com/apk/res/co.kr.bigwordenglish"
+            android:id="@+id/xmladview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:appcode="modukcJI"
+            app:effect="TopSlide"
+            app:enableDefaultBannerAd="false" />
+
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/topview"
         android:background="@mipmap/title">
 
         <Button
@@ -44,8 +66,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_below="@+id/topview"
+        android:layout_above="@+id/adWrapper"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,14 +77,14 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/btn_menu1"
@@ -74,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/btn_menu2"
@@ -88,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/btn_menu3"
@@ -104,14 +128,14 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/btn_menu4"
@@ -125,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/btn_menu5"
@@ -139,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/btn_menu6"
@@ -152,19 +176,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btn_allview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/all_view"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="10dp" />
+                android:background="@mipmap/all_view" />
 
             <Button
                 android:id="@+id/btn_view_set"
@@ -173,13 +197,7 @@
                 android:background="@mipmap/view_set" />
         </LinearLayout>
     </LinearLayout>
-    <TextView android:layout_width="match_parent"
-            android:layout_height="match_parent" 
-            android:layout_marginTop="15dp"
-            android:text="광고"
-            android:gravity="center"
-            android:background="#DDDDDD">
-            
-        </TextView>
 
-</LinearLayout>
+
+
+</RelativeLayout>

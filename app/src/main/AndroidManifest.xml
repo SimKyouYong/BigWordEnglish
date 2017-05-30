@@ -35,7 +35,10 @@
 
         <activity android:name=".MainSubActivity"
             android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
-
+        <activity
+            android:name="com.fsn.cauly.blackdragoncore.LandingActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard">
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
