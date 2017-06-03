@@ -39,75 +39,50 @@ import co.kr.sky.AccumThread;
 public class IntroActivity extends AppCompatActivity {
     CommonUtil dataSet = CommonUtil.getInstance();
 
-	ImageView introimg;
+    ImageView introimg;
     private AccumThread mThread;
-    private  MySQLiteOpenHelper vc;
     private Map<String, String> map = new HashMap<String, String>();
     private float local_Ver, Server_Ver;
 
-	private Handler mIntroHandler = new Handler();
 
-	@SuppressWarnings("deprecation")
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.intro_activity);
+    @SuppressWarnings("deprecation")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.intro_activity);
+        init();
+    }
 
-		init();
-
-//
-//		introimg.postDelayed(new Runnable() {
-//			@Override
-//			public void run() {
-////				if (!PermissionUtils.canAccessPhone(IntroActivity.this) ) {  // 폰 정보 권한이 없다면
-////					ActivityCompat.requestPermissions(IntroActivity.this, PermissionUtils.PHONE_PERMS, CommonData.PERMISSION_REQUEST_PHONE_STATE);
-////				} else {
-//					mIntroHandler.postDelayed(mIntroRunnable, 1000);
-////					requestAppInfo();
-////				}
-//			}
-//		}, 1000);
-
-	}
-//	/**
-//	 * 초기화
-//	 */
-	public void init(){
-
-		introimg	=	(ImageView)	findViewById(R.id.intro_image);
-
-
-        vc = new MySQLiteOpenHelper(this);
+    public void init(){
+        introimg	=	(ImageView)	findViewById(R.id.intro_image);
 
         map.put("url", dataSet.SERVER + "Version.php");
         // 스레드 생성
         mThread = new AccumThread(this, mAfterAccum, map, 0, 0, null);
         mThread.start(); // 스레드 시작!!
-	}
+    }
+
     Handler mAfterAccum = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.arg1 == 0) {
                 String res = (String) msg.obj;
-                //Log.e("CHECK", "RESULT  -> " + res);
-
                 String ver = Check_Preferences.getAppPreferences(getApplicationContext(), "version").equals("") ? "0" : Check_Preferences.getAppPreferences(getApplicationContext(), "version");
-                //Log.e("SKY", "ver  -> " + ver);
                 if (!ver.equals("")) {
                     local_Ver = Float.parseFloat(ver);
                     Server_Ver = Float.parseFloat(res);
-                    Log.e("SKY", "local_Ver :: " + local_Ver);
-                    Log.e("SKY", "Server_Ver :: " + Server_Ver);
+                    Log.i("ifeelbluu", "local_Ver :: " + local_Ver);
+                    Log.i("ifeelbluu", "Server_Ver :: " + Server_Ver);
                     if (local_Ver < Server_Ver) {
                         // 다운로드
-                        new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "EgDb.db");
+                        new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "admin/db/egDb.db");
                     } else {
                         MainMove();
                     }
                 } else {
-                	Log.e("SKY", "local_Ver :: null");
+                    Log.e("ifeelbluu", "local_Ver :: null");
                     // 최초버전.. 무조건 다운로드
-                    new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "EgDb.db");
+                    new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "admin/db/egDb.db");
                 }
             }
         }
@@ -124,8 +99,7 @@ public class IntroActivity extends AppCompatActivity {
             }
         }, 3000);
     }
-    public class DownloadFileFullAsync extends
-            AsyncTask<String, String, String> {
+    public class DownloadFileFullAsync extends  AsyncTask<String, String, String> {
 
         private ProgressDialog mDlg;
         private Context mContext;
@@ -149,8 +123,8 @@ public class IntroActivity extends AppCompatActivity {
 
             int count = 0;
             try {
-                String str = dataSet.SERVER + "EgDb.db";
-                String DEFAULT_FILE_PATH = dataSet.Local_Path + "/EgDb.db";
+                String str = dataSet.SERVER + "admin/db/egDb.db";
+                String DEFAULT_FILE_PATH = IntroActivity.this.getDatabasePath("egDb.db")+"";
                 Log.e("SKY", "STR :: " + str);
 
                 URL url = new URL(str);
@@ -162,7 +136,7 @@ public class IntroActivity extends AppCompatActivity {
                 int lenghtOfFile = conexion.getContentLength();
                 Log.e("SKY", "Lenght of file: " + lenghtOfFile);
 
-                File file = new File(dataSet.Local_Path);
+                File file = new File(DEFAULT_FILE_PATH.substring(0,DEFAULT_FILE_PATH.lastIndexOf("/")));
                 if (!file.exists()) { // 원하는 경로에 폴더가 있는지 확인
                     Log.e("SKY", "폴더 생성");
                     file.mkdirs();
@@ -172,10 +146,9 @@ public class IntroActivity extends AppCompatActivity {
                 InputStream input = new BufferedInputStream(url.openStream());
                 OutputStream output = new FileOutputStream(DEFAULT_FILE_PATH);
 
-                byte data[] = new byte[1024];
+                byte data[] = new byte[2048];
                 long total = 0;
                 while ((count = input.read(data)) != -1) {
-                    Log.e("SKY", "total :: " + total);
                     total += count;
                     publishProgress("" + (int) ((total * 100) / lenghtOfFile));
                     output.write(data, 0, count);
@@ -208,6 +181,4 @@ public class IntroActivity extends AppCompatActivity {
             MainMove();
         }
     }
-
-
 }

@@ -23,6 +23,8 @@ import com.fsn.cauly.CaulyAdViewListener;
 
 import java.util.ArrayList;
 
+import co.kr.bigwordenglish.common.DBManager;
+import co.kr.bigwordenglish.common.VO_Item_Level_02;
 import co.kr.bigwordenglish.obj.Mianobj;
 
 public class MainActivity extends AppCompatActivity implements CaulyAdViewListener{
@@ -39,10 +41,94 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_menu);
-
 		initCauly();
 		onClickEvent();
 	}
+
+	private void onClickEvent() {
+		//설정 버튼
+		((Button) findViewById(R.id.btn_setting)).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(MainActivity.this, MainSettingActivity.class);
+				startActivity(i);
+			}
+		});
+
+		((Button) findViewById(R.id.btn_menu1)).setOnClickListener(btnListenerLevel_02);
+		((Button) findViewById(R.id.btn_menu2)).setOnClickListener(btnListenerLevel_02);
+		((Button) findViewById(R.id.btn_menu3)).setOnClickListener(btnListenerLevel_02);
+		((Button) findViewById(R.id.btn_menu4)).setOnClickListener(btnListenerLevel_02);
+		((Button) findViewById(R.id.btn_menu5)).setOnClickListener(btnListenerLevel_02);
+		((Button) findViewById(R.id.btn_menu6)).setOnClickListener(btnListenerLevel_02);
+	}
+
+	// 버튼 리스너 구현 부분
+	View.OnClickListener btnListenerLevel_02 = new View.OnClickListener() {
+		public void onClick(View v) {
+			int subkey = 0;
+			switch (v.getId()) {
+				case R.id.btn_menu1:
+					subkey = 1;
+					break;
+				case R.id.btn_menu2:
+					subkey = 2;
+					break;
+				case R.id.btn_menu3:
+					subkey = 3;
+					break;
+				case R.id.btn_menu4:
+					subkey = 4;
+					break;
+				case R.id.btn_menu5:
+					subkey = 5;
+					break;
+				case R.id.btn_menu6:
+					subkey = 6;
+					break;
+			}
+			onClickLevel_02(subkey);
+		}
+	};
+
+	// 버튼 리스너 구현 부분
+	View.OnClickListener btnListener = new View.OnClickListener() {
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.setting_btn:
+				Log.e("SKY", "-- setting_btn --");
+
+				break;
+			}
+		}
+	};
+
+	private void onClickLevel_02(int subkey){
+		Intent i = new Intent(this, MainSubActivity.class);
+		i.putExtra("SubKey", subkey+"");
+		startActivity(i);
+
+//		ArrayList<VO_Item_Level_02> temp = getItem_Level2(subkey);
+//		for(int i=0; i<temp.size(); i++){
+//			Log.v("ifeelbluu",temp.get(i).getLevel2_Index() + " / " + temp.get(i).getLevel2_C_Name());
+//		}
+	}
+
+	//레벨2가져오기
+	private ArrayList<VO_Item_Level_02> getItem_Level2(int subkey){
+		ArrayList<VO_Item_Level_02> arr = new ArrayList<VO_Item_Level_02>();
+		try {
+			DBManager dbm = new DBManager(this);
+			arr = dbm.selectData_Level2(subkey);
+		} catch (SQLException se) {
+			Log.e("ifeelbluu", se.toString());
+		}
+		return arr;
+	}
+
+	/*****************************
+	  @카울리
+	 *****************************/
 	private void initCauly(){
 		// CloseAd 초기화
 		CaulyAdInfo closeAdInfo = new CaulyAdInfoBuilder("modukcJI").build();
@@ -82,156 +168,5 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 	public void onCloseLandingScreen(CaulyAdView adView) {
 		// 광고 배너를 클릭하여 열린 랜딩 페이지가 닫힌 경우 호출됨.
 		Log.e("SKY", "banner AD landing screen closed.");
-	}
-	private void onClickEvent() {
-		((Button) findViewById(R.id.btn_setting))
-				.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						Intent i = new Intent(MainActivity.this,
-								MainSettingActivity.class);
-						startActivity(i);
-					}
-				});
-		((Button) findViewById(R.id.btn_menu1))
-		.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent i = new Intent(MainActivity.this,
-						MainWordSelect.class);
-				startActivity(i);
-			}
-		});
-
-	}
-
-	// 버튼 리스너 구현 부분
-	View.OnClickListener btnListener = new View.OnClickListener() {
-		public void onClick(View v) {
-			switch (v.getId()) {
-			case R.id.setting_btn:
-				Log.e("SKY", "-- setting_btn --");
-
-				break;
-			}
-		}
-	};
-
-	private ArrayList<Mianobj> SELECT_MainLabel(String DB, String Where) // 디비 값
-																			// 조회해서
-																			// 저장하기
-	{
-		ArrayList<Mianobj> arr = new ArrayList<Mianobj>();
-		try {
-			// db파일 읽어오기
-			SQLiteDatabase db = openOrCreateDatabase(DB, Context.MODE_PRIVATE,
-					null);
-			// 쿼리로 db의 커서 획득
-			Cursor cur = db.rawQuery("SELECT * FROM `Main_Category`;", null);
-			// 처음 레코드로 이동
-			while (cur.moveToNext()) {
-				// 읽은값 출력
-				Log.e("SKY", cur.getString(0) + "/" + cur.getString(1));
-				arr.add(new Mianobj(cur.getString(0), cur.getString(1)));
-			}
-			cur.close();
-			db.close();
-
-		} catch (SQLException se) {
-			// TODO: handle exception
-			Log.e("selectData()Error! : ", se.toString());
-		}
-		return arr;
-
-	}
-
-	private ArrayList<Mianobj> SELECT_SUBLabel(String DB, String Where) // 디비 값
-																		// 조회해서
-																		// 저장하기
-	{
-		ArrayList<Mianobj> arr = new ArrayList<Mianobj>();
-		try {
-			// db파일 읽어오기
-			SQLiteDatabase db = openOrCreateDatabase(DB, Context.MODE_PRIVATE,
-					null);
-			// 쿼리로 db의 커서 획득
-			String sql = "SELECT * FROM `Category_Sub` " + Where;
-			Log.e("SKY", "sql :: " + sql);
-			Cursor cur = db.rawQuery(sql, null);
-			// 처음 레코드로 이동
-			while (cur.moveToNext()) {
-				// 읽은값 출력
-				// [JSW] 여기서부터 처리해......
-				Log.e("SKY", cur.getString(0) + "/" + cur.getString(1) + "/"
-						+ cur.getString(2));
-			}
-			cur.close();
-			db.close();
-
-		} catch (SQLException se) {
-			// TODO: handle exception
-			Log.e("selectData()Error! : ", se.toString());
-		}
-		return arr;
-
-	}
-
-	/**
-	 * 메인 리스트 레이아웃
-	 * 
-	 * @param item
-	 *            메인 리스트 데이터
-	 * @param categorylay
-	 *            메인 화면
-	 */
-	public void MainListLayout(final ArrayList<Mianobj> item,
-			final LinearLayout categorylay) {
-
-		categorylay.removeAllViews();
-
-		for (int i = 0; i < item.size(); i++) {
-			final int pos = i;
-			View view = mLayoutInflater.inflate(R.layout.little_categorylist,
-					null);
-
-			mTitleTv = (TextView) view.findViewById(R.id.title_tv);
-			mTitleTv.setText(item.get(i).getCategory());
-			mTitleTv.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent intent = null;
-					// Toast.makeText(MainActivity.this, "클릭한 포지션 --> " + pos,
-					// Toast.LENGTH_SHORT).show();
-					Log.e("SKY",
-							"item.get(pos).getCategory() :: "
-									+ item.get(pos).getCategory());
-					if (item.get(pos).getCategory().equals("영화")
-							|| item.get(pos).getCategory().equals("드라마")) {
-						// 영화나 드라마 일경우 디비셀렉 다시해서 재호출
-						SELECT_SUBLabel("EgDb.db", "where Category_Sub_Key = '"
-								+ item.get(pos).getKey_index() + "'");
-						intent = new Intent(MainActivity.this,
-								MainSubActivity.class);
-						intent.putExtra("OBJ", item.get(pos).getKey_index());
-						startActivity(intent);
-					} else {
-						intent = new Intent(MainActivity.this,
-								MainDetailActivity.class);
-						intent.putExtra("OBJ", item.get(pos));
-						startActivity(intent);
-						Toast.makeText(MainActivity.this,
-								"이거슨 인텐트--> " + item.get(pos),
-								Toast.LENGTH_SHORT).show();
-					}
-
-				}
-			});
-
-			categorylay.addView(view);
-		}
-
 	}
 }
