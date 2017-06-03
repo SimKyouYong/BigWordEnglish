@@ -25,6 +25,8 @@
 
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".MainSubListActivity"
+            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".MainWordSelect"
             android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".MainSubActivity"
@@ -32,9 +34,7 @@
         <activity android:name=".MainSettingActivity"
             android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
 
-        <activity android:name=".MainDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
-         <activity
+        <activity
             android:name="com.fsn.cauly.blackdragoncore.LandingActivity"
             android:configChanges="keyboardHidden|orientation|keyboard">
         </activity>
