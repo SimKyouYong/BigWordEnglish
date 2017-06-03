@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -38,8 +39,17 @@ public class MainSubActivity extends AppCompatActivity {
         getSubKey = getIntent().getStringExtra("SubKey");
         subListView = (ListView) findViewById(R.id.listview_mainsub);
 
-        onClickLevel_02(Integer.parseInt(getSubKey));
+        subListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.v("ifeelbluu","start i ==== " + l);
+                Intent intent = new Intent(MainSubActivity.this, MainSubListActivity.class);
+                intent.putExtra("Subkey_list",listitem.get((int)l).getLevel2_Index());
+                startActivity(intent);
+            }
+        });
 
+        onClickLevel_02(Integer.parseInt(getSubKey));
     }
 
 

@@ -145,9 +145,7 @@ public class MainWordSelect extends AppCompatActivity {
                         intent.putExtra("OBJ" , item.get(pos).getKey_index());
                         startActivity(intent);
                     }else {
-                        intent = new Intent(MainWordSelect.this, MainDetailActivity.class);
-                        intent.putExtra("OBJ" , item.get(pos));
-                        startActivity(intent);
+
                         Toast.makeText(MainWordSelect.this, "이거슨 인텐트--> " + item.get(pos), Toast.LENGTH_SHORT).show();
                     }
 

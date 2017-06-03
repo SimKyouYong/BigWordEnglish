@@ -123,59 +123,5 @@ public class MainSettingActivity extends AppCompatActivity {
 
 	}
 
-	/**
-	 * 메인 리스트 레이아웃
-	 * 
-	 * @param item
-	 *            메인 리스트 데이터
-	 * @param categorylay
-	 *            메인 화면
-	 */
-	public void MainListLayout(final ArrayList<Mianobj> item,
-			final LinearLayout categorylay) {
 
-		categorylay.removeAllViews();
-
-		for (int i = 0; i < item.size(); i++) {
-			final int pos = i;
-			View view = mLayoutInflater.inflate(R.layout.little_categorylist,
-					null);
-
-			mTitleTv = (TextView) view.findViewById(R.id.title_tv);
-			mTitleTv.setText(item.get(i).getCategory());
-			mTitleTv.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent intent = null;
-					// Toast.makeText(MainActivity.this, "클릭한 포지션 --> " + pos,
-					// Toast.LENGTH_SHORT).show();
-					Log.e("SKY",
-							"item.get(pos).getCategory() :: "
-									+ item.get(pos).getCategory());
-					if (item.get(pos).getCategory().equals("영화")
-							|| item.get(pos).getCategory().equals("드라마")) {
-						// 영화나 드라마 일경우 디비셀렉 다시해서 재호출
-						SELECT_SUBLabel("EgDb.db", "where Category_Sub_Key = '"
-								+ item.get(pos).getKey_index() + "'");
-						intent = new Intent(MainSettingActivity.this,
-								MainSubActivity.class);
-						intent.putExtra("OBJ", item.get(pos).getKey_index());
-						startActivity(intent);
-					} else {
-						intent = new Intent(MainSettingActivity.this,
-								MainDetailActivity.class);
-						intent.putExtra("OBJ", item.get(pos));
-						startActivity(intent);
-						Toast.makeText(MainSettingActivity.this,
-								"이거슨 인텐트--> " + item.get(pos),
-								Toast.LENGTH_SHORT).show();
-					}
-
-				}
-			});
-
-			categorylay.addView(view);
-		}
-
-	}
 }
