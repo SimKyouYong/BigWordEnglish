@@ -35,7 +35,7 @@
         <Button
             android:id="@+id/btn_home"
             android:layout_width="35dp"
-            android:layout_height="30dp"
+            android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:background="@mipmap/btn_home" />
@@ -50,7 +50,7 @@
             <Button
                 android:id="@+id/btn_search"
                 android:layout_width="35dp"
-                android:layout_height="30dp"
+                android:layout_height="25dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="10dp"
                 android:background="@mipmap/btn_search" />
@@ -58,7 +58,7 @@
             <Button
                 android:id="@+id/btn_setting"
                 android:layout_width="35dp"
-                android:layout_height="30dp"
+                android:layout_height="25dp"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/btn_search"
                 android:background="@mipmap/btn_setting" />

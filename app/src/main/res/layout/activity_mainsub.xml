@@ -183,7 +183,9 @@
             
             <ListView android:id="@+id/listview_mainsub"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:dividerHeight="15dp"
+                android:divider="#FFFFFF">
                 
             </ListView>
         </LinearLayout>
