@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/btn_home" />
+            android:background="@mipmap/btn_home" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/btn_search" />
+                android:background="@mipmap/btn_search" />
 
             <Button
                 android:id="@+id/btn_setting"
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/btn_search"
-                android:background="@drawable/btn_setting" />
+                android:background="@mipmap/btn_setting" />
         </RelativeLayout>
     </RelativeLayout>
 

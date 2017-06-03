@@ -1,24 +1,192 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="co.kr.bigwordenglish.MainActivity" >
+    android:background="#FFFFFF" >
 
-    <RelativeLayout android:id="@+id/top_lay" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentTop="true" >
-        <TextView android:id="@+id/name_tv" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_centerInParent="true" android:text="제목" android:textColor="#000000" android:textSize="20dp" android:gravity="center_horizontal"/>
-        <Button android:id="@+id/home_btn" android:layout_width="50dp" android:layout_height="wrap_content" />
-        <Button android:id="@+id/setting_btn" android:layout_width="50dp" android:layout_height="wrap_content" android:layout_alignParentRight="true" />
-        <Button android:id="@+id/find_btn" android:layout_width="50dp" android:layout_height="wrap_content" android:layout_toLeftOf="@+id/setting_btn" />
-    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/adWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:orientation="vertical" >
 
-    <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/top_lay" android:layout_above="@+id/bot_lay" android:layout_marginTop="10dp" >
-        <LinearLayout android:id="@+id/category_lay" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" >
-        </LinearLayout>
-    </ScrollView>
-
-    <LinearLayout android:id="@+id/bot_lay" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:orientation="vertical">
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="광고영역" android:gravity="center" />
+        <TextView
+            android:id="@+id/xmladview"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:background="#DDDDDD"
+            android:gravity="center"
+            android:text="광고" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_allview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_above="@+id/adWrapper"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@mipmap/all_view" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_allview"
+        android:background="#FFFFFF"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/title" >
+
+            <Button
+                android:id="@+id/btn_home"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:background="@mipmap/btn_home" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp" >
+
+                <Button
+                    android:id="@+id/btn_search"
+                    android:layout_width="35dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="10dp"
+                    android:background="@mipmap/btn_search" />
+
+                <Button
+                    android:id="@+id/btn_setting"
+                    android:layout_width="35dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/btn_search"
+                    android:background="@mipmap/btn_setting" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/btn_menu1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/menu_01" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/btn_menu2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/menu_02" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/btn_menu3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/menu_03" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/btn_menu4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/menu_04" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/btn_menu5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/menu_05" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/btn_menu6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/menu_06" />
+                </LinearLayout>
+            </LinearLayout>
+            
+            
+            <ListView android:id="@+id/listview_mainsub"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                
+            </ListView>
+        </LinearLayout>
+    </LinearLayout>
+
 </RelativeLayout>
