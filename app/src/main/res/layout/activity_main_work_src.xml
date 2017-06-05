@@ -1,18 +1,39 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:orientation="vertical" >
+    >
+
+    <LinearLayout
+        android:id="@+id/adWrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <com.fsn.cauly.CaulyAdView
+            xmlns:app="http://schemas.android.com/apk/res/co.kr.bigwordenglish"
+            android:id="@+id/xmladview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:appcode="modukcJI"
+            app:effect="TopSlide"
+            app:enableDefaultBannerAd="false" />
+
+    </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/topview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/title" >
+        android:background="@mipmap/title" >
 
         <Button
             android:id="@+id/btn_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:background="@mipmap/btn_home" />
@@ -26,16 +47,15 @@
 
             <Button
                 android:id="@+id/btn_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="10dp"
                 android:background="@mipmap/btn_search" />
 
             <Button
                 android:id="@+id/btn_setting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/btn_search"
                 android:background="@mipmap/btn_setting" />
@@ -43,6 +63,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:layout_below="@id/topview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
@@ -53,7 +74,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/all_view_set"
+            android:background="@mipmap/all_view_set"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -65,22 +86,22 @@
 
                 <LinearLayout android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_search_set_off"
+                    android:background="@mipmap/bg_search_set_off"
                     android:id="@+id/check_work01">
                     <TextView android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_search_set_text"
+                        android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="단어 난이도 상"/>
                 </LinearLayout>
                 <LinearLayout android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_search_set_off"
+                    android:background="@mipmap/bg_search_set_off"
                     android:id="@+id/check_work02">
                     <TextView android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_search_set_text"
+                        android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="단어 난이도 중"/>
@@ -96,22 +117,22 @@
 
                 <LinearLayout android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_search_set_off"
+                    android:background="@mipmap/bg_search_set_off"
                     android:id="@+id/check_work03">
                     <TextView android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_search_set_text"
+                        android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="단어 난이도 하"/>
                 </LinearLayout>
                 <LinearLayout android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_search_set_off"
+                    android:background="@mipmap/bg_search_set_off"
                     android:id="@+id/check_work04">
                     <TextView android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_search_set_text"
+                        android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="1회 출제"/>
@@ -126,22 +147,22 @@
 
                 <LinearLayout android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_search_set_off"
+                    android:background="@mipmap/bg_search_set_off"
                     android:id="@+id/check_work05">
                     <TextView android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_search_set_text"
+                        android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="2회 출제"/>
                 </LinearLayout>
                 <LinearLayout android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_search_set_off"
+                    android:background="@mipmap/bg_search_set_off"
                     android:id="@+id/check_work06">
                     <TextView android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_search_set_text"
+                        android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="3회 출제"/>
@@ -156,22 +177,22 @@
 
                 <LinearLayout android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_search_set_off"
+                    android:background="@mipmap/bg_search_set_off"
                     android:id="@+id/check_work07">
                     <TextView android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_search_set_text"
+                        android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="4회 출제"/>
                 </LinearLayout>
                 <LinearLayout android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_search_set_off"
+                    android:background="@mipmap/bg_search_set_off"
                     android:id="@+id/check_work08">
                     <TextView android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_search_set_text"
+                        android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="5회 출제"/>
@@ -186,22 +207,22 @@
 
                 <LinearLayout android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_search_set_off"
+                    android:background="@mipmap/bg_search_set_off"
                     android:id="@+id/check_work09">
                     <TextView android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_search_set_text"
+                        android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="7회 출제"/>
                 </LinearLayout>
                 <LinearLayout android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_search_set_off"
+                    android:background="@mipmap/bg_search_set_off"
                     android:id="@+id/check_work10">
                     <TextView android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_search_set_text"
+                        android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="10회 출제"/>
@@ -220,27 +241,23 @@
 
                 <Button
                     android:id="@+id/btn_check"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="120dp"
+                    android:layout_height="45dp"
+                    android:text="확인"
+                    android:textSize="16dp"
+                    android:textColor="#FFFFFF"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/btn_ok" />
+                    android:background="@drawable/set_btn_round" />
 
                 <Button
                     android:id="@+id/btn_cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/btn_cancel" />
+                    android:layout_width="120dp"
+                    android:layout_height="45dp"
+                    android:text="취소"
+                    android:textSize="16dp"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/set_btn_round" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="15dp"
-        android:background="#DDDDDD"
-        android:gravity="center"
-        android:text="광고" >
-    </TextView>
-
-</LinearLayout>
+</RelativeLayout>

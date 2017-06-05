@@ -7,12 +7,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/title" >
+        android:background="@mipmap/title" >
 
         <Button
             android:id="@+id/btn_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:background="@mipmap/btn_home" />
@@ -26,16 +26,16 @@
 
             <Button
                 android:id="@+id/btn_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="10dp"
                 android:background="@mipmap/btn_search" />
 
             <Button
                 android:id="@+id/btn_setting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/btn_search"
                 android:background="@mipmap/btn_setting" />
@@ -53,7 +53,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg_setting_tap"
+            android:background="@mipmap/bg_setting_tap"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -101,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/setting_menu_arrow" />
+                    android:background="@mipmap/setting_menu_arrow" />
             </LinearLayout>
 
             <TextView
@@ -127,7 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/setting_menu_arrow" />
+                    android:background="@mipmap/setting_menu_arrow" />
             </LinearLayout>
 
             <TextView
@@ -398,7 +398,7 @@
                     android:layout_width="75dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/btn_ok" />
+                    android:background="@mipmap/btn_ok" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

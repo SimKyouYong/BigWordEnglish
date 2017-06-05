@@ -38,6 +38,7 @@
             android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
+            android:visibility="gone"
             android:background="@mipmap/btn_home" />
 
         <RelativeLayout
