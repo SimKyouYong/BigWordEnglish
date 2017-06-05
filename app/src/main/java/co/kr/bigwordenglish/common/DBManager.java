@@ -44,14 +44,6 @@ public class DBManager {
       // 생성된 DB가 없을 경우에 한번만 호출됨
       @Override
       public void onCreate(SQLiteDatabase arg0) {
-          // String dropSql = "drop table if exists " + tableName;
-          // db.execSQL(dropSql);
-//
-//          String createSql = "create table " + tableName + " ("
-//                  + "id integer primary key autoincrement, " + "SSID text, "
-//                  + "capabilities integer, " + "passwd text)";
-//          arg0.execSQL(createSql);
-          Toast.makeText(context, "DB is opened", 0).show();
       }
 
       @Override
@@ -97,22 +89,92 @@ public class DBManager {
       return array;
   }
 
-  // 데이터 전체 검색
-//  public ArrayList<apinfo> selectAll() {
-//      String sql = "select * from " + tableName + ";";
-//      Cursor results = db.rawQuery(sql, null);
-//
-//      results.moveToFirst();
-//      ArrayList<apinfo> infos = new ArrayList<apinfo>();
-//
-//      while (!results.isAfterLast()) {
-//          APinfo info = new APinfo(results.getInt(0), results.getString(1),
-//                  results.getInt(2), results.getString(3));
-//          infos.add(info);
-//          results.moveToNext();
-//      }
-//      results.close();
-//      return infos;
-//  }
+  // Default WordList
+    public ArrayList<VO_Item_Level_02_List> selectData_Word_List(String subkey) {
+        String sql = "select * from 'Word' where col_10 = " + subkey + " limit 50;";
+
+        Cursor result = db.rawQuery(sql, null);
+
+        ArrayList<VO_Item_Level_02_List> array = new ArrayList<VO_Item_Level_02_List>();
+        while (result.moveToNext()) {
+            VO_Item_Level_02_List item = new VO_Item_Level_02_List(result.getString(3), result.getString(1), result.getString(4), result.getString(5), false, result.getString(0), "2", "3", "4");
+            Log.v("ifeelbluu","-----------------------------");
+            Log.v("ifeelbluu",result.getString(3));
+            Log.v("ifeelbluu",result.getString(1));
+            Log.v("ifeelbluu",result.getString(4));
+            Log.v("ifeelbluu",result.getString(5));
+            Log.v("ifeelbluu",result.getString(0));
+            array.add(item);
+        }
+        result.close();
+        return array;
+    }
+
+    //Page WordList
+    public ArrayList<VO_Item_Level_02_List> selectData_Word_List_Page(String subkey,String page) {
+        String sql = "select * from 'Word' where col_10 = " + subkey + " and col_1 > "+ page +" limit 50;";
+        Cursor result = db.rawQuery(sql, null);
+
+        ArrayList<VO_Item_Level_02_List> array = new ArrayList<VO_Item_Level_02_List>();
+        while (result.moveToNext()) {
+            VO_Item_Level_02_List item = new VO_Item_Level_02_List(result.getString(3), result.getString(1), result.getString(4), result.getString(5), false, result.getString(0), "2", "3", "4");
+            Log.v("ifeelbluu","-----------------------------");
+            Log.v("ifeelbluu",result.getString(3));
+            Log.v("ifeelbluu",result.getString(1));
+            Log.v("ifeelbluu",result.getString(4));
+            Log.v("ifeelbluu",result.getString(5));
+            Log.v("ifeelbluu",result.getString(0));
+            array.add(item);
+        }
+        result.close();
+        return array;
+    }
+
+    //Setting WordList
+    public ArrayList<VO_Item_Level_02_List> selectData_Word_List_Set(String subkey, String page, String wordLevel, String wordCount) {
+        String sql = "";
+        if(page.equals("0")){
+            sql = "select * from 'Word' where col_10 = " + subkey;
+
+            if(wordLevel.equals("") == false){
+                sql +=  " and col_6 = '"+ wordLevel +"'";
+            }
+
+            if(wordCount.equals("") == false){
+                sql += " and col_4 >= "+ wordCount;
+            }
+
+            sql += " limit 50;";
+
+        }else{
+            sql = "select * from 'Word' where col_10 = " + subkey + " and col_1 >" + page;
+//            sql = "select * from 'Word' where col_10 = " + subkey + " and col_1 >" + page + " and col_4 > "+ wordCount + " and col_6 = '"+ wordLevel +"' limit 50;";
+            if(wordLevel.equals("") == false){
+                sql +=  " and col_6 = '"+ wordLevel +"'";
+            }
+
+            if(wordCount.equals("") == false){
+                sql += " and col_4 >= "+ wordCount;
+            }
+
+            sql += " limit 50;";
+
+        }
+        Cursor result = db.rawQuery(sql, null);
+
+        ArrayList<VO_Item_Level_02_List> array = new ArrayList<VO_Item_Level_02_List>();
+        while (result.moveToNext()) {
+            VO_Item_Level_02_List item = new VO_Item_Level_02_List(result.getString(3), result.getString(1), result.getString(4), result.getString(5), false, result.getString(0), "2", "3", "4");
+            Log.v("ifeelbluu","-----------------------------");
+            Log.v("ifeelbluu",result.getString(3));
+            Log.v("ifeelbluu",result.getString(1));
+            Log.v("ifeelbluu",result.getString(4));
+            Log.v("ifeelbluu",result.getString(5));
+            Log.v("ifeelbluu",result.getString(0));
+            array.add(item);
+        }
+        result.close();
+        return array;
+    }
 }
 

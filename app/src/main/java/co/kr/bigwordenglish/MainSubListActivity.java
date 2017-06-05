@@ -1,64 +1,196 @@
 package co.kr.bigwordenglish;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.SQLException;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.fsn.cauly.CaulyAdInfo;
+import com.fsn.cauly.CaulyAdInfoBuilder;
+import com.fsn.cauly.CaulyAdView;
+import com.fsn.cauly.CaulyAdViewListener;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
+import co.kr.bigwordenglish.common.CommonUtil;
 import co.kr.bigwordenglish.common.DBManager;
 import co.kr.bigwordenglish.common.VO_Item_Level_02;
 import co.kr.bigwordenglish.common.VO_Item_Level_02_List;
 
-public class MainSubListActivity extends AppCompatActivity {
+public class MainSubListActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, CaulyAdViewListener {
     private ListView subListView;
     private MyPostAdapter mAdapter;
+    private int MORE_CODE = -1;//더 보기
+    private String getSubKey; //워드인덱스키
 
-
-    private String getSubKey;
     private ArrayList<VO_Item_Level_02_List> listitem = new ArrayList<VO_Item_Level_02_List>();
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(CommonUtil.isHome){
+            finish();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_item);
 
+        myTTS = new TextToSpeech(MainSubListActivity.this, MainSubListActivity.this);
 
         getSubKey = getIntent().getStringExtra("Subkey_list");
         subListView = (ListView) findViewById(R.id.listview_eg_view);
 
-        Log.v("ifeelbluu","activity_word_item === " +  getSubKey);
-        onClickLevel_02(Integer.parseInt(getSubKey));
+        getList_Word();
 
+        onClickEvent();
+        initCauly();
+        onClickEvent_BottomMenu();
     }
 
-
-    private void onClickLevel_02(int subkey){
-        listitem = getItem_Level2(subkey);
-//        for(int i=0; i<temp.size(); i++){
-        mAdapter = new MyPostAdapter(this, R.layout.item_eg_list, listitem);
-        subListView.setAdapter(mAdapter);
+    private void onClickEvent_BottomMenu() {
+        ((Button) findViewById(R.id.btn_bottom_set)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainSubListActivity.this, MainWordSelect.class);
+                startActivityForResult(i, 1);
+            }
+        });
     }
 
-    //레벨2가져오기
-    private ArrayList<VO_Item_Level_02_List> getItem_Level2(int subkey){
-        ArrayList<VO_Item_Level_02_List> arr = new ArrayList<VO_Item_Level_02_List>();
+    //버튼 클릭이벤트
+    private void onClickEvent() {
+        //홈버튼
+        ((Button) findViewById(R.id.btn_home)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommonUtil.isHome = true;
+                finish();
+            }
+        });
+
+        //설정 버튼
+        ((Button) findViewById(R.id.btn_setting)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainSubListActivity.this, MainSettingActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+    View kMore;
+    //default 리스트
+    private void getList_Word(){
         try {
             DBManager dbm = new DBManager(this);
-            arr = dbm.selectData_Level2_List(subkey);
+            listitem = dbm.selectData_Word_List(getSubKey);
         } catch (SQLException se) {
             Log.e("ifeelbluu", se.toString());
         }
-        return arr;
+
+        if(kMore == null) {
+            kMore = getLayoutInflater().inflate(R.layout.item_more, null);
+            subListView.addFooterView(kMore, MORE_CODE, true);
+        }
+        mAdapter = new MyPostAdapter(this, R.layout.item_eg_list, listitem);
+        subListView.setAdapter(mAdapter);
+
+        subListView.setOnItemClickListener(onItemClick_workitem);
     }
+
+    //page 리스트
+    private void getList_Word_Page(String subkey, String page){
+        ArrayList<VO_Item_Level_02_List> additem = new ArrayList<VO_Item_Level_02_List>();
+        try {
+            DBManager dbm = new DBManager(this);
+            additem = dbm.selectData_Word_List_Page(getSubKey, page);
+        } catch (SQLException se) {
+            Log.e("ifeelbluu", se.toString());
+        }
+
+        for(int i=0; i<additem.size(); i++){
+            listitem.add(additem.get(i));
+        }
+
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private boolean isSetList = false;
+    //setWord 리스트
+    private void getList_Word_Set(String subkey, String page, String Select01, String Select02){
+
+            if(Select01.equals("") && Select02.equals("")){
+                isSetList = false;
+                getList_Word();
+                return;
+            }
+
+            isSetList = true;
+            ArrayList<VO_Item_Level_02_List> additem = new ArrayList<VO_Item_Level_02_List>();
+            try {
+                DBManager dbm = new DBManager(this);
+                additem = dbm.selectData_Word_List_Set(getSubKey, page, Select01, Select02);
+            } catch (SQLException se) {
+
+            }
+
+            if(additem == null ||  additem.size() ==0){
+                Toast.makeText(MainSubListActivity.this,"조건에 맞는 단어가없습니다.",Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            if(page.equals("0"))
+                listitem.clear();
+
+
+            for(int i=0; i<additem.size(); i++){
+                listitem.add(additem.get(i));
+            }
+
+            mAdapter.notifyDataSetChanged();
+
+            if(page.equals("0"))
+            subListView.setSelection(0);
+    }
+
+    //더보기버튼클릭이벤트
+    OnItemClickListener onItemClick_workitem = new OnItemClickListener(){
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            if(l == MORE_CODE){
+                if(isSetList == false) {
+                    String nextpage = listitem.get(listitem.size() - 1).getLevel2_List_Info1();
+                    getList_Word_Page(getSubKey, nextpage);
+                    mAdapter.notifyDataSetChanged();
+                }else{
+                    String nextpage = listitem.get(listitem.size() - 1).getLevel2_List_Info1();
+                    getList_Word_Set(getSubKey, nextpage ,Param_Level, Param_Count);
+                }
+            }else
+                return;
+        }
+    };
 
     /*************
      * ViewHolder
@@ -70,6 +202,7 @@ public class MainSubListActivity extends AppCompatActivity {
         TextView txt_korean;
         TextView txt_type;
 
+        Button btn_speek;
         boolean isFavorite = false;
     }
 
@@ -123,6 +256,7 @@ public class MainSubListActivity extends AppCompatActivity {
                 holder.txt_type = (TextView) v.findViewById(R.id.txt_type);
                 holder.txt_english = (TextView) v.findViewById(R.id.txt_english);
                 holder.txt_korean = (TextView) v.findViewById(R.id.txt_korean);
+                holder.btn_speek = (Button) v.findViewById(R.id.btn_speek);
                 v.setTag(holder);
             }
             final ViewHolder holder = (ViewHolder) v.getTag();
@@ -130,7 +264,120 @@ public class MainSubListActivity extends AppCompatActivity {
             holder.txt_type.setText(p.getLevel2_List_Type());
             holder.txt_english.setText(p.getLevel2_List_English());
             holder.txt_korean.setText(p.getLevel2_List_Korean());
+
+            final String ket = p.getLevel2_List_English();
+            holder.btn_speek.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    speakEnglish(ket);
+                }
+            });
+
             return v;
         }
     }
+
+    //TTS
+    TextToSpeech myTTS;
+    public String tts_str = "";
+    public void speakEnglish(final String str) {
+        tts_str = str;
+        myTTS.setLanguage(Locale.US);                                    //언어 설정.
+        myTTS.speak(tts_str, TextToSpeech.QUEUE_FLUSH, null);    //해당 언어로 텍스트 음성 출력
+    }
+
+    @Override
+    public void onInit(int i) {
+        Toast.makeText(MainSubListActivity.this,"TTS준비",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(myTTS != null){
+            myTTS.shutdown();
+        }
+    }
+
+    private String Param_Level = "";
+    private String Param_Count = "";
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            if(data != null){
+//              Select_01 //1:상 2:중 3:하
+//				Select_02 //1:1회출제 2:2회출제 3:3회출제 4:4회출제 5:5회출제 7:7회출제 10:10회출제
+                String Select_01 = data.getStringExtra("Select_01");
+                String Select_02 = data.getStringExtra("Select_02");
+                String param1,param2 = "";
+
+                if(Select_01.equals("1")){
+                    Param_Level = "상";
+                }else if(Select_01.equals("2")){
+                    Param_Level = "중";
+                }else if(Select_01.equals("3")){
+                    Param_Level = "하";
+                }else{
+                    Param_Level = "";
+                }
+
+                if(Select_02.equals("0")){
+                    Param_Count = "";
+                }else{
+                    Param_Count = Select_02;
+                }
+
+                getList_Word_Set(getSubKey,"0",Param_Level, Param_Count);
+
+            }
+        }
+    }
+
+    /*****************************
+     @카울리
+     *****************************/
+    private LinearLayout adWrapper = null;
+    private CaulyAdView xmlAdView;
+    private void initCauly(){
+        // CloseAd 초기화
+        CaulyAdInfo closeAdInfo = new CaulyAdInfoBuilder("modukcJI").build();
+        // 선택사항: XML의 AdView 항목을 찾아 Listener 설정
+        xmlAdView = (CaulyAdView) findViewById(R.id.xmladview);
+        xmlAdView.setAdViewListener(this);
+
+        adWrapper = (LinearLayout) findViewById(R.id.adWrapper);
+    }
+
+    @Override
+    public void onReceiveAd(CaulyAdView adView, boolean isChargeableAd) {
+        // 광고 수신 성공 & 노출된 경우 호출됨.
+        // 수신된 광고가 무료 광고인 경우 isChargeableAd 값이 false 임.
+        if (isChargeableAd == false) {
+            Log.e("SKY", "free banner AD received.");
+        }
+        else {
+            Log.e("SKY", "normal banner AD received.");
+        }
+    }
+
+    @Override
+    public void onFailedToReceiveAd(CaulyAdView adView, int errorCode, String errorMsg) {
+        // 배너 광고 수신 실패할 경우 호출됨.
+        Log.e("SKY", "failed to receive banner AD.");
+        adWrapper.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onShowLandingScreen(CaulyAdView adView) {
+        // 광고 배너를 클릭하여 랜딩 페이지가 열린 경우 호출됨.
+        Log.e("SKY", "banner AD landing screen opened.");
+    }
+
+    @Override
+    public void onCloseLandingScreen(CaulyAdView adView) {
+        // 광고 배너를 클릭하여 열린 랜딩 페이지가 닫힌 경우 호출됨.
+        Log.e("SKY", "banner AD landing screen closed.");
+    }
+
 }

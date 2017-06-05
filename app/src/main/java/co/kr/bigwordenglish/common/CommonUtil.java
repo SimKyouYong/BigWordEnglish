@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 
 public class CommonUtil {
 	private static CommonUtil _instance;
-
+	public static boolean isHome = false;
 
 	public String Local_Path;
 	public String SERVER;

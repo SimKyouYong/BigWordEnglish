@@ -23,6 +23,7 @@ import com.fsn.cauly.CaulyAdViewListener;
 
 import java.util.ArrayList;
 
+import co.kr.bigwordenglish.common.CommonUtil;
 import co.kr.bigwordenglish.common.DBManager;
 import co.kr.bigwordenglish.common.VO_Item_Level_02;
 import co.kr.bigwordenglish.obj.Mianobj;
@@ -36,6 +37,14 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 
 	private LinearLayout adWrapper = null;
 	private CaulyAdView xmlAdView;
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(CommonUtil.isHome){
+			CommonUtil.isHome = false;
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -107,11 +116,6 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 		Intent i = new Intent(this, MainSubActivity.class);
 		i.putExtra("SubKey", subkey+"");
 		startActivity(i);
-
-//		ArrayList<VO_Item_Level_02> temp = getItem_Level2(subkey);
-//		for(int i=0; i<temp.size(); i++){
-//			Log.v("ifeelbluu",temp.get(i).getLevel2_Index() + " / " + temp.get(i).getLevel2_C_Name());
-//		}
 	}
 
 	//레벨2가져오기

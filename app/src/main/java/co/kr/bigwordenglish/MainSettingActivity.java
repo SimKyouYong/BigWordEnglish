@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import co.kr.bigwordenglish.common.CommonUtil;
 import co.kr.bigwordenglish.obj.Mianobj;
 
 public class MainSettingActivity extends AppCompatActivity {
@@ -47,6 +49,7 @@ public class MainSettingActivity extends AppCompatActivity {
 
 					@Override
 					public void onClick(View v) {
+						CommonUtil.isHome = true;
 						finish();
 					}
 				});

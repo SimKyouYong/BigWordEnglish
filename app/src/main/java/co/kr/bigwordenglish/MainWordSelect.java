@@ -18,145 +18,65 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.fsn.cauly.CaulyAdInfo;
+import com.fsn.cauly.CaulyAdInfoBuilder;
+import com.fsn.cauly.CaulyAdView;
+import com.fsn.cauly.CaulyAdViewListener;
+
+import co.kr.bigwordenglish.common.CommonUtil;
 import co.kr.bigwordenglish.obj.Mianobj;
-public class MainWordSelect extends AppCompatActivity {
+public class MainWordSelect extends AppCompatActivity implements CaulyAdViewListener {
 
 
     private LinearLayout mCategoryLay;
     private TextView mTitleTv;
     public LayoutInflater mLayoutInflater;
 
+	private String Word_Level = "";
+	private String Word_Count = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_work_src);
 
-//        mLayoutInflater         	=	(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        mCategoryLay                = (LinearLayout) findViewById(R.id.category_lay);
-//
-//
-//        MainListLayout(SELECT_MainLabel("EgDb.db" , ""), mCategoryLay);
-//
-//
-//        findViewById(R.id.setting_btn).setOnClickListener(btnListener);
         onClickEvent();
+		initCauly();
+
         CheckWordEvent();
     }
     
     private void onClickEvent(){
     	((Button) findViewById(R.id.btn_setting)).setVisibility(View.GONE);
-		((Button) findViewById(R.id.btn_home))
-				.setOnClickListener(new OnClickListener() {
+		((Button) findViewById(R.id.btn_home)).setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
+						CommonUtil.isHome = true;
 						finish();
 					}
 				});
+
+		((Button) findViewById(R.id.btn_check)).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+//				Select_01 //1:상 2:중 3:하
+//				Select_02 //1:1회출제 2:2회출제 3:3회출제 4:4회출제 5:5회출제 7:7회출제 10:10회출제
+				Intent it = getIntent();
+				it.putExtra("Select_01", Select_01+"");
+				it.putExtra("Select_02", Select_02+"");
+				setResult(Activity.RESULT_OK, it);
+				finish();
+			}
+		});
+		((Button) findViewById(R.id.btn_cancel)).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				finish();
+			}
+		});
     }
-    //버튼 리스너 구현 부분
-    View.OnClickListener btnListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.setting_btn:
-                    Log.e("SKY" , "-- setting_btn --");
 
-                    break;
-            }
-        }
-    };
-    private ArrayList<Mianobj> SELECT_MainLabel(String DB , String Where)		//디비 값 조회해서 저장하기
-    {
-        ArrayList<Mianobj> arr = new ArrayList<Mianobj>();
-        try{
-            //  db파일 읽어오기
-            SQLiteDatabase db = openOrCreateDatabase(DB, Context.MODE_PRIVATE, null);
-            // 쿼리로 db의 커서 획득
-            Cursor cur = db.rawQuery("SELECT * FROM `Main_Category`;", null);
-            // 처음 레코드로 이동
-            while(cur.moveToNext()){
-                // 읽은값 출력
-                Log.e("SKY",cur.getString(0)+"/"+cur.getString(1));
-                arr.add(new Mianobj(cur.getString(0) , cur.getString(1)));
-            }
-            cur.close();
-            db.close();
-
-        }
-        catch (SQLException se) {
-            // TODO: handle exception
-            Log.e("selectData()Error! : ",se.toString());
-        }
-        return arr;
-
-    }
-    private ArrayList<Mianobj> SELECT_SUBLabel(String DB , String Where)		//디비 값 조회해서 저장하기
-    {
-        ArrayList<Mianobj> arr = new ArrayList<Mianobj>();
-        try{
-            //  db파일 읽어오기
-            SQLiteDatabase db = openOrCreateDatabase(DB, Context.MODE_PRIVATE, null);
-            // 쿼리로 db의 커서 획득
-            String sql = "SELECT * FROM `Category_Sub` " + Where;
-            Log.e("SKY", "sql :: " + sql);
-            Cursor cur = db.rawQuery(sql, null);
-            // 처음 레코드로 이동
-            while(cur.moveToNext()){
-                // 읽은값 출력
-                //[JSW] 여기서부터 처리해......
-                Log.e("SKY",cur.getString(0)+"/"+cur.getString(1)+"/"+cur.getString(2));
-            }
-            cur.close();
-            db.close();
-
-        }
-        catch (SQLException se) {
-            // TODO: handle exception
-            Log.e("selectData()Error! : ",se.toString());
-        }
-        return arr;
-
-    }
-    /**
-     * 메인 리스트 레이아웃
-     * @param item 메인 리스트 데이터
-     * @param categorylay 메인 화면
-     */
-    public void MainListLayout(final ArrayList<Mianobj> item, final LinearLayout categorylay) {
-
-        categorylay.removeAllViews();
-
-        for (int i = 0 ; i < item.size(); i++) {
-            final int pos = i;
-            View view = mLayoutInflater.inflate(R.layout.little_categorylist, null);
-
-            mTitleTv   =  (TextView) view.findViewById(R.id.title_tv);
-            mTitleTv.setText(item.get(i).getCategory());
-            mTitleTv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = null;
-//                    Toast.makeText(MainActivity.this, "클릭한 포지션 --> " + pos, Toast.LENGTH_SHORT).show();
-                    Log.e("SKY","item.get(pos).getCategory() :: " +item.get(pos).getCategory());
-                    if (item.get(pos).getCategory().equals("영화") || item.get(pos).getCategory().equals("드라마")) {
-                        // 영화나 드라마 일경우 디비셀렉 다시해서 재호출
-                        SELECT_SUBLabel("EgDb.db" , "where Category_Sub_Key = '" + item.get(pos).getKey_index() + "'");
-                        intent = new Intent(MainWordSelect.this, MainSubActivity.class);
-                        intent.putExtra("OBJ" , item.get(pos).getKey_index());
-                        startActivity(intent);
-                    }else {
-
-                        Toast.makeText(MainWordSelect.this, "이거슨 인텐트--> " + item.get(pos), Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-            });
-
-            categorylay.addView(view);
-        }
-
-    }
-    
     int Select_01 = 0;
     int Select_02 = 0;
     private void CheckWordEvent(){
@@ -168,9 +88,11 @@ public class MainWordSelect extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				Select_01 = 1;
-				((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.drawable.bg_search_set_on);
-				((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.drawable.bg_search_set_off);
-				((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.drawable.bg_search_set_off);
+				if(setCheck01() == true) {
+					((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.mipmap.bg_search_set_on);
+					((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.mipmap.bg_search_set_off);
+				}
 			}
 		});
     	((LinearLayout) findViewById(R.id.check_work02))
@@ -179,9 +101,11 @@ public class MainWordSelect extends AppCompatActivity {
     		@Override
     		public void onClick(View v) {
     			Select_01 = 2;
-    			((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.drawable.bg_search_set_on);
-				((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.drawable.bg_search_set_off);
+				if(setCheck01() == true) {
+					((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.mipmap.bg_search_set_on);
+					((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.mipmap.bg_search_set_off);
+				}
     		}
     	});
     	((LinearLayout) findViewById(R.id.check_work03))
@@ -190,9 +114,11 @@ public class MainWordSelect extends AppCompatActivity {
     		@Override
     		public void onClick(View v) {
     			Select_01 = 3;
-    			((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.drawable.bg_search_set_off);
-				((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.drawable.bg_search_set_on);
+				if(setCheck01() == true) {
+					((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.mipmap.bg_search_set_on);
+				}
     		}
     	});
     	
@@ -203,13 +129,15 @@ public class MainWordSelect extends AppCompatActivity {
     		@Override
     		public void onClick(View v) {
     			Select_02 = 1;
-    			((LinearLayout) findViewById(R.id.check_work04)).setBackgroundResource(R.drawable.bg_search_set_on);
-				((LinearLayout) findViewById(R.id.check_work05)).setBackgroundResource(R.drawable.bg_search_set_off);
-				((LinearLayout) findViewById(R.id.check_work06)).setBackgroundResource(R.drawable.bg_search_set_off);
-				((LinearLayout) findViewById(R.id.check_work07)).setBackgroundResource(R.drawable.bg_search_set_off);
-				((LinearLayout) findViewById(R.id.check_work08)).setBackgroundResource(R.drawable.bg_search_set_off);
-				((LinearLayout) findViewById(R.id.check_work09)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work10)).setBackgroundResource(R.drawable.bg_search_set_off);
+				if(setCheck02() == true) {
+					((LinearLayout) findViewById(R.id.check_work04)).setBackgroundResource(R.mipmap.bg_search_set_on);
+					((LinearLayout) findViewById(R.id.check_work05)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work06)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work07)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work08)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work09)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work10)).setBackgroundResource(R.mipmap.bg_search_set_off);
+				}
     		}
     	});
     	((LinearLayout) findViewById(R.id.check_work05))
@@ -218,13 +146,15 @@ public class MainWordSelect extends AppCompatActivity {
     		@Override
     		public void onClick(View v) {
     			Select_02 = 2;
-    			((LinearLayout) findViewById(R.id.check_work04)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work05)).setBackgroundResource(R.drawable.bg_search_set_on);
-    			((LinearLayout) findViewById(R.id.check_work06)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work07)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work08)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work09)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work10)).setBackgroundResource(R.drawable.bg_search_set_off);
+				if(setCheck02() == true) {
+					((LinearLayout) findViewById(R.id.check_work04)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work05)).setBackgroundResource(R.mipmap.bg_search_set_on);
+					((LinearLayout) findViewById(R.id.check_work06)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work07)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work08)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work09)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work10)).setBackgroundResource(R.mipmap.bg_search_set_off);
+				}
     		}
     	});
     	((LinearLayout) findViewById(R.id.check_work06))
@@ -233,13 +163,15 @@ public class MainWordSelect extends AppCompatActivity {
     		@Override
     		public void onClick(View v) {
     			Select_02 = 3;
-    			((LinearLayout) findViewById(R.id.check_work04)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work05)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work06)).setBackgroundResource(R.drawable.bg_search_set_on);
-    			((LinearLayout) findViewById(R.id.check_work07)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work08)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work09)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work10)).setBackgroundResource(R.drawable.bg_search_set_off);
+				if(setCheck02() == true) {
+					((LinearLayout) findViewById(R.id.check_work04)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work05)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work06)).setBackgroundResource(R.mipmap.bg_search_set_on);
+					((LinearLayout) findViewById(R.id.check_work07)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work08)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work09)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work10)).setBackgroundResource(R.mipmap.bg_search_set_off);
+				}
     		}
     	});
     	((LinearLayout) findViewById(R.id.check_work07))
@@ -248,13 +180,15 @@ public class MainWordSelect extends AppCompatActivity {
     		@Override
     		public void onClick(View v) {
     			Select_02 = 4;
-    			((LinearLayout) findViewById(R.id.check_work04)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work05)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work06)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work07)).setBackgroundResource(R.drawable.bg_search_set_on);
-    			((LinearLayout) findViewById(R.id.check_work08)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work09)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work10)).setBackgroundResource(R.drawable.bg_search_set_off);
+				if(setCheck02() == true) {
+					((LinearLayout) findViewById(R.id.check_work04)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work05)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work06)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work07)).setBackgroundResource(R.mipmap.bg_search_set_on);
+					((LinearLayout) findViewById(R.id.check_work08)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work09)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work10)).setBackgroundResource(R.mipmap.bg_search_set_off);
+				}
     		}
     	});
     	((LinearLayout) findViewById(R.id.check_work08))
@@ -263,13 +197,15 @@ public class MainWordSelect extends AppCompatActivity {
     		@Override
     		public void onClick(View v) {
     			Select_02 = 5;
-    			((LinearLayout) findViewById(R.id.check_work04)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work05)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work06)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work07)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work08)).setBackgroundResource(R.drawable.bg_search_set_on);
-    			((LinearLayout) findViewById(R.id.check_work09)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work10)).setBackgroundResource(R.drawable.bg_search_set_off);
+				if(setCheck02() == true) {
+					((LinearLayout) findViewById(R.id.check_work04)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work05)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work06)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work07)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work08)).setBackgroundResource(R.mipmap.bg_search_set_on);
+					((LinearLayout) findViewById(R.id.check_work09)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work10)).setBackgroundResource(R.mipmap.bg_search_set_off);
+				}
     		}
     	});
     	((LinearLayout) findViewById(R.id.check_work09))
@@ -277,14 +213,16 @@ public class MainWordSelect extends AppCompatActivity {
     		
     		@Override
     		public void onClick(View v) {
-    			Select_02 = 6;
-    			((LinearLayout) findViewById(R.id.check_work04)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work05)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work06)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work07)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work08)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work09)).setBackgroundResource(R.drawable.bg_search_set_on);
-    			((LinearLayout) findViewById(R.id.check_work10)).setBackgroundResource(R.drawable.bg_search_set_off);
+    			Select_02 = 7;
+				if(setCheck02() == true) {
+					((LinearLayout) findViewById(R.id.check_work04)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work05)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work06)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work07)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work08)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work09)).setBackgroundResource(R.mipmap.bg_search_set_on);
+					((LinearLayout) findViewById(R.id.check_work10)).setBackgroundResource(R.mipmap.bg_search_set_off);
+				}
     		}
     	});
     	((LinearLayout) findViewById(R.id.check_work10))
@@ -292,15 +230,102 @@ public class MainWordSelect extends AppCompatActivity {
     		
     		@Override
     		public void onClick(View v) {
-    			Select_02 = 7;
-    			((LinearLayout) findViewById(R.id.check_work04)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work05)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work06)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work07)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work08)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work09)).setBackgroundResource(R.drawable.bg_search_set_off);
-    			((LinearLayout) findViewById(R.id.check_work10)).setBackgroundResource(R.drawable.bg_search_set_on);
+    			Select_02 = 10;
+				if(setCheck02() == true) {
+					((LinearLayout) findViewById(R.id.check_work04)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work05)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work06)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work07)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work08)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work09)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					((LinearLayout) findViewById(R.id.check_work10)).setBackgroundResource(R.mipmap.bg_search_set_on);
+				}
     		}
     	});
+
+
+
+
     }
+
+    public boolean setCheck01(){
+		if(Select_01 == prevSelect_01){
+			Select_01 = 0;
+			((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.mipmap.bg_search_set_off);
+			((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.mipmap.bg_search_set_off);
+			((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.mipmap.bg_search_set_off);
+			return false;
+		}else{
+			prevSelect_01 = Select_01;
+			return true;
+		}
+
+	}
+
+	public boolean setCheck02(){
+		if(Select_02 == prevSelect_02){
+			Select_02 = 0;
+			((LinearLayout) findViewById(R.id.check_work04)).setBackgroundResource(R.mipmap.bg_search_set_off);
+			((LinearLayout) findViewById(R.id.check_work05)).setBackgroundResource(R.mipmap.bg_search_set_off);
+			((LinearLayout) findViewById(R.id.check_work06)).setBackgroundResource(R.mipmap.bg_search_set_off);
+			((LinearLayout) findViewById(R.id.check_work07)).setBackgroundResource(R.mipmap.bg_search_set_off);
+			((LinearLayout) findViewById(R.id.check_work08)).setBackgroundResource(R.mipmap.bg_search_set_off);
+			((LinearLayout) findViewById(R.id.check_work09)).setBackgroundResource(R.mipmap.bg_search_set_off);
+			((LinearLayout) findViewById(R.id.check_work10)).setBackgroundResource(R.mipmap.bg_search_set_off);
+			return false;
+		}else{
+			prevSelect_02 = Select_02;
+			return true;
+		}
+	}
+
+    int prevSelect_01 = 0;
+    int prevSelect_02 = 0;
+
+
+	/*****************************
+	 @카울리
+	 *****************************/
+	private LinearLayout adWrapper = null;
+	private CaulyAdView xmlAdView;
+	private void initCauly(){
+		// CloseAd 초기화
+		CaulyAdInfo closeAdInfo = new CaulyAdInfoBuilder("modukcJI").build();
+		// 선택사항: XML의 AdView 항목을 찾아 Listener 설정
+		xmlAdView = (CaulyAdView) findViewById(R.id.xmladview);
+		xmlAdView.setAdViewListener(this);
+
+		adWrapper = (LinearLayout) findViewById(R.id.adWrapper);
+	}
+
+	@Override
+	public void onReceiveAd(CaulyAdView adView, boolean isChargeableAd) {
+		// 광고 수신 성공 & 노출된 경우 호출됨.
+		// 수신된 광고가 무료 광고인 경우 isChargeableAd 값이 false 임.
+		if (isChargeableAd == false) {
+			Log.e("SKY", "free banner AD received.");
+		}
+		else {
+			Log.e("SKY", "normal banner AD received.");
+		}
+	}
+
+	@Override
+	public void onFailedToReceiveAd(CaulyAdView adView, int errorCode, String errorMsg) {
+		// 배너 광고 수신 실패할 경우 호출됨.
+		Log.e("SKY", "failed to receive banner AD.");
+		adWrapper.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void onShowLandingScreen(CaulyAdView adView) {
+		// 광고 배너를 클릭하여 랜딩 페이지가 열린 경우 호출됨.
+		Log.e("SKY", "banner AD landing screen opened.");
+	}
+
+	@Override
+	public void onCloseLandingScreen(CaulyAdView adView) {
+		// 광고 배너를 클릭하여 열린 랜딩 페이지가 닫힌 경우 호출됨.
+		Log.e("SKY", "banner AD landing screen closed.");
+	}
 }
