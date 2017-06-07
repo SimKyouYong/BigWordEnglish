@@ -42,6 +42,9 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
     private int MORE_CODE = -1;//더 보기
     private String getSubKey; //워드인덱스키
 
+    private boolean is_En_Visible = true;
+    private boolean is_Ko_Visible = true;
+
     private ArrayList<VO_Item_Level_02_List> listitem = new ArrayList<VO_Item_Level_02_List>();
 
     @Override
@@ -96,6 +99,30 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
             public void onClick(View v) {
                 Intent i = new Intent(MainSubListActivity.this, MainSettingActivity.class);
                 startActivity(i);
+            }
+        });
+        //단어가리기 버튼
+        ((Button) findViewById(R.id.btn_bottom_en_visible)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(is_En_Visible)
+                    is_En_Visible = false;
+                else
+                    is_En_Visible = true;
+
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+        //뜻가리기 버튼
+        ((Button) findViewById(R.id.btn_bottom_ko_visible)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(is_Ko_Visible)
+                    is_Ko_Visible = false;
+                else
+                    is_Ko_Visible = true;
+
+                mAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -265,6 +292,17 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
             holder.txt_english.setText(p.getLevel2_List_English());
             holder.txt_korean.setText(p.getLevel2_List_Korean());
 
+            if(is_Ko_Visible == false)
+                holder.txt_korean.setVisibility(View.INVISIBLE);
+            else
+                holder.txt_korean.setVisibility(View.VISIBLE);
+
+
+            if(is_En_Visible == false)
+                holder.txt_english.setVisibility(View.INVISIBLE);
+            else
+                holder.txt_english.setVisibility(View.VISIBLE);
+
             final String ket = p.getLevel2_List_English();
             holder.btn_speek.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -288,7 +326,7 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
 
     @Override
     public void onInit(int i) {
-        Toast.makeText(MainSubListActivity.this,"TTS준비",Toast.LENGTH_LONG).show();
+//        Toast.makeText(MainSubListActivity.this,"TTS준비",Toast.LENGTH_LONG).show();
     }
 
     @Override
