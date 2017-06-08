@@ -1,10 +1,7 @@
 package co.kr.bigwordenglish;
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,7 +11,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fsn.cauly.CaulyAdInfo;
 import com.fsn.cauly.CaulyAdInfoBuilder;
@@ -26,7 +22,7 @@ import java.util.ArrayList;
 import co.kr.bigwordenglish.common.CommonUtil;
 import co.kr.bigwordenglish.common.DBManager;
 import co.kr.bigwordenglish.common.VO_Item_Level_02;
-import co.kr.bigwordenglish.obj.Mianobj;
+import co.kr.bigwordenglish.service.ScreenService;
 
 public class MainActivity extends AppCompatActivity implements CaulyAdViewListener{
 
@@ -52,6 +48,17 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 		setContentView(R.layout.activity_main_menu);
 		initCauly();
 		onClickEvent();
+
+
+        /*
+        홍진아 이거 두개 쓰면됨!
+        * */
+        //서비스 On
+        Intent intent = new Intent(this, ScreenService.class);
+        startService(intent);
+
+        //서비스 Off
+        //stopService(intent);
 	}
 
 	private void onClickEvent() {
