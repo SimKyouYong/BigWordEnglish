@@ -66,118 +66,62 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/bottom_menu"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="#FFFFFF"
-        android:gravity="center"
-        android:layout_above="@id/adWrapper"
-        android:orientation="horizontal">
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:text="단어가리기"
-            android:background="@drawable/set_btn_round"
-            android:textSize="11dp"
-            android:textColor="#FFFFFF"
-            android:layout_marginRight="10dp"
-            android:id="@+id/btn_bottom_en_visible"/>
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:text="뜻가리기"
-            android:textSize="11dp"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/set_btn_round"
-            android:layout_marginRight="10dp"
-            android:id="@+id/btn_bottom_ko_visible"/>
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:text="예문보기"
-            android:textSize="11dp"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/set_btn_round"
-            android:layout_marginRight="10dp"
-            android:id="@+id/btn_bottom_exam_visible"/>
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:text="단어장"
-            android:textSize="11dp"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/set_btn_round"
-            android:layout_marginRight="10dp"
-            android:id="@+id/btn_bottom_word_paper"/>
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:text="설정"
-            android:textSize="11dp"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/set_btn_round"
-            android:id="@+id/btn_bottom_set"/>
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_above="@id/bottom_menu"
+        android:layout_above="@id/adWrapper"
         android:layout_below="@id/topview">
 
         <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#4ABFD3" >
+            android:background="#FFFFFF" >
 
             <TextView
                 android:id="@+id/text_index"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="출제\n횟수"
                 android:textColor="#FFFFFF"
                 android:gravity="center"
-                android:layout_marginLeft="6dp"
+                android:textSize="8dp"
+                android:background="@mipmap/bg_count"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="6dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentStart="true" />
 
             <TextView
                 android:id="@+id/txt_tap01"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="단어장"
                 android:textColor="#FFFFFF"
                 android:gravity="center"
+                android:background="@mipmap/bg_favorite"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true" />
 
             <TextView
                 android:id="@+id/txt_tap02"
                 android:text="발음"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
+                android:layout_marginRight="5dp"
+                android:background="@mipmap/bg_speak"
                 android:layout_toLeftOf="@id/txt_tap01"
                 android:layout_centerVertical="true" />
 
             <TextView
                 android:id="@+id/txt_tap03"
                 android:text="난이도"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
                 android:gravity="center"
+                android:background="@mipmap/bg_level"
                 android:layout_toLeftOf="@id/txt_tap02"
                 android:layout_centerVertical="true" />
 
@@ -189,17 +133,86 @@
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/txt_word"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@mipmap/bg_en_ko"
+                    android:gravity="center_horizontal"
                     android:text="단어/뜻" android:textColor="#FFFFFF" />
             </LinearLayout>
 
         </RelativeLayout>
-        <ListView
-            android:id="@+id/listview_eg_view"
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        </ListView>
+
+            <LinearLayout
+                android:id="@+id/bottom_menu"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:text="단어가리기"
+                    android:background="@drawable/set_btn_round"
+                    android:textSize="11dp"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/btn_bottom_en_visible"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:text="뜻가리기"
+                    android:textSize="11dp"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/set_btn_round"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/btn_bottom_ko_visible"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:text="예문보기"
+                    android:textSize="11dp"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/set_btn_round"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/btn_bottom_exam_visible"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:text="단어장"
+                    android:textSize="11dp"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/set_btn_round"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/btn_bottom_word_paper"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:text="설정"
+                    android:textSize="11dp"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/set_btn_round"
+                    android:id="@+id/btn_bottom_set"/>
+            </LinearLayout>
+            <ListView
+                android:id="@+id/listview_eg_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/bottom_menu">
+            </ListView>
+        </RelativeLayout>
     </LinearLayout>
 
 
