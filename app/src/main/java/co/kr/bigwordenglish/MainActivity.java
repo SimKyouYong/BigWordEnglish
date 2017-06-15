@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 	@Override
 	protected void onResume() {
 		super.onResume();
+		CommonUtil.getLevel_03_Q = "";
 		if(CommonUtil.isHome){
 			CommonUtil.isHome = false;
 		}
@@ -49,19 +50,36 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 		initCauly();
 		onClickEvent();
 
+		CommonUtil.setFont(this);
+		((TextView) findViewById(R.id.btn_allview)).setTypeface(CommonUtil.font);
+		((TextView) findViewById(R.id.btn_view_set)).setTypeface(CommonUtil.font);
 
-        /*
-        홍진아 이거 두개 쓰면됨!
-        * */
-        //서비스 On
-        Intent intent = new Intent(this, ScreenService.class);
-        startService(intent);
+		String isLockScreen = EgsMyPreferences.getAppPreferences(this,"LockScreen","Egs");
+		if(isLockScreen == null){
+			EgsMyPreferences.setAppPreferences(this,"LockScreen","on","Egs");
+			isLockScreen = "on";
+		}
 
-        //서비스 Off
-        //stopService(intent);
+		if(isLockScreen.equals("on")){
+			//서비스 On
+			Intent intent = new Intent(this, ScreenService.class);
+			startService(intent);
+		}else{
+			//서비스 Off
+			Intent intent = new Intent(this, ScreenService.class);
+			stopService(intent);
+		}
 	}
 
 	private void onClickEvent() {
+		//검색 버튼
+		((Button) findViewById(R.id.btn_search)).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(MainActivity.this, MainSearchActivity.class);
+				startActivity(i);
+			}
+		});
 		//설정 버튼
 		((Button) findViewById(R.id.btn_setting)).setOnClickListener(new OnClickListener() {
 			@Override
@@ -77,6 +95,8 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 		((Button) findViewById(R.id.btn_menu4)).setOnClickListener(btnListenerLevel_02);
 		((Button) findViewById(R.id.btn_menu5)).setOnClickListener(btnListenerLevel_02);
 		((Button) findViewById(R.id.btn_menu6)).setOnClickListener(btnListenerLevel_02);
+		((Button) findViewById(R.id.btn_allview)).setOnClickListener(btnListener);
+		((Button) findViewById(R.id.btn_view_set)).setOnClickListener(btnListener);
 	}
 
 	// 버튼 리스너 구현 부분
@@ -110,10 +130,18 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 	// 버튼 리스너 구현 부분
 	View.OnClickListener btnListener = new View.OnClickListener() {
 		public void onClick(View v) {
+			Intent i = new Intent(MainActivity.this, MainAllListActivity.class);
 			switch (v.getId()) {
 			case R.id.setting_btn:
 				Log.e("SKY", "-- setting_btn --");
-
+				break;
+			case R.id.btn_allview:
+				i.putExtra("type","1");
+				startActivity(i);
+				break;
+			case R.id.btn_view_set:
+				i.putExtra("type","2");
+				startActivity(i);
 				break;
 			}
 		}

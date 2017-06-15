@@ -44,11 +44,13 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
     @Override
     protected void onResume() {
         super.onResume();
+        CommonUtil.getLevel_03_Q = "";
         if(CommonUtil.isHome){
             finish();
         }
     }
 
+    private Dialog_list SubDialog_01;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,10 +62,16 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
         subListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.v("ifeelbluu","start i ==== " + l);
-                Intent intent = new Intent(MainSubActivity.this, MainSubListActivity.class);
-                intent.putExtra("Subkey_list",listitem.get((int)l).getLevel2_Index());
-                startActivity(intent);
+
+                String subkey = listitem.get((int)l).getLevel2_Index();
+                Log.v("ifeelbluu","start i ==== " + subkey);
+                if(subkey.equals("20") || subkey.equals("18")){
+                    createSubDialog(subkey);
+                }else{
+                    Intent intent = new Intent(MainSubActivity.this, MainSubListActivity.class);
+                    intent.putExtra("Subkey_list",subkey);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -72,6 +80,55 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
 
         getListLevel_02(Integer.parseInt(getSubKey));
         setMenuButtonPress(Integer.parseInt(getSubKey));
+    }
+
+    String SubKey_Level3 = "";
+    private void createSubDialog(String subkey) {
+        SubKey_Level3 = subkey;
+        //20수능 18공무원 26토익
+        String title = "";
+        if(subkey.equals("20"))
+            title = "수능";
+        else if(subkey.equals("18"))
+            title = "공무원";
+
+        ArrayList<String> dialog_item = new ArrayList<String>();
+        dialog_item.add("최근 1개년도 기출문제");
+        dialog_item.add("최근 3개년도 기출문제");
+        dialog_item.add("최근 5개년도 기출문제");
+        dialog_item.add("최근 7개년도 기출문제");
+        dialog_item.add("최근 10개년도 기출문제");
+        SubDialog_01 = new Dialog_list(this, dialog_item, title);
+
+        SubDialog_01.setCooponItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                int index = position - 1;
+
+                String temp = "";
+
+                if(index == 0){
+                    temp = " and col_9 = -1";
+                }else if(index == 1){
+                    temp = " and col_9 >= -3";
+                }else if(index == 2){
+                    temp = " and col_9 >= -5";
+                }else if(index == 3){
+                    temp = " and col_9 >= -7";
+                }else if(index == 4){
+                    temp = " and col_9 >= -10";
+                }
+
+                Intent intent = new Intent(MainSubActivity.this, MainSubListActivity.class);
+                intent.putExtra("Subkey_list",SubKey_Level3);
+                intent.putExtra("Subkey_Level_3",temp);
+                startActivity(intent);
+
+                SubDialog_01.dismiss();
+            }
+        });
+        SubDialog_01.show();
     }
 
     private int setMenuKey = -1;
@@ -124,6 +181,15 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
             }
         });
 
+        //검색 버튼
+        ((Button) findViewById(R.id.btn_search)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainSubActivity.this, MainSearchActivity.class);
+                startActivity(i);
+            }
+        });
+
         ((Button) findViewById(R.id.btn_menu1)).setOnClickListener(btnListenerLevel_02);
         ((Button) findViewById(R.id.btn_menu2)).setOnClickListener(btnListenerLevel_02);
         ((Button) findViewById(R.id.btn_menu3)).setOnClickListener(btnListenerLevel_02);
@@ -131,7 +197,16 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
         ((Button) findViewById(R.id.btn_menu5)).setOnClickListener(btnListenerLevel_02);
         ((Button) findViewById(R.id.btn_menu6)).setOnClickListener(btnListenerLevel_02);
     }
-
+    // 버튼 리스너 구현 부분
+    View.OnClickListener btnListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.setting_btn:
+                    Log.e("SKY", "-- setting_btn --");
+                    break;
+            }
+        }
+    };
 
     // 버튼 리스너 구현 부분
     View.OnClickListener btnListenerLevel_02 = new View.OnClickListener() {
