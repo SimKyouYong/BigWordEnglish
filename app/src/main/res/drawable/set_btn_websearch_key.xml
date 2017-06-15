@@ -5,15 +5,15 @@
 	<item android:state_focused="false" android:state_pressed="false">
 		<shape>
 			<solid android:color="#FFFFFF" />
-			<corners android:radius="5dp" />
+			<corners android:radius="30dp" />
 		</shape>
 	</item>
 
 	<!-- 클릭했을 때 -->
 	<item android:state_focused="false" android:state_pressed="true">
 		<shape>
-			<solid android:color="#FFE400" />
-			<corners android:radius="5dp" />
+			<solid android:color="#FFFFFF" />
+			<corners android:radius="30dp" />
 		</shape>
 	</item>
 
