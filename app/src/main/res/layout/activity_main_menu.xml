@@ -35,7 +35,7 @@
         <Button
             android:id="@+id/btn_home"
             android:layout_width="35dp"
-            android:layout_height="25dp"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:visibility="gone"
@@ -51,7 +51,7 @@
             <Button
                 android:id="@+id/btn_search"
                 android:layout_width="35dp"
-                android:layout_height="25dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="10dp"
                 android:background="@mipmap/btn_search" />
@@ -59,7 +59,7 @@
             <Button
                 android:id="@+id/btn_setting"
                 android:layout_width="35dp"
-                android:layout_height="25dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/btn_search"
                 android:background="@mipmap/btn_setting" />
@@ -190,13 +190,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="15dp"
-                android:background="@mipmap/all_view" />
+                android:text="모든 단어보기"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:background="@mipmap/btn_allview" />
 
             <Button
                 android:id="@+id/btn_view_set"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/view_set" />
+                android:text="내 단어장 보기"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:background="@mipmap/btn_allview" />
         </LinearLayout>
     </LinearLayout>
 

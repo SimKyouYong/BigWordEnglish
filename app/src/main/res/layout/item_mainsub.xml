@@ -7,7 +7,6 @@
         android:id="@+id/lay_01_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:orientation="vertical" >
@@ -16,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:background="@drawable/set_btn_line_round"
             android:orientation="horizontal" >
 
             <TextView
@@ -24,8 +24,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:layout_margin="1dp"
                 android:text=""
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textColor="#5D5D5D"
+                android:textSize="16dp"
+                android:background="@drawable/set_btn_f_round"
                 android:textStyle="bold" />
 
 

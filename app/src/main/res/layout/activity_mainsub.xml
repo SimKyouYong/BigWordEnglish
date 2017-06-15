@@ -22,28 +22,18 @@
             app:enableDefaultBannerAd="false" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_allview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_above="@+id/adWrapper"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@mipmap/all_view" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btn_allview"
+        android:layout_above="@+id/adWrapper"
         android:background="#FFFFFF"
         android:orientation="vertical" >
 
         <RelativeLayout
+            android:id="@+id/topview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@mipmap/title" >
+            android:background="@mipmap/bg_top_sub" >
 
             <Button
                 android:id="@+id/btn_home"
@@ -61,20 +51,19 @@
                 android:layout_marginRight="10dp" >
 
                 <Button
-                    android:id="@+id/btn_search"
-                    android:layout_width="35dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginBottom="10dp"
-                    android:background="@mipmap/btn_search" />
-
-                <Button
                     android:id="@+id/btn_setting"
                     android:layout_width="35dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
-                    android:layout_below="@id/btn_search"
+                    android:layout_marginLeft="10dp"
                     android:background="@mipmap/btn_setting" />
+
+                <Button
+                    android:id="@+id/btn_search"
+                    android:layout_width="35dp"
+                    android:layout_height="30dp"
+                    android:layout_toLeftOf="@id/btn_setting"
+                    android:background="@mipmap/btn_search" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -93,7 +82,7 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="70dp"
+                    android:layout_height="60dp"
                     android:layout_marginRight="3dp"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -108,7 +97,7 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="70dp"
+                    android:layout_height="60dp"
                     android:layout_marginRight="3dp"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -123,7 +112,7 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="70dp"
+                    android:layout_height="60dp"
                     android:layout_marginRight="3dp"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -138,7 +127,7 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="70dp"
+                    android:layout_height="60dp"
                     android:layout_marginRight="3dp"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -153,7 +142,7 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="70dp"
+                    android:layout_height="60dp"
                     android:layout_marginRight="3dp"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -168,7 +157,7 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="70dp"
+                    android:layout_height="60dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical" >
@@ -182,14 +171,20 @@
             </LinearLayout>
             
             
-            <ListView android:id="@+id/listview_mainsub"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:dividerHeight="15dp"
-                android:layout_marginTop="10dp"
-                android:divider="#FFFFFF">
-                
-            </ListView>
+                android:layout_marginBottom="8dp">
+
+                <ListView android:id="@+id/listview_mainsub"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:dividerHeight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:divider="#FFFFFF">
+                </ListView>
+            </RelativeLayout>
+
         </LinearLayout>
     </LinearLayout>
 

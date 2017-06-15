@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    >
+
+    <LinearLayout
+        android:id="@+id/adWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <com.fsn.cauly.CaulyAdView
+            xmlns:app="http://schemas.android.com/apk/res/co.kr.bigwordenglish"
+            android:id="@+id/xmladview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:appcode="modukcJI"
+            app:effect="TopSlide"
+            app:enableDefaultBannerAd="false" />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/topview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/bg_top_sub" >
+
+        <Button
+            android:id="@+id/btn_home"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@mipmap/btn_home" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp" >
+
+            <Button
+                android:id="@+id/btn_setting"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"
+                android:background="@mipmap/btn_setting" />
+
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:visibility="gone"
+                android:layout_toLeftOf="@id/btn_setting"
+                android:background="@mipmap/btn_search" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/topview"
+        android:layout_above="@id/adWrapper">
+        <TextView android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#DDDDDD"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:text="공지사항"/>
+
+        <ListView
+            android:id="@+id/list_notice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+    </LinearLayout>
+</RelativeLayout>
