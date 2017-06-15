@@ -25,6 +25,8 @@
 
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".MainAllListActivity"
+            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".MainSubListActivity"
             android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".MainWordSelect"
@@ -34,6 +36,12 @@
         <activity android:name=".MainSettingActivity"
             android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".LockScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".MainSearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".MainSettingNoticeList"
+            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".MainSettingNoticeDetail"
             android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity
