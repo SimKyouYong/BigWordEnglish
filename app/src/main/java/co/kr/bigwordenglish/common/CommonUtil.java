@@ -1,5 +1,8 @@
 package co.kr.bigwordenglish.common;
 
+import android.content.Context;
+import android.graphics.Typeface;
+
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -7,9 +10,27 @@ public class CommonUtil {
 	private static CommonUtil _instance;
 	public static boolean isHome = false;
 
+	public static String getLevel_03_Q = "";
 	public String Local_Path;
 	public String SERVER;
 
+	public static Typeface font = null;
+	public static void setFont(Context context) {
+
+		if(font != null){
+			return;
+		}
+		font = Typeface.createFromAsset(context.getAssets(), "coolvetica.ttf");
+	}
+
+	public static Typeface lsfont = null;
+	public static void setLSFont(Context context) {
+
+		if(lsfont != null){
+			return;
+		}
+		lsfont = Typeface.createFromAsset(context.getAssets(), "coolvetica.ttf");
+	}
 
 	static {
 		_instance = new CommonUtil();

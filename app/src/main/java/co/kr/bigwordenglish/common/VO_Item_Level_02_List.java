@@ -13,6 +13,7 @@ public class VO_Item_Level_02_List {
 	String Level2_List_Info2;
 	String Level2_List_Info3;
 	String Level2_List_Info4;
+	String Level2_List_Info5;
 
 
 	public VO_Item_Level_02_List() {
@@ -20,16 +21,24 @@ public class VO_Item_Level_02_List {
 		// TODO Auto-generated constructor stub
 	}
 
-	public VO_Item_Level_02_List(String level2_List_Count, String level2_List_English, String level2_List_Korean, String level2_List_Type, boolean level2_List_Favorite, String level2_List_Info1, String level2_List_Info2, String level2_List_Info3, String level2_List_Info4) {
-		Level2_List_Count = level2_List_Count;
-		Level2_List_English = level2_List_English;
-		Level2_List_Korean = level2_List_Korean;
-		Level2_List_Type = level2_List_Type;
-		Level2_List_Favorite = level2_List_Favorite;
-		Level2_List_Info1 = level2_List_Info1;
-		Level2_List_Info2 = level2_List_Info2;
-		Level2_List_Info3 = level2_List_Info3;
-		Level2_List_Info4 = level2_List_Info4;
+	public VO_Item_Level_02_List(String level2_List_Count, String level2_List_English, String level2_List_Korean, String level2_List_Type, boolean level2_List_Favorite, String level2_List_Info1, String level2_List_Info2, String level2_List_Info3, String level2_List_Info4, String Level2_List_Info5) {
+		this.Level2_List_Count = level2_List_Count;
+		this.Level2_List_English = level2_List_English;
+		this.Level2_List_Korean = level2_List_Korean;
+		this.Level2_List_Type = level2_List_Type;
+		this.Level2_List_Favorite = level2_List_Favorite;
+		this.Level2_List_Info1 = level2_List_Info1;
+		this.Level2_List_Info2 = level2_List_Info2;
+		this.Level2_List_Info3 = level2_List_Info3;
+		this.Level2_List_Info4 = level2_List_Info4;
+		this.Level2_List_Info5 = Level2_List_Info5;
+	}
+	public String getLevel2_List_Info5() {
+		return Level2_List_Info5;
+	}
+
+	public void setLevel2_List_Info5(String level5_List_Count) {
+		Level2_List_Info5 = level5_List_Count;
 	}
 
 	public String getLevel2_List_Count() {
