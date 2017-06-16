@@ -158,7 +158,7 @@
                     android:textSize="11dp"
                     android:gravity="center"
                     android:textColor="#FFFFFF"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:id="@+id/btn_bottom_en_visible"/>
                 <TextView
                     android:layout_width="0dp"
@@ -170,7 +170,7 @@
                     android:gravity="center"
                     android:textColor="#FFFFFF"
                     android:background="@drawable/set_btn_round"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:id="@+id/btn_bottom_ko_visible"/>
                 <TextView
                     android:layout_width="0dp"
@@ -182,7 +182,7 @@
                     android:textSize="11dp"
                     android:textColor="#FFFFFF"
                     android:background="@drawable/set_btn_round"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:id="@+id/btn_bottom_exam_visible"/>
                 <TextView
                     android:layout_width="0dp"
@@ -204,7 +204,7 @@
                     android:gravity="center"
                     android:textSize="11dp"
                     android:textColor="#FFFFFF"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:background="@drawable/set_btn_round"
                     android:id="@+id/btn_bottom_set"/>
             </LinearLayout>

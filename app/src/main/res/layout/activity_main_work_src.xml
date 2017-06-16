@@ -66,7 +66,8 @@
         android:layout_below="@id/topview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:gravity="center">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,7 +76,8 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:background="@mipmap/all_view_set"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:gravity="center">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -135,7 +137,7 @@
                         android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
-                        android:text="1회 출제"/>
+                        android:text="1회 출제 이상"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -154,7 +156,7 @@
                         android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
-                        android:text="2회 출제"/>
+                        android:text="2회 출제 이상"/>
                 </LinearLayout>
                 <LinearLayout android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -165,7 +167,7 @@
                         android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
-                        android:text="3회 출제"/>
+                        android:text="3회 출제 이상"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -184,7 +186,7 @@
                         android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
-                        android:text="4회 출제"/>
+                        android:text="4회 출제 이상"/>
                 </LinearLayout>
                 <LinearLayout android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -195,7 +197,7 @@
                         android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
-                        android:text="5회 출제"/>
+                        android:text="5회 출제 이상"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -214,7 +216,7 @@
                         android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
-                        android:text="7회 출제"/>
+                        android:text="7회 출제 이상"/>
                 </LinearLayout>
                 <LinearLayout android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -225,10 +227,9 @@
                         android:background="@mipmap/bg_search_set_text"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
-                        android:text="10회 출제"/>
+                        android:text="10회 출제 이상"/>
                 </LinearLayout>
             </LinearLayout>
-
 
 
             <LinearLayout
@@ -237,26 +238,26 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="15dp"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btn_check"
-                    android:layout_width="120dp"
-                    android:layout_height="45dp"
-                    android:text="확인"
-                    android:textSize="16dp"
-                    android:textColor="#FFFFFF"
+                    android:layout_width="95dp"
+                    android:layout_height="30dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/set_btn_round" />
+                    android:background="@drawable/set_btn_round_grey"
+                    android:text="확인"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16dp" />
 
                 <Button
                     android:id="@+id/btn_cancel"
-                    android:layout_width="120dp"
-                    android:layout_height="45dp"
+                    android:layout_width="95dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/set_btn_round_grey"
                     android:text="취소"
-                    android:textSize="16dp"
                     android:textColor="#FFFFFF"
-                    android:background="@drawable/set_btn_round" />
+                    android:textSize="16dp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
