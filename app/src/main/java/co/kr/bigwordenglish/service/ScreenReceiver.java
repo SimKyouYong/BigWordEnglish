@@ -49,7 +49,7 @@ public class ScreenReceiver extends BroadcastReceiver {
 					//i.setAction(Intent.ACTION_MAIN);
 					//i.addCategory(Intent.CATEGORY_HOME);
 					//i.addCategory(Intent.CATEGORY_DEFAULT);
-					i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_SINGLE_TOP);
 					context.startActivity(i);
 				} catch (Exception e) {
 					// TODO: handle exception

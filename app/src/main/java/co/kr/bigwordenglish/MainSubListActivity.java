@@ -57,6 +57,8 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
         }
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -424,11 +426,14 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
                 holder.txt_korean.setVisibility(View.VISIBLE);
 
 
-            if(is_En_Visible == false)
+            if(is_En_Visible == false) {
                 holder.txt_english.setVisibility(View.INVISIBLE);
-            else
+                holder.txt_english_info.setVisibility(View.INVISIBLE);
+            }
+            else{
                 holder.txt_english.setVisibility(View.VISIBLE);
-
+                holder.txt_english_info.setVisibility(View.VISIBLE);
+            }
 
             if(is_Exam_Visible == false) {
                 holder.txt_exam_en.setVisibility(View.GONE);
@@ -487,10 +492,15 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
         if(myTTS != null){
             myTTS.shutdown();
         }
+
+        slevel = "";
+        scount = "";
     }
 
     private String Param_Level = "";
     private String Param_Count = "";
+    public static String slevel = "";
+    public static String scount = "";
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -501,7 +511,8 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
                 String Select_01 = data.getStringExtra("Select_01");
                 String Select_02 = data.getStringExtra("Select_02");
                 String param1,param2 = "";
-
+                slevel = Select_01;
+                scount = Select_02;
                 if(Select_01.equals("1")){
                     Param_Level = "상";
                 }else if(Select_01.equals("2")){

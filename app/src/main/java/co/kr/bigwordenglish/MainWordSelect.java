@@ -44,6 +44,41 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
 		initCauly();
 
         CheckWordEvent();
+
+		if(MainSubListActivity.slevel.equals("") == false){
+			int level = Integer.parseInt(MainSubListActivity.slevel);
+				if(level == 1) {
+					Select_01 = 1;
+					((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.mipmap.bg_search_set_on);
+				}else if(level == 2) {
+					Select_01 = 2;
+					((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.mipmap.bg_search_set_on);
+				}else if(level == 3) {
+					Select_01 = 3;
+					((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.mipmap.bg_search_set_on);
+				}
+		}
+
+		if(MainSubListActivity.scount.equals("") == false){
+			int level = Integer.parseInt(MainSubListActivity.scount);
+			Select_02 = level;
+
+			if(level == 1) {
+				((LinearLayout) findViewById(R.id.check_work04)).setBackgroundResource(R.mipmap.bg_search_set_on);
+			}else if(level == 2) {
+				((LinearLayout) findViewById(R.id.check_work05)).setBackgroundResource(R.mipmap.bg_search_set_on);
+			}else if(level == 3) {
+				((LinearLayout) findViewById(R.id.check_work06)).setBackgroundResource(R.mipmap.bg_search_set_on);
+			}else if(level == 4) {
+				((LinearLayout) findViewById(R.id.check_work07)).setBackgroundResource(R.mipmap.bg_search_set_on);
+			}else if(level == 5) {
+				((LinearLayout) findViewById(R.id.check_work08)).setBackgroundResource(R.mipmap.bg_search_set_on);
+			}else if(level == 7) {
+				((LinearLayout) findViewById(R.id.check_work09)).setBackgroundResource(R.mipmap.bg_search_set_on);
+			}else if(level == 10) {
+				((LinearLayout) findViewById(R.id.check_work10)).setBackgroundResource(R.mipmap.bg_search_set_on);
+			}
+		}
     }
     
     private void onClickEvent(){

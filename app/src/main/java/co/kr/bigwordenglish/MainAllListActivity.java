@@ -385,10 +385,14 @@ public class MainAllListActivity extends AppCompatActivity implements TextToSpee
                 holder.txt_korean.setVisibility(View.VISIBLE);
 
 
-            if(is_En_Visible == false)
+            if(is_En_Visible == false) {
                 holder.txt_english.setVisibility(View.INVISIBLE);
-            else
+                holder.txt_english_info.setVisibility(View.INVISIBLE);
+            }
+            else{
                 holder.txt_english.setVisibility(View.VISIBLE);
+                holder.txt_english_info.setVisibility(View.VISIBLE);
+            }
 
             if(is_Exam_Visible == false) {
                 holder.txt_exam_en.setVisibility(View.GONE);

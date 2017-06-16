@@ -38,7 +38,6 @@ import co.kr.sky.AccumThread;
 
 public class IntroActivity extends AppCompatActivity {
     CommonUtil dataSet = CommonUtil.getInstance();
-
     ImageView introimg;
     private AccumThread mThread;
     private Map<String, String> map = new HashMap<String, String>();
