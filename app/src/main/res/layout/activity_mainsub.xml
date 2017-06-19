@@ -92,7 +92,7 @@
                         android:id="@+id/btn_menu1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@mipmap/menu_01" />
+                        android:background="@mipmap/sub_menu_01" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -107,7 +107,7 @@
                         android:id="@+id/btn_menu2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@mipmap/menu_02" />
+                        android:background="@mipmap/sub_menu_02" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -122,7 +122,7 @@
                         android:id="@+id/btn_menu3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@mipmap/menu_03" />
+                        android:background="@mipmap/sub_menu_03" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -137,7 +137,7 @@
                         android:id="@+id/btn_menu4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@mipmap/menu_04" />
+                        android:background="@mipmap/sub_menu_04" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -152,7 +152,7 @@
                         android:id="@+id/btn_menu5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@mipmap/menu_05" />
+                        android:background="@mipmap/sub_menu_05" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -166,7 +166,7 @@
                         android:id="@+id/btn_menu6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@mipmap/menu_06" />
+                        android:background="@mipmap/sub_menu_06" />
                 </LinearLayout>
             </LinearLayout>
             
