@@ -111,13 +111,13 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
                 if(index == 0){
                     temp = " and col_9 = -1";
                 }else if(index == 1){
-                    temp = " and col_9 >= -3";
+                    temp = " and col_9 = -3";
                 }else if(index == 2){
-                    temp = " and col_9 >= -5";
+                    temp = " and col_9 = -5";
                 }else if(index == 3){
-                    temp = " and col_9 >= -7";
+                    temp = " and col_9 = -7";
                 }else if(index == 4){
-                    temp = " and col_9 >= -10";
+                    temp = " and col_9 = -10";
                 }
 
                 Intent intent = new Intent(MainSubActivity.this, MainSubListActivity.class);
@@ -133,31 +133,31 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
 
     private int setMenuKey = -1;
     private void setMenuButtonPress(int set){
-        ((Button) findViewById(R.id.btn_menu1)).setBackgroundResource(R.mipmap.menu_01);
-        ((Button) findViewById(R.id.btn_menu2)).setBackgroundResource(R.mipmap.menu_02);
-        ((Button) findViewById(R.id.btn_menu3)).setBackgroundResource(R.mipmap.menu_03);
-        ((Button) findViewById(R.id.btn_menu4)).setBackgroundResource(R.mipmap.menu_04);
-        ((Button) findViewById(R.id.btn_menu5)).setBackgroundResource(R.mipmap.menu_05);
-        ((Button) findViewById(R.id.btn_menu6)).setBackgroundResource(R.mipmap.menu_06);
+        ((Button) findViewById(R.id.btn_menu1)).setBackgroundResource(R.mipmap.sub_menu_01);
+        ((Button) findViewById(R.id.btn_menu2)).setBackgroundResource(R.mipmap.sub_menu_02);
+        ((Button) findViewById(R.id.btn_menu3)).setBackgroundResource(R.mipmap.sub_menu_03);
+        ((Button) findViewById(R.id.btn_menu4)).setBackgroundResource(R.mipmap.sub_menu_04);
+        ((Button) findViewById(R.id.btn_menu5)).setBackgroundResource(R.mipmap.sub_menu_05);
+        ((Button) findViewById(R.id.btn_menu6)).setBackgroundResource(R.mipmap.sub_menu_06);
 
         switch (set) {
             case 1:
-                ((Button) findViewById(R.id.btn_menu1)).setBackgroundResource(R.mipmap.menu_01_press);
+                ((Button) findViewById(R.id.btn_menu1)).setBackgroundResource(R.mipmap.sub_menu_01_press);
                 break;
             case 2:
-                ((Button) findViewById(R.id.btn_menu2)).setBackgroundResource(R.mipmap.menu_02_press);
+                ((Button) findViewById(R.id.btn_menu2)).setBackgroundResource(R.mipmap.sub_menu_02_press);
                 break;
             case 3:
-                ((Button) findViewById(R.id.btn_menu3)).setBackgroundResource(R.mipmap.menu_03_press);
+                ((Button) findViewById(R.id.btn_menu3)).setBackgroundResource(R.mipmap.sub_menu_03_press);
                 break;
             case 4:
-                ((Button) findViewById(R.id.btn_menu4)).setBackgroundResource(R.mipmap.menu_04_press);
+                ((Button) findViewById(R.id.btn_menu4)).setBackgroundResource(R.mipmap.sub_menu_04_press);
                 break;
             case 5:
-                ((Button) findViewById(R.id.btn_menu5)).setBackgroundResource(R.mipmap.menu_05_press);
+                ((Button) findViewById(R.id.btn_menu5)).setBackgroundResource(R.mipmap.sub_menu_05_press);
                 break;
             case 6:
-                ((Button) findViewById(R.id.btn_menu6)).setBackgroundResource(R.mipmap.menu_06_press);
+                ((Button) findViewById(R.id.btn_menu6)).setBackgroundResource(R.mipmap.sub_menu_06_press);
                 break;
         }
     }

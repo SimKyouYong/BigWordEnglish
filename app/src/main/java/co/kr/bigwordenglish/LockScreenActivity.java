@@ -87,7 +87,8 @@ public class LockScreenActivity extends Activity implements TextToSpeech.OnInitL
 		((Button) findViewById(R.id.btn_ls_check)).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-
+				CommonUtil.isHome = true;
+				CommonUtil.isLock = true;
 				finish();
 			}
 		});
@@ -123,7 +124,7 @@ public class LockScreenActivity extends Activity implements TextToSpeech.OnInitL
 				if(getRows > 0){
 					getRows -=1;
 				}else{
-					return;
+					getRows = -1;
 				}
 				DBManager dbm = new DBManager(LockScreenActivity.this);
 				String getData = dbm.getWordNext(countkey, getRows);
@@ -152,7 +153,17 @@ public class LockScreenActivity extends Activity implements TextToSpeech.OnInitL
 					((TextView)findViewById(R.id.text_level)).setText(spStr[5]);
 					((TextView)findViewById(R.id.txt_ls_en_info)).setText("["+spStr[6]+"]");
 				}catch (Exception e){
-					getRows -=1;
+//					getRows -=1;
+					getRows = 0;
+					DBManager dbm = new DBManager(LockScreenActivity.this);
+					String getData = dbm.getWordNext(countkey, getRows);
+					String[] spStr = getData.split("-=-=");
+					((TextView)findViewById(R.id.txt_ls_en)).setText(spStr[0]);
+					((TextView)findViewById(R.id.txt_ls_ko)).setText(spStr[1]);
+					((TextView)findViewById(R.id.txt_ls_en_exam)).setText(spStr[2]);
+					((TextView)findViewById(R.id.text_count)).setText(spStr[4]);
+					((TextView)findViewById(R.id.text_level)).setText(spStr[5]);
+					((TextView)findViewById(R.id.txt_ls_en_info)).setText("["+spStr[6]+"]");
 				}
 
 			}

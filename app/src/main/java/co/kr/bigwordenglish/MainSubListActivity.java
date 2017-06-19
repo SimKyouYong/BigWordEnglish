@@ -36,6 +36,8 @@ import co.kr.bigwordenglish.common.DBManager;
 import co.kr.bigwordenglish.common.VO_Item_Level_02;
 import co.kr.bigwordenglish.common.VO_Item_Level_02_List;
 
+import static android.view.View.VISIBLE;
+
 public class MainSubListActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, CaulyAdViewListener {
     private ListView subListView;
     private MyPostAdapter mAdapter;
@@ -46,14 +48,20 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
     private boolean is_Ko_Visible = true;
 
     private boolean is_Exam_Visible = false;
-
+    private boolean isSetting = false;
     private ArrayList<VO_Item_Level_02_List> listitem = new ArrayList<VO_Item_Level_02_List>();
 
+    private int mLastPageIndex = 0;
     @Override
     protected void onResume() {
         super.onResume();
         if(CommonUtil.isHome){
             finish();
+        }
+
+        if(isSetting){
+            isSetting = false;
+            getList_Word_Set(getSubKey, "0" ,Param_Level, Param_Count);
         }
     }
 
@@ -76,8 +84,44 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
         onClickEvent();
         initCauly();
         onClickEvent_BottomMenu();
+
+        //더보기 스크롤
+//        onScrollAddView();
     }
 
+    private void onScrollAddView(){
+        subListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+
+                if((firstVisibleItem+visibleItemCount)==totalItemCount && totalItemCount > 10){
+                    Log.d("ifeelbluu", "리스트를 추가합니다"+totalItemCount+ "//");
+
+                    if(listitem == null || listitem.size() == 0){
+                        return;
+                    }
+                    if(isFavoriteMod == true){
+                        getListFavorite_Word_Page(listitem.size()+"");
+                        mAdapter.notifyDataSetChanged();
+                        return;
+                    }
+                    if(isSetList == false) {
+                        getList_Word_Page(getSubKey, listitem.size()+"");
+                        mAdapter.notifyDataSetChanged();
+                    }else{
+                        getList_Word_Set(getSubKey, listitem.size()+"" ,Param_Level, Param_Count);
+                    }
+                }
+
+            }
+        });
+    }
     private void onClickEvent_BottomMenu() {
         //설정
         ((TextView) findViewById(R.id.btn_bottom_set)).setOnClickListener(new View.OnClickListener() {
@@ -177,6 +221,7 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
         ((Button) findViewById(R.id.btn_setting)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isSetting = true;
                 Intent i = new Intent(MainSubListActivity.this, MainSettingActivity.class);
                 startActivity(i);
             }
@@ -423,7 +468,7 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
             if(is_Ko_Visible == false)
                 holder.txt_korean.setVisibility(View.INVISIBLE);
             else
-                holder.txt_korean.setVisibility(View.VISIBLE);
+                holder.txt_korean.setVisibility(VISIBLE);
 
 
             if(is_En_Visible == false) {
@@ -431,16 +476,16 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
                 holder.txt_english_info.setVisibility(View.INVISIBLE);
             }
             else{
-                holder.txt_english.setVisibility(View.VISIBLE);
-                holder.txt_english_info.setVisibility(View.VISIBLE);
+                holder.txt_english.setVisibility(VISIBLE);
+                holder.txt_english_info.setVisibility(VISIBLE);
             }
 
             if(is_Exam_Visible == false) {
                 holder.txt_exam_en.setVisibility(View.GONE);
                 holder.txt_exam_ko.setVisibility(View.GONE);
             }else{
-                holder.txt_exam_en.setVisibility(View.VISIBLE);
-                holder.txt_exam_ko.setVisibility(View.VISIBLE);
+                holder.txt_exam_en.setVisibility(VISIBLE);
+                holder.txt_exam_ko.setVisibility(VISIBLE);
                 holder.txt_exam_en.setText(p.getLevel2_List_Info3());
                 holder.txt_exam_ko.setText(p.getLevel2_List_Info4());
             }
@@ -493,14 +538,12 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
             myTTS.shutdown();
         }
 
-        slevel = "";
-        scount = "";
+        CommonUtil.slevel = "";
+        CommonUtil.scount = "";
     }
 
     private String Param_Level = "";
     private String Param_Count = "";
-    public static String slevel = "";
-    public static String scount = "";
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -511,8 +554,8 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
                 String Select_01 = data.getStringExtra("Select_01");
                 String Select_02 = data.getStringExtra("Select_02");
                 String param1,param2 = "";
-                slevel = Select_01;
-                scount = Select_02;
+                CommonUtil.slevel = Select_01;
+                CommonUtil.scount = Select_02;
                 if(Select_01.equals("1")){
                     Param_Level = "상";
                 }else if(Select_01.equals("2")){

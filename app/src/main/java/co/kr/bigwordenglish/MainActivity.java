@@ -41,6 +41,11 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 		if(CommonUtil.isHome){
 			CommonUtil.isHome = false;
 		}
+
+		if(CommonUtil.isLock){
+			CommonUtil.isLock = false;
+			finish();
+		}
 	}
 
 	@Override
@@ -55,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 		((TextView) findViewById(R.id.btn_view_set)).setTypeface(CommonUtil.font);
 
 		String isLockScreen = EgsMyPreferences.getAppPreferences(this,"LockScreen","Egs");
-		if(isLockScreen == null){
+		if(isLockScreen == null || isLockScreen.equals("")){
 			EgsMyPreferences.setAppPreferences(this,"LockScreen","on","Egs");
 			isLockScreen = "on";
 		}

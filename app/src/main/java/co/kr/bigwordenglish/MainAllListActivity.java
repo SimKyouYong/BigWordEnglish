@@ -39,6 +39,7 @@ public class MainAllListActivity extends AppCompatActivity implements TextToSpee
     private boolean is_En_Visible = true;
     private boolean is_Ko_Visible = true;
     private boolean is_Exam_Visible = false;
+    private boolean isSetting = false;
     private ArrayList<VO_Item_Level_02_List> listitem = new ArrayList<VO_Item_Level_02_List>();
 
     @Override
@@ -46,6 +47,11 @@ public class MainAllListActivity extends AppCompatActivity implements TextToSpee
         super.onResume();
         if(CommonUtil.isHome){
             finish();
+        }
+
+        if(isSetting){
+            isSetting = false;
+            getList_Word_Page("0",Param_Level, Param_Count);
         }
     }
 
@@ -151,7 +157,7 @@ public class MainAllListActivity extends AppCompatActivity implements TextToSpee
                     isFavoriteMod = false;
                     listitem.clear();
                     DBManager dbm = new DBManager(MainAllListActivity.this);
-                    listitem = dbm.All_Word_List_Set("0");
+                    listitem = dbm.All_Word_List_Set("0","","");
                     mAdapter = new MyPostAdapter(MainAllListActivity.this, R.layout.item_eg_list, listitem);
                     subListView.setAdapter(mAdapter);
                 }
@@ -163,7 +169,6 @@ public class MainAllListActivity extends AppCompatActivity implements TextToSpee
     private boolean isFavoriteMod = false;
     //버튼 클릭이벤트
     private void onClickEvent() {
-        ((TextView) findViewById(R.id.btn_bottom_set)).setVisibility(View.GONE);
         //홈버튼
         ((Button) findViewById(R.id.btn_home)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +182,7 @@ public class MainAllListActivity extends AppCompatActivity implements TextToSpee
         ((Button) findViewById(R.id.btn_setting)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isSetting = true;
                 Intent i = new Intent(MainAllListActivity.this, MainSettingActivity.class);
                 startActivity(i);
             }
@@ -195,7 +201,7 @@ public class MainAllListActivity extends AppCompatActivity implements TextToSpee
     private void getList_Word(){
         try {
             DBManager dbm = new DBManager(this);
-            listitem = dbm.All_Word_List_Set("0");
+            listitem = dbm.All_Word_List_Set("0","","");
         } catch (SQLException se) {
             Log.e("ifeelbluu", se.toString());
         }
@@ -234,34 +240,76 @@ public class MainAllListActivity extends AppCompatActivity implements TextToSpee
     }
 
     //page 리스트
-    private void getList_Word_Page(String page){
+    private void getList_Word_Page(String page,String level,String count){
         ArrayList<VO_Item_Level_02_List> additem = new ArrayList<VO_Item_Level_02_List>();
         try {
             DBManager dbm = new DBManager(this);
             if(isFavoriteMod == true){
                 additem = dbm.Favorite_Word_List_Set(page);
             }else{
-                additem = dbm.All_Word_List_Set(page);
+                additem = dbm.All_Word_List_Set(page,level,count);
             }
 
         } catch (SQLException se) {
             Log.e("ifeelbluu", se.toString());
         }
 
+        if(page.equals("0"))
+            listitem.clear();
+
         for(int i=0; i<additem.size(); i++){
             listitem.add(additem.get(i));
         }
 
         mAdapter.notifyDataSetChanged();
+
+        if(page.equals("0"))
+            subListView.setSelection(0);
     }
+
+    private String Param_Level = "";
+    private String Param_Count = "";
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            if(data != null){
+//              Select_01 //1:상 2:중 3:하
+//				Select_02 //1:1회출제 2:2회출제 3:3회출제 4:4회출제 5:5회출제 7:7회출제 10:10회출제
+                String Select_01 = data.getStringExtra("Select_01");
+                String Select_02 = data.getStringExtra("Select_02");
+                String param1,param2 = "";
+                CommonUtil.slevel = Select_01;
+                CommonUtil.scount = Select_02;
+                if(Select_01.equals("1")){
+                    Param_Level = "상";
+                }else if(Select_01.equals("2")){
+                    Param_Level = "중";
+                }else if(Select_01.equals("3")){
+                    Param_Level = "하";
+                }else{
+                    Param_Level = "";
+                }
+
+                if(Select_02.equals("0")){
+                    Param_Count = "";
+                }else{
+                    Param_Count = Select_02;
+                }
+
+                getList_Word_Page("0",Param_Level, Param_Count);
+
+            }
+        }
+    }
+
 
     //더보기버튼클릭이벤트
     OnItemClickListener onItemClick_workitem = new OnItemClickListener(){
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             if(l == MORE_CODE){
-//                String nextpage = listitem.get(listitem.size() - 1).getLevel2_List_Info1();
-                getList_Word_Page(listitem.size()+"");
+                getList_Word_Page(listitem.size()+"",Param_Level,Param_Count);
                 mAdapter.notifyDataSetChanged();
             }else
                 return;
@@ -452,15 +500,9 @@ public class MainAllListActivity extends AppCompatActivity implements TextToSpee
         if(myTTS != null){
             myTTS.shutdown();
         }
-    }
 
-    private String Param_Level = "";
-    private String Param_Count = "";
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1){
-        }
+        CommonUtil.slevel = "";
+        CommonUtil.scount = "";
     }
 
     /*****************************

@@ -9,7 +9,10 @@ import java.util.StringTokenizer;
 public class CommonUtil {
 	private static CommonUtil _instance;
 	public static boolean isHome = false;
+	public static boolean isLock = false;
 
+	public static String slevel = "";
+	public static String scount = "";
 	public static String getLevel_03_Q = "";
 	public String Local_Path;
 	public String SERVER;

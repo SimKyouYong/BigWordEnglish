@@ -45,8 +45,8 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
 
         CheckWordEvent();
 
-		if(MainSubListActivity.slevel.equals("") == false){
-			int level = Integer.parseInt(MainSubListActivity.slevel);
+		if(CommonUtil.slevel.equals("") == false){
+			int level = Integer.parseInt(CommonUtil.slevel);
 				if(level == 1) {
 					Select_01 = 1;
 					((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.mipmap.bg_search_set_on);
@@ -59,8 +59,8 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
 				}
 		}
 
-		if(MainSubListActivity.scount.equals("") == false){
-			int level = Integer.parseInt(MainSubListActivity.scount);
+		if(CommonUtil.scount.equals("") == false){
+			int level = Integer.parseInt(CommonUtil.scount);
 			Select_02 = level;
 
 			if(level == 1) {

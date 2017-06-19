@@ -3,7 +3,10 @@ package co.kr.bigwordenglish;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -15,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -30,6 +34,7 @@ import com.fsn.cauly.CaulyAdViewListener;
 
 import co.kr.bigwordenglish.common.Check_Preferences;
 import co.kr.bigwordenglish.common.CommonUtil;
+import co.kr.bigwordenglish.common.DBManager;
 import co.kr.bigwordenglish.obj.Mianobj;
 import co.kr.bigwordenglish.service.ScreenService;
 
@@ -89,6 +94,13 @@ public class MainSettingActivity extends AppCompatActivity implements CaulyAdVie
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse("http://snap40.cafe24.com/BigWordEgs/img/help.png"));
                 startActivity(i);
+			}
+		});
+
+		((Button)findViewById(R.id.btn_check)).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				CheckDialog("");
 			}
 		});
 
@@ -448,5 +460,32 @@ public class MainSettingActivity extends AppCompatActivity implements CaulyAdVie
 	public void onCloseLandingScreen(CaulyAdView adView) {
 		// 광고 배너를 클릭하여 열린 랜딩 페이지가 닫힌 경우 호출됨.
 		Log.e("SKY", "banner AD landing screen closed.");
+	}
+
+
+	AlertDialog ad;
+	public void CheckDialog(final String message) {
+		if (ad == null) {
+			ad = new AlertDialog.Builder(this)
+					.setTitle("알림")
+					.setMessage("어플리케이션을 초기화 하시겠습니까?")
+					.setCancelable(false)
+					.setPositiveButton("확인",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int whichButton) {
+									ad.dismiss();
+									ad = null;
+									EgsMyPreferences.deleteAppPreferences(MainSettingActivity.this,"Egs");
+									DBManager dbm = new DBManager(MainSettingActivity.this);
+									dbm.ResetMyWord();
+									System.exit(0);
+								}
+							}).setNegativeButton("취소",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							ad.dismiss();
+							ad = null;
+						}
+					}).show();
+		}
 	}
 }

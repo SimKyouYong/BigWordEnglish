@@ -170,18 +170,27 @@ public class DBManager {
     }
 
     //All WordList
-    public ArrayList<VO_Item_Level_02_List> All_Word_List_Set(String page) {
+    public ArrayList<VO_Item_Level_02_List> All_Word_List_Set(String page, String wordLevel,String wordCount) {
         String sql = "";
+//        sql = "select * from 'Word' where col_10 = 9000";
+        sql = "select * from 'Word'";
+
+        if(wordLevel.equals("") == false){
+            sql +=  " where col_6 = '"+ wordLevel +"'";
+        }
+
+        if(wordCount.equals("") == false){
+            if(wordLevel.equals("")){
+                sql += " where col_4 >= "+ wordCount;
+            }else{
+                sql += " and col_4 >= "+ wordCount;
+            }
+        }
+
         if(page.equals("0")){
-            sql = "select * from 'Word'";
-
             sql += orderby + " limit 50;";
-
         }else{
-            sql = "select * from 'Word'";
-
             sql += orderby + " limit "+ page + ", 50;";
-
         }
         Cursor result = db.rawQuery(sql, null);
         Log.v("CHECK_B", "sql = " + sql );
@@ -242,6 +251,11 @@ public class DBManager {
         db.execSQL(sql);
     }
 
+    public void ResetMyWord(){
+        String sql = "update Word set col_13 = null where col_13 = 'f'";
+        db.execSQL(sql);
+    }
+
     public String randomWord(String id){
         String sql = "select * from 'Word' where col_1 = "+ id;
         Cursor result = db.rawQuery(sql, null);
@@ -267,7 +281,8 @@ public class DBManager {
 
         if(q.equals("") == false){
             String sql = "select * from 'Word'";
-            sql += " " + q+";";
+            sql += " " + q;
+            sql += orderby+";";
             result = db.rawQuery(sql, null);
             rancount = result.getCount();
 
@@ -305,13 +320,16 @@ public class DBManager {
 
         if(q.equals("") == false){
             String sql = "select * from 'Word'";
-            sql += " " + q+";";
+            sql += " " + q;
+            sql += orderby+";";
 
             result = db.rawQuery(sql, null);
+
             Log.v("ifeelbluu", "sql === " + sql);
-//            if(page > result.getCount()){
-//                return null;
-//            }
+            if(page == -1){
+                page = result.getCount()-1;
+                LockScreenActivity.getRows = page;
+            }
             result.moveToPosition(page);
             temp +=result.getString(1)+"-=-=";//en
             temp +=result.getString(4)+"-=-=";//ko
