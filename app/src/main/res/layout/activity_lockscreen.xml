@@ -203,11 +203,6 @@
                     android:layout_marginLeft="100dp"
                     android:background="@mipmap/ls_next" />
             </LinearLayout>
-
         </LinearLayout>
-
-
     </LinearLayout>
-
-
 </RelativeLayout>

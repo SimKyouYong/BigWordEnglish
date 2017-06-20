@@ -17,7 +17,7 @@ public class ScreenService extends Service {
 	{
 		super.onCreate();
 		IntentFilter filter = new IntentFilter();
-    	filter.addAction(Intent.ACTION_SCREEN_ON);
+    	filter.addAction(Intent.ACTION_SCREEN_OFF);
     	registerReceiver(sr, filter);
     	unregisterRestartAlarm();
 	}

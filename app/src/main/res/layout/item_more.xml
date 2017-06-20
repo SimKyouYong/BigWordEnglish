@@ -9,5 +9,5 @@
         android:layout_height="55dp"
         android:textColor="#000000"
         android:gravity="center"
-        android:text="더 보기"/>
+        android:text=""/>
 </LinearLayout>
