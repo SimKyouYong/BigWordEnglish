@@ -89,6 +89,7 @@ public class IntroActivity extends AppCompatActivity {
                         return;
                     }
                 } else {
+                    Server_Ver = res;
                     Log.e("ifeelbluu", "local_Ver :: null");
                     // 최초버전.. 무조건 다운로드
                     new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "admin/db/egDb.db");
@@ -186,7 +187,7 @@ public class IntroActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String unused) {
             //mDlg.dismiss();
-            Check_Preferences.setAppPreferences(IntroActivity.this, "version","" + Server_Ver);
+            Check_Preferences.setAppPreferences(IntroActivity.this, "version", Server_Ver);
 
             if(checkFav != null && checkFav.size() > 0){
                 DBManager dbm = new DBManager(IntroActivity.this);
