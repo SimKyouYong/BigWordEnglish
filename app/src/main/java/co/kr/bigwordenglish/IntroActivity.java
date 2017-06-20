@@ -21,11 +21,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import co.kr.bigwordenglish.common.Check_Preferences;
 import co.kr.bigwordenglish.common.CommonUtil;
+import co.kr.bigwordenglish.common.DBManager;
 import co.kr.bigwordenglish.common.MySQLiteOpenHelper;
 import co.kr.sky.AccumThread;
 
@@ -44,6 +46,7 @@ public class IntroActivity extends AppCompatActivity {
     private String local_Ver, Server_Ver;
 
 
+    public ArrayList<String> checkFav = new ArrayList<String>();
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,8 @@ public class IntroActivity extends AppCompatActivity {
                     if (ver.equals(res) == false) {
                         Log.i("ifeelbluu", "다운로드");
                         // 다운로드
+                        DBManager dbm = new DBManager(IntroActivity.this);
+                        checkFav = dbm.getFavorite();
                         new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "admin/db/egDb.db");
                         return;
                     } else {
@@ -181,6 +186,13 @@ public class IntroActivity extends AppCompatActivity {
         protected void onPostExecute(String unused) {
             //mDlg.dismiss();
             Check_Preferences.setAppPreferences(IntroActivity.this, "version","" + Server_Ver);
+
+            if(checkFav != null && checkFav.size() > 0){
+                DBManager dbm = new DBManager(IntroActivity.this);
+                for(int i=0; i<checkFav.size(); i++){
+                    dbm.updateFavorite("f",checkFav.get(i).toString());
+                }
+            }
             MainMove();
         }
     }

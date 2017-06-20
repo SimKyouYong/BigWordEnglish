@@ -51,6 +51,7 @@ public class MainAllListActivity extends AppCompatActivity implements TextToSpee
         }
 
         if(isSetting){
+            lastTotalcount = 0;
             isSetting = false;
             getList_Word_Page("0",Param_Level, Param_Count);
         }
@@ -81,22 +82,24 @@ public class MainAllListActivity extends AppCompatActivity implements TextToSpee
         onScrollAddView();
     }
 
+    int lastTotalcount = 0;
     private void onScrollAddView(){
         subListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
-
             }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount) {
-
                 if((firstVisibleItem+visibleItemCount)==totalItemCount && totalItemCount > 10){
                     Log.d("ifeelbluu", "리스트를 추가합니다"+totalItemCount+ "//");
-
+                    if(lastTotalcount == totalItemCount){
+                        return;
+                    }
                     getList_Word_Page(listitem.size()+"",Param_Level,Param_Count);
                     mAdapter.notifyDataSetChanged();
+                    lastTotalcount = totalItemCount;
                 }
 
             }
@@ -319,7 +322,7 @@ public class MainAllListActivity extends AppCompatActivity implements TextToSpee
                 }else{
                     Param_Count = Select_02;
                 }
-
+                lastTotalcount = 0;
                 getList_Word_Page("0",Param_Level, Param_Count);
 
             }

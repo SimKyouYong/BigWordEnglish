@@ -60,6 +60,7 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
         }
 
         if(isSetting){
+            lastTotalcount = 0;
             isSetting = false;
             getList_Word_Set(getSubKey, "0" ,Param_Level, Param_Count);
         }
@@ -88,12 +89,11 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
         //더보기 스크롤
         onScrollAddView();
     }
-
+    int lastTotalcount = 0;
     private void onScrollAddView(){
         subListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
-
             }
 
             @Override
@@ -102,13 +102,16 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
 
                 if((firstVisibleItem+visibleItemCount)==totalItemCount && totalItemCount > 10){
                     Log.d("ifeelbluu", "리스트를 추가합니다"+totalItemCount+ "//");
-
+                    if(lastTotalcount == totalItemCount){
+                        return;
+                    }
                     if(listitem == null || listitem.size() == 0){
                         return;
                     }
                     if(isFavoriteMod == true){
                         getListFavorite_Word_Page(listitem.size()+"");
                         mAdapter.notifyDataSetChanged();
+                        lastTotalcount = totalItemCount;
                         return;
                     }
                     if(isSetList == false) {
@@ -117,6 +120,7 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
                     }else{
                         getList_Word_Set(getSubKey, listitem.size()+"" ,Param_Level, Param_Count);
                     }
+                    lastTotalcount = totalItemCount;
                 }
 
             }
@@ -571,7 +575,7 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
                 }else{
                     Param_Count = Select_02;
                 }
-
+                lastTotalcount = 0;
                 getList_Word_Set(getSubKey,"0",Param_Level, Param_Count);
 
             }

@@ -240,6 +240,16 @@ public class DBManager {
         return array;
     }
 
+    public ArrayList<String> getFavorite(){
+        ArrayList<String> getFavArray = new ArrayList<String>();
+        String sql = "select * from word where col_13 = 'f'";
+        Cursor result = db.rawQuery(sql, null);
+        while (result.moveToNext()) {
+            getFavArray.add(result.getString(0));
+        }
+        return getFavArray;
+    }
+
     //즐겨찾기 추가
     public void updateFavorite(String value, String id) {
         String sql = "";
