@@ -57,6 +57,12 @@ public class MainSettingActivity extends AppCompatActivity implements CaulyAdVie
 		if(CommonUtil.isHome){
 			finish();
 		}
+
+		if(CommonUtil.isLock){
+			CommonUtil.isLock = false;
+			moveTaskToBack(true);
+//			finish();
+		}
 	}
 
 	ColorStateList colorStateList = new ColorStateList(

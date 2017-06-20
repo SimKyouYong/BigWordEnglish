@@ -48,6 +48,12 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
         if(CommonUtil.isHome){
             finish();
         }
+
+        if(CommonUtil.isLock){
+            CommonUtil.isLock = false;
+            moveTaskToBack(true);
+//			finish();
+        }
     }
 
     private Dialog_list SubDialog_01;

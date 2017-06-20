@@ -244,6 +244,10 @@ public class DBManager {
         ArrayList<String> getFavArray = new ArrayList<String>();
         String sql = "select * from word where col_13 = 'f'";
         Cursor result = db.rawQuery(sql, null);
+
+        if(result  == null){
+            return null;
+        }
         while (result.moveToNext()) {
             getFavArray.add(result.getString(0));
         }

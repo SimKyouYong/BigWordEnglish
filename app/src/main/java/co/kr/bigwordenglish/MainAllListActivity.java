@@ -55,6 +55,12 @@ public class MainAllListActivity extends AppCompatActivity implements TextToSpee
             isSetting = false;
             getList_Word_Page("0",Param_Level, Param_Count);
         }
+
+        if(CommonUtil.isLock){
+            CommonUtil.isLock = false;
+            moveTaskToBack(true);
+//			finish();
+        }
     }
 
     @Override

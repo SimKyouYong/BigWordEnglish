@@ -35,6 +35,19 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
 
 	private String Word_Level = "";
 	private String Word_Count = "";
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+
+		if(CommonUtil.isLock){
+			CommonUtil.isLock = false;
+			moveTaskToBack(true);
+//			finish();
+		}
+	}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

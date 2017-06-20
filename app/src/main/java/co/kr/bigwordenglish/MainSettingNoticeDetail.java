@@ -47,6 +47,18 @@ public class MainSettingNoticeDetail extends AppCompatActivity implements CaulyA
     private TextView mTitleTv;
     public LayoutInflater mLayoutInflater;
 
+	@Override
+	public void onResume() {
+		super.onResume();
+
+
+		if(CommonUtil.isLock){
+			CommonUtil.isLock = false;
+			moveTaskToBack(true);
+//			finish();
+		}
+	}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

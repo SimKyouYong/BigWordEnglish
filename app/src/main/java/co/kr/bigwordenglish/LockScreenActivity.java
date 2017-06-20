@@ -90,7 +90,7 @@ public class LockScreenActivity extends Activity implements TextToSpeech.OnInitL
 		((Button) findViewById(R.id.btn_ls_check)).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				CommonUtil.isHome = true;
+//				CommonUtil.isHome = true;
 				CommonUtil.isLock = true;
 				finish();
 			}

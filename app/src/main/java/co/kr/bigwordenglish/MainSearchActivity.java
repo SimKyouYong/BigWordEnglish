@@ -33,6 +33,13 @@ public class MainSearchActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
+
+
+		if(CommonUtil.isLock){
+			CommonUtil.isLock = false;
+			moveTaskToBack(true);
+//			finish();
+		}
 	}
 
 	WebView wv_search;

@@ -63,6 +63,13 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
             lastTotalcount = 0;
             isSetting = false;
             getList_Word_Set(getSubKey, "0" ,Param_Level, Param_Count);
+            return;
+        }
+
+        if(CommonUtil.isLock){
+            CommonUtil.isLock = false;
+            moveTaskToBack(true);
+//			finish();
         }
     }
 

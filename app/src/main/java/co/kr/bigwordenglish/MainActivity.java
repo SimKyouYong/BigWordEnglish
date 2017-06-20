@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 
 		if(CommonUtil.isLock){
 			CommonUtil.isLock = false;
-			finish();
+			moveTaskToBack(true);
+//			finish();
 		}
 	}
 
