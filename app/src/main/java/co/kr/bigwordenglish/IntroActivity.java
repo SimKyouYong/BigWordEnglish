@@ -102,8 +102,8 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //Intent intent = new Intent(IntroActivity.this, MainActivity.class);
-                Intent intent = new Intent(IntroActivity.this, MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(IntroActivity.this, MainActivity.class);
+//                startActivity(intent);
                 finish();
             }
         }, 500);
