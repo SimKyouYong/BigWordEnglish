@@ -70,7 +70,7 @@ public class IntroActivity extends AppCompatActivity {
             if (msg.arg1 == 0) {
                 String res = (String) msg.obj;
                 String ver = Check_Preferences.getAppPreferences(getApplicationContext(), "version").equals("") ? "0" : Check_Preferences.getAppPreferences(getApplicationContext(), "version");
-                if (!ver.equals("")) {
+                if (ver != null && "0".equals(ver) == false) {
                     local_Ver = ver;
                     Server_Ver = res;
                     Log.i("ifeelbluu", "local_Ver :: " + ver);
