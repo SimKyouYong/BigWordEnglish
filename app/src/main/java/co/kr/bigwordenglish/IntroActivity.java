@@ -3,7 +3,6 @@ package co.kr.bigwordenglish;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,7 +27,6 @@ import java.util.Map;
 import co.kr.bigwordenglish.common.Check_Preferences;
 import co.kr.bigwordenglish.common.CommonUtil;
 import co.kr.bigwordenglish.common.DBManager;
-import co.kr.bigwordenglish.common.MySQLiteOpenHelper;
 import co.kr.sky.AccumThread;
 
 
@@ -92,7 +90,11 @@ public class IntroActivity extends AppCompatActivity {
                     Server_Ver = res;
                     Log.e("ifeelbluu", "local_Ver :: null");
                     // 최초버전.. 무조건 다운로드
-                    new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "admin/db/egDb.db");
+                    //new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "admin/db/egDb.db");
+
+                    //테스트
+                    //http://iglassstory.com/egDb.db
+                    new DownloadFileFullAsync(IntroActivity.this).execute("http://iglassstory.com/egDb.db");
                 }
             }
         }
@@ -133,7 +135,8 @@ public class IntroActivity extends AppCompatActivity {
 
             int count = 0;
             try {
-                String str = dataSet.SERVER + "admin/db/egDb.db";
+                //String str = dataSet.SERVER + "admin/db/egDb.db";
+                String str = "http://iglassstory.com/egDb.db";
                 String DEFAULT_FILE_PATH = IntroActivity.this.getDatabasePath("egDb.db")+"";
                 Log.e("SKY", "STR :: " + str);
 
