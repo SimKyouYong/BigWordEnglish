@@ -52,7 +52,6 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
         if(CommonUtil.isLock){
             CommonUtil.isLock = false;
             moveTaskToBack(true);
-//			finish();
         }
     }
 

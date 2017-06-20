@@ -66,9 +66,8 @@ public class IntroActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             if (msg.arg1 == 0) {
-                String res = (String) msg.obj;
-                String ver = Check_Preferences.getAppPreferences(getApplicationContext(), "version");
-
+                String res = ((String) msg.obj).trim();
+                String ver = EgsMyPreferences.getAppPreferences(IntroActivity.this, "version", "Egs").trim();
                 if (ver != null && "".equals(ver) == false && "null".equals(ver) == false) {
                     local_Ver = ver;
                     Server_Ver = res;
@@ -190,8 +189,7 @@ public class IntroActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String unused) {
             //mDlg.dismiss();
-            Check_Preferences.setAppPreferences(IntroActivity.this, "version", Server_Ver);
-
+            EgsMyPreferences.setAppPreferences(IntroActivity.this,"version", Server_Ver, "Egs");
             if(checkFav != null && checkFav.size() > 0){
                 DBManager dbm = new DBManager(IntroActivity.this);
                 for(int i=0; i<checkFav.size(); i++){
