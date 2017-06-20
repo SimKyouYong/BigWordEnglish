@@ -86,7 +86,7 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
         onClickEvent_BottomMenu();
 
         //더보기 스크롤
-//        onScrollAddView();
+        onScrollAddView();
     }
 
     private void onScrollAddView(){

@@ -82,7 +82,7 @@ public class DBManager {
             sql +=CommonUtil.getLevel_03_Q;
 
 
-        sql += orderby + " limit 50;";
+        sql += orderby + " limit 200;";
 
         Cursor result = db.rawQuery(sql, null);
         Log.v("CHECK_B", "sql = " + sql );
@@ -106,7 +106,7 @@ public class DBManager {
         String sql = "select * from 'Word' where col_10 = " + subkey;
         if(CommonUtil.getLevel_03_Q != null && CommonUtil.getLevel_03_Q.equals("") == false)
             sql +=CommonUtil.getLevel_03_Q;
-        sql += orderby + " limit "+ page + ", 50;";
+        sql += orderby + " limit "+ page + ", 200;";
         Cursor result = db.rawQuery(sql, null);
         Log.v("CHECK_B", "sql = " + sql );
         ArrayList<VO_Item_Level_02_List> array = new ArrayList<VO_Item_Level_02_List>();
@@ -134,7 +134,7 @@ public class DBManager {
 
             if(CommonUtil.getLevel_03_Q != null && CommonUtil.getLevel_03_Q.equals("") == false)
                 sql +=CommonUtil.getLevel_03_Q;
-            sql += orderby + " limit 50;";
+            sql += orderby + " limit 200;";
 
         }else{
             sql = "select * from 'Word' where col_10 = " + subkey;
@@ -148,7 +148,7 @@ public class DBManager {
 
             if(CommonUtil.getLevel_03_Q != null && CommonUtil.getLevel_03_Q.equals("") == false)
                 sql +=CommonUtil.getLevel_03_Q;
-            sql += orderby + " limit "+ page + ", 50;";
+            sql += orderby + " limit "+ page + ", 200;";
         }
 
         Log.v("CHECK_B", "sql = " + sql );
@@ -172,25 +172,25 @@ public class DBManager {
     //All WordList
     public ArrayList<VO_Item_Level_02_List> All_Word_List_Set(String page, String wordLevel,String wordCount) {
         String sql = "";
-//        sql = "select * from 'Word' where col_10 = 9000";
-        sql = "select * from 'Word'";
+        sql = "select * from 'Word' where col_10 = 9000";
+//        sql = "select * from 'Word'";
 
         if(wordLevel.equals("") == false){
-            sql +=  " where col_6 = '"+ wordLevel +"'";
+            sql +=  " and col_6 = '"+ wordLevel +"'";
         }
 
         if(wordCount.equals("") == false){
-            if(wordLevel.equals("")){
-                sql += " where col_4 >= "+ wordCount;
-            }else{
+//            if(wordLevel.equals("")){
+//                sql += " where col_4 >= "+ wordCount;
+//            }else{
                 sql += " and col_4 >= "+ wordCount;
-            }
+//            }
         }
 
         if(page.equals("0")){
-            sql += orderby + " limit 50;";
+            sql += orderby + " limit 200;";
         }else{
-            sql += orderby + " limit "+ page + ", 50;";
+            sql += orderby + " limit "+ page + ", 200;";
         }
         Cursor result = db.rawQuery(sql, null);
         Log.v("CHECK_B", "sql = " + sql );
@@ -215,12 +215,12 @@ public class DBManager {
         if(page.equals("0")){
             sql = "select * from 'Word' where col_13 = 'f'";
 
-            sql += orderby + " limit 50;";
+            sql += orderby + " limit 200;";
 
         }else{
             sql = "select * from 'Word' where col_13 = 'f'";
 
-            sql += orderby + " limit "+ page + ", 50;";
+            sql += orderby + " limit "+ page + ", 200;";
 
         }
         Cursor result = db.rawQuery(sql, null);

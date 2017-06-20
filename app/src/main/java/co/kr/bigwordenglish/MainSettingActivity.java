@@ -8,11 +8,15 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,6 +59,18 @@ public class MainSettingActivity extends AppCompatActivity implements CaulyAdVie
 		}
 	}
 
+	ColorStateList colorStateList = new ColorStateList(
+			new int[][]{
+					new int[]{-android.R.attr.state_checked}, // unchecked
+					new int[]{android.R.attr.state_checked} , // checked
+			},
+			new int[]{
+					Color.parseColor("#5D5D5D"),
+					Color.parseColor("#5CD1E5"),
+			}
+	);
+
+	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -168,6 +184,21 @@ public class MainSettingActivity extends AppCompatActivity implements CaulyAdVie
 		((CheckBox)findViewById(R.id.btn_set_11)).setOnCheckedChangeListener(check03);
 		((CheckBox)findViewById(R.id.btn_set_12)).setOnCheckedChangeListener(check03);
 		((CheckBox)findViewById(R.id.btn_set_13)).setOnCheckedChangeListener(check03);
+
+
+		((CheckBox)findViewById(R.id.btn_set_01)).setButtonTintList(colorStateList);
+		((CheckBox)findViewById(R.id.btn_set_02)).setButtonTintList(colorStateList);
+		((CheckBox)findViewById(R.id.btn_set_03)).setButtonTintList(colorStateList);
+		((CheckBox)findViewById(R.id.btn_set_04)).setButtonTintList(colorStateList);
+		((CheckBox)findViewById(R.id.btn_set_05)).setButtonTintList(colorStateList);
+		((CheckBox)findViewById(R.id.btn_set_06)).setButtonTintList(colorStateList);
+		((CheckBox)findViewById(R.id.btn_set_07)).setButtonTintList(colorStateList);
+		((CheckBox)findViewById(R.id.btn_set_08)).setButtonTintList(colorStateList);
+		((CheckBox)findViewById(R.id.btn_set_09)).setButtonTintList(colorStateList);
+		((CheckBox)findViewById(R.id.btn_set_10)).setButtonTintList(colorStateList);
+		((CheckBox)findViewById(R.id.btn_set_11)).setButtonTintList(colorStateList);
+		((CheckBox)findViewById(R.id.btn_set_12)).setButtonTintList(colorStateList);
+		((CheckBox)findViewById(R.id.btn_set_13)).setButtonTintList(colorStateList);
 		String isLockScreen = EgsMyPreferences.getAppPreferences(this,"LockScreen","Egs");
 
 		if(isLockScreen.equals("on")){
