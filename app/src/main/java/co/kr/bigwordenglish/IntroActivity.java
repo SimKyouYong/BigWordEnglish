@@ -41,7 +41,7 @@ public class IntroActivity extends AppCompatActivity {
     ImageView introimg;
     private AccumThread mThread;
     private Map<String, String> map = new HashMap<String, String>();
-    private float local_Ver, Server_Ver;
+    private String local_Ver, Server_Ver;
 
 
     @SuppressWarnings("deprecation")
@@ -68,15 +68,19 @@ public class IntroActivity extends AppCompatActivity {
                 String res = (String) msg.obj;
                 String ver = Check_Preferences.getAppPreferences(getApplicationContext(), "version").equals("") ? "0" : Check_Preferences.getAppPreferences(getApplicationContext(), "version");
                 if (!ver.equals("")) {
-                    local_Ver = Float.parseFloat(ver);
-                    Server_Ver = Float.parseFloat(res);
-                    Log.i("ifeelbluu", "local_Ver :: " + local_Ver);
-                    Log.i("ifeelbluu", "Server_Ver :: " + Server_Ver);
-                    if (local_Ver < Server_Ver) {
+                    local_Ver = ver;
+                    Server_Ver = res;
+                    Log.i("ifeelbluu", "local_Ver :: " + ver);
+                    Log.i("ifeelbluu", "Server_Ver :: " + res);
+                    if (ver.equals(res) == false) {
+                        Log.i("ifeelbluu", "다운로드");
                         // 다운로드
                         new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "admin/db/egDb.db");
+                        return;
                     } else {
+                        Log.i("ifeelbluu", "패스");
                         MainMove();
+                        return;
                     }
                 } else {
                     Log.e("ifeelbluu", "local_Ver :: null");
@@ -96,7 +100,7 @@ public class IntroActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }, 3000);
+        }, 500);
     }
     public class DownloadFileFullAsync extends  AsyncTask<String, String, String> {
 
