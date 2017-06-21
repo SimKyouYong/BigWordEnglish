@@ -38,8 +38,7 @@ public class LockScreenActivity extends Activity implements TextToSpeech.OnInitL
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lockscreen);
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-				| WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 
 
 //		ViewGroup root = (ViewGroup) findViewById(android.R.id.content);

@@ -43,7 +43,11 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
 
 		if(CommonUtil.isLock){
 			CommonUtil.isLock = false;
-			moveTaskToBack(true);
+//			moveTaskToBack(true);
+			Intent intent = new Intent();
+			intent.setAction(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			startActivity(intent);
 		}
 	}
 

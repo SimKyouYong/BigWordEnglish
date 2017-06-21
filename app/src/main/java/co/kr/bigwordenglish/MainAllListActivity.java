@@ -58,8 +58,11 @@ public class MainAllListActivity extends AppCompatActivity implements TextToSpee
 
         if(CommonUtil.isLock){
             CommonUtil.isLock = false;
-            moveTaskToBack(true);
-//			finish();
+//            moveTaskToBack(true);
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
         }
     }
 

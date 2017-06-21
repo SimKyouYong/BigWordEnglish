@@ -59,7 +59,11 @@ public class MainSettingNoticeList extends AppCompatActivity implements CaulyAdV
 
 		if(CommonUtil.isLock){
 			CommonUtil.isLock = false;
-			moveTaskToBack(true);
+//			moveTaskToBack(true);
+			Intent intent = new Intent();
+			intent.setAction(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			startActivity(intent);
 		}
 	}
 

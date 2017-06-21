@@ -44,13 +44,21 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 
 		if(CommonUtil.isLock){
 			CommonUtil.isLock = false;
-			moveTaskToBack(true);
+//			moveTaskToBack(true);
+			Intent intent = new Intent();
+			intent.setAction(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			startActivity(intent);
 		}
 	}
 
+	int isMainRoot = 0;
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		if(isMainRoot == 1){
+			CommonUtil.isMainActivity = false;
+		}
 	}
 
 	@Override
@@ -61,6 +69,14 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 		String isSetApp = EgsMyPreferences.getAppPreferences(MainActivity.this,"setApp","Egs");
 		if(isSetApp == null || isSetApp.equals("")){
 			EgsMyPreferences.setAppPreferences(MainActivity.this,"setApp","true","Egs");
+		}
+
+		if(CommonUtil.isMainActivity == false){
+			CommonUtil.isMainActivity = true;
+			isMainRoot = 1;
+		}else{
+			finish();
+			return;
 		}
 
 		Intent i = new Intent(this,IntroActivity.class);

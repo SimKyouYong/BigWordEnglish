@@ -1,6 +1,7 @@
 package co.kr.bigwordenglish;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -54,8 +55,11 @@ public class MainSettingNoticeDetail extends AppCompatActivity implements CaulyA
 
 		if(CommonUtil.isLock){
 			CommonUtil.isLock = false;
-			moveTaskToBack(true);
-//			finish();
+//			moveTaskToBack(true);
+			Intent intent = new Intent();
+			intent.setAction(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			startActivity(intent);
 		}
 	}
 
