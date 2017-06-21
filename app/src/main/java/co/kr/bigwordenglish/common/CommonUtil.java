@@ -11,6 +11,8 @@ public class CommonUtil {
 	public static boolean isHome = false;
 	public static boolean isLock = false;
 
+	public static boolean isMainActivity = false;
+
 	public static String slevel = "";
 	public static String scount = "";
 	public static String getLevel_03_Q = "";
