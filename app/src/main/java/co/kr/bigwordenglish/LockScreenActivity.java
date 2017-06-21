@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -29,17 +31,32 @@ public class LockScreenActivity extends Activity implements TextToSpeech.OnInitL
 	@Override
 	public void onResume() {
 		super.onResume();
+		Log.v("ifeelbluu", "onResume =====");
 	}
     TimerTask myTask;
 	boolean timer = true;
 	String countkey = "";
 	public static int getRows = 0;
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Log.v("ifeelbluu", "onPause ======");
+	}
+
+	@Override
+	protected void onUserLeaveHint() {
+		Log.v("ifeelbluu", "onUserLeaveHint ======");
+		finish();
+		super.onUserLeaveHint();
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lockscreen);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-
+		Log.v("ifeelbluu", "onCreate =====");
 
 //		ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
 //		setGlobalFont(root);
@@ -290,5 +307,4 @@ public class LockScreenActivity extends Activity implements TextToSpeech.OnInitL
 			else if(child instanceof ViewGroup) setGlobalFont((ViewGroup)child);
 		}
 	}
-
 }
