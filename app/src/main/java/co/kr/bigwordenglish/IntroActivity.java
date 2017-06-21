@@ -45,11 +45,13 @@ public class IntroActivity extends AppCompatActivity {
 
 
     public ArrayList<String> checkFav = new ArrayList<String>();
+    public String setApp = "";
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro_activity);
+        setApp = getIntent().getStringExtra("setApp");
         init();
     }
 
@@ -93,7 +95,7 @@ public class IntroActivity extends AppCompatActivity {
 
                     //테스트
                     //http://iglassstory.com/egDb.db
-                    new DownloadFileFullAsync(IntroActivity.this).execute("http://iglassstory.com/egDb.db");
+                    new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "admin/db/egDb.db");
                 }
             }
         }

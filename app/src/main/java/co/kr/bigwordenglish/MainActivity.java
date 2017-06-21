@@ -58,6 +58,11 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_menu);
 
+		String isSetApp = EgsMyPreferences.getAppPreferences(MainActivity.this,"setApp","Egs");
+		if(isSetApp == null || isSetApp.equals("")){
+			EgsMyPreferences.setAppPreferences(MainActivity.this,"setApp","true","Egs");
+		}
+
 		Intent i = new Intent(this,IntroActivity.class);
 		startActivity(i);
 
