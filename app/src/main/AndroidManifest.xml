@@ -3,8 +3,8 @@
     package="co.kr.bigwordenglish">
 
     <uses-sdk
-        android:minSdkVersion="17"
-        android:targetSdkVersion="21" />
+        android:minSdkVersion="16"
+        android:targetSdkVersion="25" />
 
     <supports-screens
         android:anyDensity="true"
@@ -26,7 +26,6 @@
 
         <activity android:name=".MainActivity"
             android:launchMode="singleTop"
-            android:clearTaskOnLaunch="false"
             android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize">
 
             <intent-filter>
