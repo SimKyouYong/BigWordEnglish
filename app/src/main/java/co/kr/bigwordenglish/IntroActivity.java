@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import co.kr.bigwordenglish.common.Check_Preferences;
 import co.kr.bigwordenglish.common.CommonUtil;
 import co.kr.bigwordenglish.common.DBManager;
 import co.kr.sky.AccumThread;
@@ -136,8 +135,8 @@ public class IntroActivity extends AppCompatActivity {
 
             int count = 0;
             try {
-                //String str = dataSet.SERVER + "admin/db/egDb.db";
-                String str = "http://iglassstory.com/egDb.db";
+                String str = dataSet.SERVER + "admin/db/egDb.db";
+                //String str = "http://iglassstory.com/egDb.db";
                 String DEFAULT_FILE_PATH = IntroActivity.this.getDatabasePath("egDb.db")+"";
                 Log.e("SKY", "STR :: " + str);
 
