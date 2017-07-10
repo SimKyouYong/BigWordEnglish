@@ -1,44 +1,27 @@
 package co.kr.bigwordenglish;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.fsn.cauly.CaulyAdInfo;
 import com.fsn.cauly.CaulyAdInfoBuilder;
 import com.fsn.cauly.CaulyAdView;
 import com.fsn.cauly.CaulyAdViewListener;
+import com.gomfactory.adpie.sdk.AdPieError;
+import com.gomfactory.adpie.sdk.AdView;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
+import co.kr.bigwordenglish.common.Check_Preferences;
 import co.kr.bigwordenglish.common.CommonUtil;
 
 public class MainSettingNoticeDetail extends AppCompatActivity implements CaulyAdViewListener {
@@ -47,6 +30,9 @@ public class MainSettingNoticeDetail extends AppCompatActivity implements CaulyA
     private LinearLayout mCategoryLay;
     private TextView mTitleTv;
     public LayoutInflater mLayoutInflater;
+	private CaulyAdView xmlAdView;
+	private AdView adPieView;
+	private LinearLayout adWrapper = null;
 
 	@Override
 	public void onResume() {
@@ -67,7 +53,15 @@ public class MainSettingNoticeDetail extends AppCompatActivity implements CaulyA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_notice_detail);
-		initCauly();
+
+		//광고
+		adPieView = (AdView) findViewById(R.id.ad_view);
+		xmlAdView = (CaulyAdView) findViewById(R.id.xmladview);
+		if (Check_Preferences.getAppPreferences(this , "adview").equals("cauly")){
+			initCauly();
+		}else{
+			initAdpie();
+		}
 
 		String data = getIntent().getStringExtra("data");
 		String[] title = data.split(",");
@@ -110,13 +104,36 @@ public class MainSettingNoticeDetail extends AppCompatActivity implements CaulyA
 			}
 		});
     }
+	private void initAdpie() {
+		xmlAdView.setVisibility(View.GONE);
+		// Insert your AdPie-Slot-ID
+		adPieView.setSlotId(getString(R.string.banner_sid));
+		adPieView.setAdListener(new AdView.AdListener() {
 
+			@Override
+			public void onAdLoaded() {
+				Log.e("SKY", "AdView onAdLoaded");
+			}
+
+			@Override
+			public void onAdFailedToLoad(int errorCode) {
+				Log.e("SKY", "AdView onAdFailedToLoad "	+ AdPieError.getMessage(errorCode));
+				initCauly();
+			}
+
+			@Override
+			public void onAdClicked() {
+				Log.e("SKY", "AdView onAdClicked");
+
+			}
+		});
+		adPieView.load();
+	}
 	/*****************************
 	 @카울리
 	 *****************************/
-	private LinearLayout adWrapper = null;
-	private CaulyAdView xmlAdView;
 	private void initCauly(){
+		adPieView.setVisibility(View.GONE);
 		// CloseAd 초기화
 		CaulyAdInfo closeAdInfo = new CaulyAdInfoBuilder("modukcJI").build();
 		// 선택사항: XML의 AdView 항목을 찾아 Listener 설정
@@ -142,7 +159,8 @@ public class MainSettingNoticeDetail extends AppCompatActivity implements CaulyA
 	public void onFailedToReceiveAd(CaulyAdView adView, int errorCode, String errorMsg) {
 		// 배너 광고 수신 실패할 경우 호출됨.
 		Log.e("SKY", "failed to receive banner AD.");
-		adWrapper.setVisibility(View.GONE);
+		//adWrapper.setVisibility(View.GONE);
+        initAdpie();
 	}
 
 	@Override

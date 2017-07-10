@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">빅데이터영어단어</string>
+    <string name="app_name">빅데이터 영어단어</string>
     <string name="loading_txt">Loading......</string>
+    <string name="mid">59630aa2affeaa5e4ccf1b91</string>
 
+    <!-- <string name="banner_sid">59630ab4affeaa5e4ccf1b93</string>-->
+    <string name="banner_sid">5963347eaffeaa5e4ccf1ba5</string>
 </resources>

@@ -1,10 +1,6 @@
 package co.kr.bigwordenglish;
 
-import java.util.ArrayList;
-
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,19 +18,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fsn.cauly.CaulyAdInfo;
 import com.fsn.cauly.CaulyAdInfoBuilder;
 import com.fsn.cauly.CaulyAdView;
 import com.fsn.cauly.CaulyAdViewListener;
+import com.gomfactory.adpie.sdk.AdPieError;
+import com.gomfactory.adpie.sdk.AdView;
+
+import java.util.ArrayList;
 
 import co.kr.bigwordenglish.common.Check_Preferences;
 import co.kr.bigwordenglish.common.CommonUtil;
@@ -48,8 +46,9 @@ public class MainSettingActivity extends AppCompatActivity implements CaulyAdVie
 	private TextView mTitleTv;
 	public LayoutInflater mLayoutInflater;
 
-	private LinearLayout adWrapper = null;
 	private CaulyAdView xmlAdView;
+	private AdView adPieView;
+	private LinearLayout adWrapper = null;
 
 	@Override
 	protected void onResume() {
@@ -84,7 +83,15 @@ public class MainSettingActivity extends AppCompatActivity implements CaulyAdVie
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_set);
-		initCauly();
+
+		//광고
+		adPieView = (AdView) findViewById(R.id.ad_view);
+		xmlAdView = (CaulyAdView) findViewById(R.id.xmladview);
+		if (Check_Preferences.getAppPreferences(this , "adview").equals("cauly")){
+			initCauly();
+		}else{
+			initAdpie();
+		}
 		((Button) findViewById(R.id.btn_setting)).setVisibility(View.GONE);
 		((Button) findViewById(R.id.btn_home))
 				.setOnClickListener(new OnClickListener() {
@@ -232,7 +239,31 @@ public class MainSettingActivity extends AppCompatActivity implements CaulyAdVie
 			}
 		});
 	}
+	private void initAdpie() {
+		xmlAdView.setVisibility(View.GONE);
+		// Insert your AdPie-Slot-ID
+		adPieView.setSlotId(getString(R.string.banner_sid));
+		adPieView.setAdListener(new AdView.AdListener() {
 
+			@Override
+			public void onAdLoaded() {
+				Log.e("SKY", "AdView onAdLoaded");
+			}
+
+			@Override
+			public void onAdFailedToLoad(int errorCode) {
+				Log.e("SKY", "AdView onAdFailedToLoad "	+ AdPieError.getMessage(errorCode));
+                initCauly();
+			}
+
+			@Override
+			public void onAdClicked() {
+				Log.e("SKY", "AdView onAdClicked");
+
+			}
+		});
+		adPieView.load();
+	}
 	CompoundButton.OnCheckedChangeListener check01 = new CompoundButton.OnCheckedChangeListener() {
 		@Override
 		public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -462,6 +493,7 @@ public class MainSettingActivity extends AppCompatActivity implements CaulyAdVie
 	 @카울리
 	 *****************************/
 	private void initCauly(){
+		adPieView.setVisibility(View.GONE);
 		// CloseAd 초기화
 		CaulyAdInfo closeAdInfo = new CaulyAdInfoBuilder("modukcJI").build();
 		// 선택사항: XML의 AdView 항목을 찾아 Listener 설정
@@ -487,7 +519,8 @@ public class MainSettingActivity extends AppCompatActivity implements CaulyAdVie
 	public void onFailedToReceiveAd(CaulyAdView adView, int errorCode, String errorMsg) {
 		// 배너 광고 수신 실패할 경우 호출됨.
 		Log.e("SKY", "failed to receive banner AD.");
-		adWrapper.setVisibility(View.GONE);
+		//adWrapper.setVisibility(View.GONE);
+        initAdpie();
 	}
 
 	@Override

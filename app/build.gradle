@@ -7,8 +7,8 @@ android {
         applicationId "co.kr.bigwordenglish"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 3
-        versionName "3.0"
+        versionCode 4
+        versionName "3.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -33,5 +33,8 @@ dependencies {
     compile files('lib/picasso-2.4.0.jar')
     compile files('lib/skylib.jar')
     compile files('lib/CaulySDK-3.4.15.jar')
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile ('com.gomfactory:adpie:+')
     //compile files('json-simple-1.1.1.jar')
 }

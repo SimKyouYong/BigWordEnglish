@@ -3,6 +3,8 @@ package co.kr.bigwordenglish;
 import android.content.Intent;
 import android.database.SQLException;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,13 +18,20 @@ import com.fsn.cauly.CaulyAdInfo;
 import com.fsn.cauly.CaulyAdInfoBuilder;
 import com.fsn.cauly.CaulyAdView;
 import com.fsn.cauly.CaulyAdViewListener;
+import com.gomfactory.adpie.sdk.AdPieError;
+import com.gomfactory.adpie.sdk.AdPieSDK;
+import com.gomfactory.adpie.sdk.AdView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import co.kr.bigwordenglish.common.Check_Preferences;
 import co.kr.bigwordenglish.common.CommonUtil;
 import co.kr.bigwordenglish.common.DBManager;
 import co.kr.bigwordenglish.common.VO_Item_Level_02;
 import co.kr.bigwordenglish.service.ScreenService;
+import co.kr.sky.AccumThread;
 
 public class MainActivity extends AppCompatActivity implements CaulyAdViewListener{
 
@@ -33,10 +42,19 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 
 	private LinearLayout adWrapper = null;
 	private CaulyAdView xmlAdView;
+	private AdView adPieView;
+
+	CommonUtil dataSet = CommonUtil.getInstance();
+
+	AccumThread mThread;
+	Map<String, String> map = new HashMap<String, String>();
 
 	@Override
 	protected void onResume() {
 		super.onResume();
+
+
+
 		CommonUtil.getLevel_03_Q = "";
 		if(CommonUtil.isHome){
 			CommonUtil.isHome = false;
@@ -65,6 +83,9 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_menu);
+		AdPieSDK.getInstance().initialize(getApplicationContext(), getString(R.string.mid));
+		adWrapper = (LinearLayout) findViewById(R.id.adWrapper);
+
 
 		String isSetApp = EgsMyPreferences.getAppPreferences(MainActivity.this,"setApp","Egs");
 		if(isSetApp == null || isSetApp.equals("")){
@@ -82,17 +103,23 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 		Intent i = new Intent(this,IntroActivity.class);
 		startActivity(i);
 
-		initCauly();
+
 		onClickEvent();
 
 		CommonUtil.setFont(this);
 		((TextView) findViewById(R.id.btn_allview)).setTypeface(CommonUtil.font);
 		((TextView) findViewById(R.id.btn_view_set)).setTypeface(CommonUtil.font);
 
+		//광고
+		adPieView = (AdView) findViewById(R.id.ad_view);
+		xmlAdView = (CaulyAdView) findViewById(R.id.xmladview);
+
+
+
 		String isLockScreen = EgsMyPreferences.getAppPreferences(this,"LockScreen","Egs");
 		if(isLockScreen == null || isLockScreen.equals("")){
-			EgsMyPreferences.setAppPreferences(this,"LockScreen","on","Egs");
-			isLockScreen = "on";
+			EgsMyPreferences.setAppPreferences(this,"LockScreen","off","Egs");
+			isLockScreen = "off";
 		}
 
 		if(isLockScreen.equals("on")){
@@ -104,8 +131,61 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 			Intent intent = new Intent(this, ScreenService.class);
 			stopService(intent);
 		}
-	}
+		map.clear();
+		map.put("url", dataSet.SERVER + "Adview.php");
+		// 스레드 생성
+		mThread = new AccumThread(MainActivity.this, mAfterAccum, map, 0, 0, null);
+		mThread.start(); // 스레드 시작!!
 
+	}
+	private Handler mHandler = new Handler();
+	private Runnable mMyTask = new Runnable() { @Override public void run() {
+		if (Check_Preferences.getAppPreferences(MainActivity.this , "adview").equals("cauly")){
+			initCauly();
+		}else{
+			initAdpie();
+		}
+	} };
+
+
+		Handler mAfterAccum = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.arg1 == 0) {
+				String res = (String) msg.obj;
+				Log.e("CHECK", "RESULT  -> " + res);
+
+				mHandler.postDelayed(mMyTask, 3000); // 3초후에 실행
+				Check_Preferences.setAppPreferences(MainActivity.this ,"adview" ,res.trim().replace(" " ,""));
+
+			}
+		}
+	};
+	private void initAdpie() {
+		xmlAdView.setVisibility(View.GONE);
+		// Insert your AdPie-Slot-ID
+		adPieView.setSlotId(getString(R.string.banner_sid));
+		adPieView.setAdListener(new AdView.AdListener() {
+
+			@Override
+			public void onAdLoaded() {
+				Log.e("SKY", "AdView onAdLoaded");
+			}
+
+			@Override
+			public void onAdFailedToLoad(int errorCode) {
+				Log.e("SKY", "AdView onAdFailedToLoad "	+ AdPieError.getMessage(errorCode));
+				initCauly();
+			}
+
+			@Override
+			public void onAdClicked() {
+				Log.e("SKY", "AdView onAdClicked");
+
+			}
+		});
+		adPieView.load();
+	}
 	private void onClickEvent() {
 		//검색 버튼
 		((Button) findViewById(R.id.btn_search)).setOnClickListener(new OnClickListener() {
@@ -204,13 +284,12 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 	  @카울리
 	 *****************************/
 	private void initCauly(){
+		adPieView.setVisibility(View.GONE);
 		// CloseAd 초기화
 		CaulyAdInfo closeAdInfo = new CaulyAdInfoBuilder("modukcJI").build();
 		// 선택사항: XML의 AdView 항목을 찾아 Listener 설정
-		xmlAdView = (CaulyAdView) findViewById(R.id.xmladview);
 		xmlAdView.setAdViewListener(this);
 
-		adWrapper = (LinearLayout) findViewById(R.id.adWrapper);
 	}
 
 	@Override
@@ -229,7 +308,7 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 	public void onFailedToReceiveAd(CaulyAdView adView, int errorCode, String errorMsg) {
 		// 배너 광고 수신 실패할 경우 호출됨.
 		Log.e("SKY", "failed to receive banner AD.");
-		adWrapper.setVisibility(View.GONE);
+		//adWrapper.setVisibility(View.GONE);
 	}
 
 	@Override

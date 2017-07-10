@@ -2,9 +2,7 @@ package co.kr.bigwordenglish;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,19 +15,20 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fsn.cauly.CaulyAdInfo;
 import com.fsn.cauly.CaulyAdInfoBuilder;
 import com.fsn.cauly.CaulyAdView;
 import com.fsn.cauly.CaulyAdViewListener;
+import com.gomfactory.adpie.sdk.AdPieError;
+import com.gomfactory.adpie.sdk.AdView;
 
 import java.util.ArrayList;
 
+import co.kr.bigwordenglish.common.Check_Preferences;
 import co.kr.bigwordenglish.common.CommonUtil;
 import co.kr.bigwordenglish.common.DBManager;
 import co.kr.bigwordenglish.common.VO_Item_Level_02;
-import co.kr.bigwordenglish.obj.Mianobj;
 
 public class MainSubActivity extends AppCompatActivity implements CaulyAdViewListener {
     //리스트뷰
@@ -39,6 +38,9 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
 
     //서브키
     private String getSubKey;
+    private CaulyAdView xmlAdView;
+    private AdView adPieView;
+    private LinearLayout adWrapper = null;
 
 
     @Override
@@ -64,7 +66,14 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainsub);
-
+        //광고
+        adPieView = (AdView) findViewById(R.id.ad_view);
+        xmlAdView = (CaulyAdView) findViewById(R.id.xmladview);
+        if (Check_Preferences.getAppPreferences(this , "adview").equals("cauly")){
+            initCauly();
+        }else{
+            initAdpie();
+        }
         getSubKey = getIntent().getStringExtra("SubKey");
         subListView = (ListView) findViewById(R.id.listview_mainsub);
 
@@ -84,13 +93,36 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
             }
         });
 
-        initCauly();
         onClickEvent();
 
         getListLevel_02(Integer.parseInt(getSubKey));
         setMenuButtonPress(Integer.parseInt(getSubKey));
     }
+    private void initAdpie() {
+        xmlAdView.setVisibility(View.GONE);
+        // Insert your AdPie-Slot-ID
+        adPieView.setSlotId(getString(R.string.banner_sid));
+        adPieView.setAdListener(new AdView.AdListener() {
 
+            @Override
+            public void onAdLoaded() {
+                Log.e("SKY", "AdView onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                Log.e("SKY", "AdView onAdFailedToLoad "	+ AdPieError.getMessage(errorCode));
+                initCauly();
+            }
+
+            @Override
+            public void onAdClicked() {
+                Log.e("SKY", "AdView onAdClicked");
+
+            }
+        });
+        adPieView.load();
+    }
     String SubKey_Level3 = "";
     private void createSubDialog(String subkey) {
         SubKey_Level3 = subkey;
@@ -334,9 +366,8 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
     /*****************************
      @카울리
      *****************************/
-    private LinearLayout adWrapper = null;
-    private CaulyAdView xmlAdView;
     private void initCauly(){
+        adPieView.setVisibility(View.GONE);
         // CloseAd 초기화
         CaulyAdInfo closeAdInfo = new CaulyAdInfoBuilder("modukcJI").build();
         // 선택사항: XML의 AdView 항목을 찾아 Listener 설정
@@ -362,7 +393,8 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
     public void onFailedToReceiveAd(CaulyAdView adView, int errorCode, String errorMsg) {
         // 배너 광고 수신 실패할 경우 호출됨.
         Log.e("SKY", "failed to receive banner AD.");
-        adWrapper.setVisibility(View.GONE);
+        //adWrapper.setVisibility(View.GONE);
+        initAdpie();
     }
 
     @Override
