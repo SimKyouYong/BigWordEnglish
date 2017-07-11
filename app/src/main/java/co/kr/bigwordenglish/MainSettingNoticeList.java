@@ -111,6 +111,7 @@ public class MainSettingNoticeList extends AppCompatActivity implements CaulyAdV
     }
 	private void initAdpie() {
 		xmlAdView.setVisibility(View.GONE);
+		adPieView.setVisibility(View.VISIBLE);
 		// Insert your AdPie-Slot-ID
 		adPieView.setSlotId(getString(R.string.banner_sid));
 		adPieView.setAdListener(new AdView.AdListener() {
@@ -362,6 +363,7 @@ public class MainSettingNoticeList extends AppCompatActivity implements CaulyAdV
 	 @카울리
 	 *****************************/
 	private void initCauly(){
+		xmlAdView.setVisibility(View.VISIBLE);
 		adPieView.setVisibility(View.GONE);
 		// CloseAd 초기화
 		CaulyAdInfo closeAdInfo = new CaulyAdInfoBuilder("modukcJI").build();

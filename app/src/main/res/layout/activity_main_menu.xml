@@ -6,9 +6,10 @@
 
     <LinearLayout
         android:id="@+id/adWrapper"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:gravity="center"
         android:layout_gravity="bottom"
         android:orientation="vertical">
 
@@ -17,13 +18,14 @@
             android:id="@+id/xmladview"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_alignParentBottom="true"
             app:appcode="modukcJI"
             app:effect="TopSlide"
             app:enableDefaultBannerAd="false" />
 
         <com.gomfactory.adpie.sdk.AdView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ad_view"
             android:layout_gravity="center"

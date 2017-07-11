@@ -103,6 +103,7 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
     }
 	private void initAdpie() {
 		xmlAdView.setVisibility(View.GONE);
+		adPieView.setVisibility(View.VISIBLE);
 		// Insert your AdPie-Slot-ID
 		adPieView.setSlotId(getString(R.string.banner_sid));
 		adPieView.setAdListener(new AdView.AdListener() {
@@ -367,7 +368,8 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
 	 @카울리
 	 *****************************/
 	private void initCauly(){
-        adPieView.setVisibility(View.GONE);
+		xmlAdView.setVisibility(View.VISIBLE);
+		adPieView.setVisibility(View.GONE);
 		// 선택사항: XML의 AdView 항목을 찾아 Listener 설정
 		xmlAdView = (CaulyAdView) findViewById(R.id.xmladview);
 		xmlAdView.setAdViewListener(this);

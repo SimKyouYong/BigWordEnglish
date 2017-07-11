@@ -111,6 +111,7 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
 
     private void initAdpie() {
         xmlAdView.setVisibility(View.GONE);
+        adPieView.setVisibility(View.VISIBLE);
         // Insert your AdPie-Slot-ID
         adPieView.setSlotId(getString(R.string.banner_sid));
         adPieView.setAdListener(new AdView.AdListener() {
@@ -632,6 +633,7 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
      @카울리
      *****************************/
     private void initCauly(){
+        xmlAdView.setVisibility(View.VISIBLE);
         adPieView.setVisibility(View.GONE);
         // CloseAd 초기화
         CaulyAdInfo closeAdInfo = new CaulyAdInfoBuilder("modukcJI").build();
