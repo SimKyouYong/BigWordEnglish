@@ -70,11 +70,11 @@ public class IntroActivity extends AppCompatActivity {
                 String res = ((String) msg.obj).trim();
                 String ver = EgsMyPreferences.getAppPreferences(IntroActivity.this, "version", "Egs").trim();
                 if (ver != null && "".equals(ver) == false && "null".equals(ver) == false) {
-                    local_Ver = ver;
-                    Server_Ver = res;
-                    Log.i("ifeelbluu", "local_Ver :: " + ver);
-                    Log.i("ifeelbluu", "Server_Ver :: " + res);
-                    if (ver.equals(res) == false) {
+                    local_Ver = ver.trim().replace(" ", "");
+                    Server_Ver = res.trim().replace(" ", "");
+                    Log.i("ifeelbluu", "local_Ver :: " + local_Ver);
+                    Log.i("ifeelbluu", "Server_Ver :: " + Server_Ver);
+                    if (!local_Ver.equals(Server_Ver)) {
                         Log.i("ifeelbluu", "다운로드");
                         // 다운로드
                         DBManager dbm = new DBManager(IntroActivity.this);
