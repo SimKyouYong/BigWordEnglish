@@ -79,7 +79,7 @@ public class IntroActivity extends AppCompatActivity {
                         // 다운로드
                         DBManager dbm = new DBManager(IntroActivity.this);
                         checkFav = dbm.getFavorite();
-                        new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "admin/db/egDb.db");
+                        down();
                         return;
                     } else {
                         Log.i("ifeelbluu", "패스");
@@ -90,15 +90,26 @@ public class IntroActivity extends AppCompatActivity {
                     Server_Ver = res;
                     Log.e("ifeelbluu", "local_Ver :: null");
                     // 최초버전.. 무조건 다운로드
-                    //new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "admin/db/egDb.db");
-
-                    //테스트
-                    //http://iglassstory.com/egDb.db
-                    new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "admin/db/egDb.db");
+                    down();
                 }
+            }else if(msg.arg1 == 1){
+                String res = ((String) msg.obj).trim();
+                if (res.equals("1")) //0 이면 내 서버 , 1 이면 다른서버
+//                new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "admin/db/egDb.db");
+
+                new DownloadFileFullAsync(IntroActivity.this,dataSet.SERVERDB).execute(dataSet.SERVERDB);
+
             }
+
         }
     };
+    private void down(){
+        map.clear();
+        map.put("url", dataSet.SERVER + "DB_DOWN.php");
+        // 스레드 생성
+        mThread = new AccumThread(this, mAfterAccum, map, 0, 1, null);
+        mThread.start(); // 스레드 시작!!
+    }
     private void MainMove(){
         Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {
@@ -115,9 +126,11 @@ public class IntroActivity extends AppCompatActivity {
 
         private ProgressDialog mDlg;
         private Context mContext;
+        private String DownUrl;
 
-        public DownloadFileFullAsync(Context context) {
+        public DownloadFileFullAsync(Context context , String downurl) {
             mContext = context;
+            DownUrl = downurl;
         }
 
         @Override
@@ -135,7 +148,8 @@ public class IntroActivity extends AppCompatActivity {
 
             int count = 0;
             try {
-                String str = dataSet.SERVER + "admin/db/egDb.db";
+                //String str = dataSet.SERVER + "admin/db/egDb.db";
+                String str = DownUrl;
                 //String str = "http://iglassstory.com/egDb.db";
                 String DEFAULT_FILE_PATH = IntroActivity.this.getDatabasePath("egDb.db")+"";
                 Log.e("SKY", "STR :: " + str);

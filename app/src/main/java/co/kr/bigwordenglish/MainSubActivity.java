@@ -47,18 +47,18 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
     protected void onResume() {
         super.onResume();
         CommonUtil.getLevel_03_Q = "";
-        if(CommonUtil.isHome){
-            finish();
-        }
-
-        if(CommonUtil.isLock){
-            CommonUtil.isLock = false;
-//            moveTaskToBack(true);
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            startActivity(intent);
-        }
+//        if(CommonUtil.isHome){
+//            finish();
+//        }
+//
+//        if(CommonUtil.isLock){
+//            CommonUtil.isLock = false;
+////            moveTaskToBack(true);
+//            Intent intent = new Intent();
+//            intent.setAction(Intent.ACTION_MAIN);
+//            intent.addCategory(Intent.CATEGORY_HOME);
+//            startActivity(intent);
+//        }
     }
 
     private Dialog_list SubDialog_01;
@@ -101,6 +101,7 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
     private void initAdpie() {
         xmlAdView.setVisibility(View.GONE);
         adPieView.setVisibility(View.VISIBLE);
+        adPieView.setScaleUp(true);
         // Insert your AdPie-Slot-ID
         adPieView.setSlotId(getString(R.string.banner_sid));
         adPieView.setAdListener(new AdView.AdListener() {
@@ -209,7 +210,7 @@ public class MainSubActivity extends AppCompatActivity implements CaulyAdViewLis
         ((Button) findViewById(R.id.btn_home)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CommonUtil.isHome = true;
+//                CommonUtil.isHome = true;
                 finish();
             }
         });

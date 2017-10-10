@@ -37,14 +37,14 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
 		super.onResume();
 
 
-		if(CommonUtil.isLock){
-			CommonUtil.isLock = false;
-//			moveTaskToBack(true);
-			Intent intent = new Intent();
-			intent.setAction(Intent.ACTION_MAIN);
-			intent.addCategory(Intent.CATEGORY_HOME);
-			startActivity(intent);
-		}
+//		if(CommonUtil.isLock){
+//			CommonUtil.isLock = false;
+////			moveTaskToBack(true);
+//			Intent intent = new Intent();
+//			intent.setAction(Intent.ACTION_MAIN);
+//			intent.addCategory(Intent.CATEGORY_HOME);
+//			startActivity(intent);
+//		}
 	}
 
     @Override
@@ -104,6 +104,7 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
 	private void initAdpie() {
 		xmlAdView.setVisibility(View.GONE);
 		adPieView.setVisibility(View.VISIBLE);
+        adPieView.setScaleUp(true);
 		// Insert your AdPie-Slot-ID
 		adPieView.setSlotId(getString(R.string.banner_sid));
 		adPieView.setAdListener(new AdView.AdListener() {
@@ -133,7 +134,7 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
 
 					@Override
 					public void onClick(View v) {
-						CommonUtil.isHome = true;
+//						CommonUtil.isHome = true;
 						finish();
 					}
 				});

@@ -38,7 +38,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import co.kr.bigwordenglish.common.Check_Preferences;
-import co.kr.bigwordenglish.common.CommonUtil;
 
 public class MainSettingNoticeList extends AppCompatActivity implements CaulyAdViewListener {
 
@@ -57,18 +56,18 @@ public class MainSettingNoticeList extends AppCompatActivity implements CaulyAdV
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if(CommonUtil.isHome){
-			finish();
-		}
-
-		if(CommonUtil.isLock){
-			CommonUtil.isLock = false;
-//			moveTaskToBack(true);
-			Intent intent = new Intent();
-			intent.setAction(Intent.ACTION_MAIN);
-			intent.addCategory(Intent.CATEGORY_HOME);
-			startActivity(intent);
-		}
+//		if(CommonUtil.isHome){
+//			finish();
+//		}
+//
+//		if(CommonUtil.isLock){
+//			CommonUtil.isLock = false;
+////			moveTaskToBack(true);
+//			Intent intent = new Intent();
+//			intent.setAction(Intent.ACTION_MAIN);
+//			intent.addCategory(Intent.CATEGORY_HOME);
+//			startActivity(intent);
+//		}
 	}
 
 
@@ -89,7 +88,7 @@ public class MainSettingNoticeList extends AppCompatActivity implements CaulyAdV
 		((Button) findViewById(R.id.btn_home)).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				CommonUtil.isHome = true;
+//				CommonUtil.isHome = true;
 				finish();
 			}
 		});
@@ -112,6 +111,7 @@ public class MainSettingNoticeList extends AppCompatActivity implements CaulyAdV
 	private void initAdpie() {
 		xmlAdView.setVisibility(View.GONE);
 		adPieView.setVisibility(View.VISIBLE);
+        adPieView.setScaleUp(true);
 		// Insert your AdPie-Slot-ID
 		adPieView.setSlotId(getString(R.string.banner_sid));
 		adPieView.setAdListener(new AdView.AdListener() {

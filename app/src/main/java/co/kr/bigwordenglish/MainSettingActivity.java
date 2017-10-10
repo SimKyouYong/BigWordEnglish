@@ -35,7 +35,6 @@ import com.gomfactory.adpie.sdk.AdView;
 import java.util.ArrayList;
 
 import co.kr.bigwordenglish.common.Check_Preferences;
-import co.kr.bigwordenglish.common.CommonUtil;
 import co.kr.bigwordenglish.common.DBManager;
 import co.kr.bigwordenglish.obj.Mianobj;
 import co.kr.bigwordenglish.service.ScreenService;
@@ -53,18 +52,18 @@ public class MainSettingActivity extends AppCompatActivity implements CaulyAdVie
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if(CommonUtil.isHome){
-			finish();
-		}
-
-		if(CommonUtil.isLock){
-			CommonUtil.isLock = false;
-//			moveTaskToBack(true);
-			Intent intent = new Intent();
-			intent.setAction(Intent.ACTION_MAIN);
-			intent.addCategory(Intent.CATEGORY_HOME);
-			startActivity(intent);
-		}
+//		if(CommonUtil.isHome){
+//			finish();
+//		}
+//
+//		if(CommonUtil.isLock){
+//			CommonUtil.isLock = false;
+////			moveTaskToBack(true);
+//			Intent intent = new Intent();
+//			intent.setAction(Intent.ACTION_MAIN);
+//			intent.addCategory(Intent.CATEGORY_HOME);
+//			startActivity(intent);
+//		}
 	}
 
 	ColorStateList colorStateList = new ColorStateList(
@@ -98,7 +97,7 @@ public class MainSettingActivity extends AppCompatActivity implements CaulyAdVie
 
 					@Override
 					public void onClick(View v) {
-						CommonUtil.isHome = true;
+//						CommonUtil.isHome = true;
 						finish();
 					}
 				});
@@ -242,6 +241,7 @@ public class MainSettingActivity extends AppCompatActivity implements CaulyAdVie
 	private void initAdpie() {
 		xmlAdView.setVisibility(View.GONE);
 		adPieView.setVisibility(View.VISIBLE);
+        adPieView.setScaleUp(true);
 		// Insert your AdPie-Slot-ID
 		adPieView.setSlotId(getString(R.string.banner_sid));
 		adPieView.setAdListener(new AdView.AdListener() {

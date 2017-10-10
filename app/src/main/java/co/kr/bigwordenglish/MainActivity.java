@@ -56,18 +56,18 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 
 
 		CommonUtil.getLevel_03_Q = "";
-		if(CommonUtil.isHome){
-			CommonUtil.isHome = false;
-		}
-
-		if(CommonUtil.isLock){
-			CommonUtil.isLock = false;
-//			moveTaskToBack(true);
-			Intent intent = new Intent();
-			intent.setAction(Intent.ACTION_MAIN);
-			intent.addCategory(Intent.CATEGORY_HOME);
-			startActivity(intent);
-		}
+//		if(CommonUtil.isHome){
+//			CommonUtil.isHome = false;
+//		}
+//
+//		if(CommonUtil.isLock){
+//			CommonUtil.isLock = false;
+////			moveTaskToBack(true);
+//			Intent intent = new Intent();
+//			intent.setAction(Intent.ACTION_MAIN);
+//			intent.addCategory(Intent.CATEGORY_HOME);
+//			startActivity(intent);
+//		}
 	}
 
 	int isMainRoot = 0;
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 	private void initAdpie() {
 		xmlAdView.setVisibility(View.GONE);
 		adPieView.setVisibility(View.VISIBLE);
-		
+        adPieView.setScaleUp(true);
 
 		// Insert your AdPie-Slot-ID
 		adPieView.setSlotId(getString(R.string.banner_sid));

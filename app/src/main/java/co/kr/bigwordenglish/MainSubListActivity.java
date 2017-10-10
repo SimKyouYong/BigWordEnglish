@@ -57,9 +57,9 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
     @Override
     protected void onResume() {
         super.onResume();
-        if(CommonUtil.isHome){
-            finish();
-        }
+//        if(CommonUtil.isHome){
+//            finish();
+//        }
 
         if(isSetting){
             lastTotalcount = 0;
@@ -68,14 +68,14 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
             return;
         }
 
-        if(CommonUtil.isLock){
-            CommonUtil.isLock = false;
-//            moveTaskToBack(true);
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            startActivity(intent);
-        }
+//        if(CommonUtil.isLock){
+//            CommonUtil.isLock = false;
+////            moveTaskToBack(true);
+//            Intent intent = new Intent();
+//            intent.setAction(Intent.ACTION_MAIN);
+//            intent.addCategory(Intent.CATEGORY_HOME);
+//            startActivity(intent);
+//        }
     }
 
 
@@ -112,6 +112,7 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
     private void initAdpie() {
         xmlAdView.setVisibility(View.GONE);
         adPieView.setVisibility(View.VISIBLE);
+        adPieView.setScaleUp(true);
         // Insert your AdPie-Slot-ID
         adPieView.setSlotId(getString(R.string.banner_sid));
         adPieView.setAdListener(new AdView.AdListener() {
@@ -263,7 +264,7 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
         ((Button) findViewById(R.id.btn_home)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CommonUtil.isHome = true;
+//                CommonUtil.isHome = true;
                 finish();
             }
         });

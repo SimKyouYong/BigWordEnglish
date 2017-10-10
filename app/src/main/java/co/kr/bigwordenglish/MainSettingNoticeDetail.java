@@ -1,6 +1,5 @@
 package co.kr.bigwordenglish;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +21,6 @@ import com.gomfactory.adpie.sdk.AdPieError;
 import com.gomfactory.adpie.sdk.AdView;
 
 import co.kr.bigwordenglish.common.Check_Preferences;
-import co.kr.bigwordenglish.common.CommonUtil;
 
 public class MainSettingNoticeDetail extends AppCompatActivity implements CaulyAdViewListener {
 
@@ -39,14 +37,14 @@ public class MainSettingNoticeDetail extends AppCompatActivity implements CaulyA
 		super.onResume();
 
 
-		if(CommonUtil.isLock){
-			CommonUtil.isLock = false;
-//			moveTaskToBack(true);
-			Intent intent = new Intent();
-			intent.setAction(Intent.ACTION_MAIN);
-			intent.addCategory(Intent.CATEGORY_HOME);
-			startActivity(intent);
-		}
+//		if(CommonUtil.isLock){
+//			CommonUtil.isLock = false;
+////			moveTaskToBack(true);
+//			Intent intent = new Intent();
+//			intent.setAction(Intent.ACTION_MAIN);
+//			intent.addCategory(Intent.CATEGORY_HOME);
+//			startActivity(intent);
+//		}
 	}
 
     @Override
@@ -99,7 +97,7 @@ public class MainSettingNoticeDetail extends AppCompatActivity implements CaulyA
 		((Button) findViewById(R.id.btn_home)).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				CommonUtil.isHome = true;
+//				CommonUtil.isHome = true;
 				finish();
 			}
 		});
@@ -107,6 +105,7 @@ public class MainSettingNoticeDetail extends AppCompatActivity implements CaulyA
 	private void initAdpie() {
 		xmlAdView.setVisibility(View.GONE);
 		adPieView.setVisibility(View.VISIBLE);
+        adPieView.setScaleUp(true);
 		// Insert your AdPie-Slot-ID
 		adPieView.setSlotId(getString(R.string.banner_sid));
 		adPieView.setAdListener(new AdView.AdListener() {

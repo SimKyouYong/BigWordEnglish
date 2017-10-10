@@ -129,7 +129,7 @@ public class LockScreenActivity extends Activity implements TextToSpeech.OnInitL
 			@Override
 			public void onClick(View view) {
 //				CommonUtil.isHome = true;
-				CommonUtil.isLock = true;
+//				CommonUtil.isLock = true;
 				finish();
 			}
 		});
@@ -331,6 +331,7 @@ public class LockScreenActivity extends Activity implements TextToSpeech.OnInitL
 	private void initAdpie() {
 		xmlAdView.setVisibility(View.GONE);
 		adPieView.setVisibility(View.VISIBLE);
+        adPieView.setScaleUp(true);
 		// Insert your AdPie-Slot-ID
 		adPieView.setSlotId(getString(R.string.banner_sid));
 		adPieView.setAdListener(new AdView.AdListener() {
