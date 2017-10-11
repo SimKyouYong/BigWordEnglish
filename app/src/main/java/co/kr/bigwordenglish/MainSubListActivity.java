@@ -590,7 +590,9 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
             myTTS.shutdown();
         }
 
-        CommonUtil.slevel = "";
+        CommonUtil.slevel1 = "";
+        CommonUtil.slevel2 = "";
+        CommonUtil.slevel3 = "";
         CommonUtil.scount = "";
     }
 
@@ -603,20 +605,40 @@ public class MainSubListActivity extends AppCompatActivity implements TextToSpee
             if(data != null){
 //              Select_01 //1:상 2:중 3:하
 //				Select_02 //1:1회출제 2:2회출제 3:3회출제 4:4회출제 5:5회출제 7:7회출제 10:10회출제
-                String Select_01 = data.getStringExtra("Select_01");
+                String Select_01_1 = data.getStringExtra("Select_01_1");
+                String Select_01_2 = data.getStringExtra("Select_01_2");
+                String Select_01_3 = data.getStringExtra("Select_01_3");
                 String Select_02 = data.getStringExtra("Select_02");
                 String param1,param2 = "";
-                CommonUtil.slevel = Select_01;
+                CommonUtil.slevel1 = Select_01_1;
+                CommonUtil.slevel2 = Select_01_2;
+                CommonUtil.slevel3 = Select_01_3;
                 CommonUtil.scount = Select_02;
-                if(Select_01.equals("1")){
+                ArrayList<String> arr = new ArrayList<String>();
+                if(Select_01_1.equals("1")){
                     Param_Level = "상";
-                }else if(Select_01.equals("2")){
-                    Param_Level = "중";
-                }else if(Select_01.equals("3")){
-                    Param_Level = "하";
-                }else{
-                    Param_Level = "";
+                    arr.add("상");
                 }
+                if(Select_01_2.equals("2")){
+                    Param_Level = "중";
+                    arr.add("중");
+                }
+                if(Select_01_3.equals("3")){
+                    Param_Level = "하";
+                    arr.add("하");
+                }
+
+                Param_Level = "";
+                for (int i =0; i< arr.size(); i++){
+                    Log.e("SKY" , "Param_Level1 :: " + arr.get(i));
+
+                    if(i ==0){
+                        Param_Level += arr.get(i);
+                    }else{
+                        Param_Level += "," + arr.get(i);
+                    }
+                }
+                Log.e("SKY" , "Param_Level :: " + Param_Level);
 
                 if(Select_02.equals("0")){
                     Param_Count = "";

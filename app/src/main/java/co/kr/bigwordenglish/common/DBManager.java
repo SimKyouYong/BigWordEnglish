@@ -1,15 +1,14 @@
 package co.kr.bigwordenglish.common;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 import co.kr.bigwordenglish.EgsMyPreferences;
 import co.kr.bigwordenglish.LockScreenActivity;
@@ -124,9 +123,22 @@ public class DBManager {
         if(page.equals("0")){
             sql = "select * from 'Word' where col_10 = " + subkey;
 
-            if(wordLevel.equals("") == false){
-                sql +=  " and col_6 = '"+ wordLevel +"'";
+            String wordLevel_split[] = wordLevel.split(",");
+            String sq2 = "";
+            for (int i=0; i < wordLevel_split.length; i ++){
+                if ( i ==0){
+                    sq2 +=  " col_6 = '"+ wordLevel_split[i] +"'";
+                }else{
+                    sq2 +=  " or col_6 = '"+ wordLevel_split[i] +"'";
+                }
+
             }
+            if (sq2.length() >0){
+                sql +=  " and ("+ sq2 +")";
+            }
+//            if(wordLevel.equals("") == false){
+//                sql +=  " and col_6 = '"+ wordLevel +"'";
+//            }
 
             if(wordCount.equals("") == false){
                 sql += " and col_4 >= "+ wordCount;
@@ -138,9 +150,24 @@ public class DBManager {
 
         }else{
             sql = "select * from 'Word' where col_10 = " + subkey;
-            if(wordLevel.equals("") == false){
-                sql +=  " and col_6 = '"+ wordLevel +"'";
+
+            String wordLevel_split[] = wordLevel.split(",");
+            String sq2 = "";
+            for (int i=0; i < wordLevel_split.length; i ++){
+                if ( i ==0){
+                    sq2 +=  " col_6 = '"+ wordLevel_split[i] +"'";
+                }else{
+                    sq2 +=  " or col_6 = '"+ wordLevel_split[i] +"'";
+                }
+
             }
+            if (sq2.length() >0){
+                sql +=  " and ("+ sq2 +")";
+            }
+
+//            if(wordLevel.equals("") == false){
+//                sql +=  " and col_6 = '"+ wordLevel +"'";
+//            }
 
             if(wordCount.equals("") == false){
                 sql += " and col_4 >= "+ wordCount;

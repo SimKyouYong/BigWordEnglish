@@ -13,7 +13,9 @@ public class CommonUtil {
 
 	public static boolean isMainActivity = false;
 
-	public static String slevel = "";
+    public static String slevel1 = "";
+    public static String slevel2 = "";
+    public static String slevel3 = "";
 	public static String scount = "";
 	public static String getLevel_03_Q = "";
 	public String Local_Path;
@@ -42,7 +44,8 @@ public class CommonUtil {
 		_instance = new CommonUtil();
 		try {
             _instance.SERVER = 	   		"http://snap40.cafe24.com/BigWordEgs/";
-            _instance.SERVERDB = 	   		"http://shqrp5200.cafe24.com/egDb.db";
+            //_instance.SERVERDB = 	   		"http://shqrp5200.cafe24.com/egDb.db";
+            _instance.SERVERDB = 	   		"http://ec2-13-113-158-34.ap-northeast-1.compute.amazonaws.com/BigWordEgs/admin/db/egDb.db";
 			_instance.Local_Path = 	   	"/data/data/co.kr.bigwordenglish/databases";
 
 		} catch (Exception e) {

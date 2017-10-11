@@ -66,19 +66,27 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
 
         CheckWordEvent();
 
-		if(CommonUtil.slevel.equals("") == false){
-			int level = Integer.parseInt(CommonUtil.slevel);
+		if(CommonUtil.slevel1.equals("") == false){
+			int level = Integer.parseInt(CommonUtil.slevel1);
 				if(level == 1) {
-					Select_01 = 1;
+					Select_01_1 = 1;
 					((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.mipmap.bg_search_set_on);
-				}else if(level == 2) {
-					Select_01 = 2;
-					((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.mipmap.bg_search_set_on);
-				}else if(level == 3) {
-					Select_01 = 3;
-					((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.mipmap.bg_search_set_on);
 				}
 		}
+        if(CommonUtil.slevel2.equals("") == false){
+            int level = Integer.parseInt(CommonUtil.slevel2);
+            if(level == 2) {
+                Select_01_2 = 2;
+                ((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.mipmap.bg_search_set_on);
+            }
+        }
+        if(CommonUtil.slevel3.equals("") == false){
+            int level = Integer.parseInt(CommonUtil.slevel3);
+            if(level == 3) {
+                Select_01_3 = 3;
+                ((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.mipmap.bg_search_set_on);
+            }
+        }
 
 		if(CommonUtil.scount.equals("") == false){
 			int level = Integer.parseInt(CommonUtil.scount);
@@ -145,7 +153,9 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
 //				Select_01 //1:상 2:중 3:하
 //				Select_02 //1:1회출제 2:2회출제 3:3회출제 4:4회출제 5:5회출제 7:7회출제 10:10회출제
 				Intent it = getIntent();
-				it.putExtra("Select_01", Select_01+"");
+                it.putExtra("Select_01_1", Select_01_1+"");
+                it.putExtra("Select_01_2", Select_01_2+"");
+                it.putExtra("Select_01_3", Select_01_3+"");
 				it.putExtra("Select_02", Select_02+"");
 				setResult(Activity.RESULT_OK, it);
 				finish();
@@ -159,7 +169,9 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
 		});
     }
 
-    int Select_01 = 0;
+    int Select_01_1 = 0;
+    int Select_01_2 = 0;
+    int Select_01_3 = 0;
     int Select_02 = 0;
     private void CheckWordEvent(){
     	
@@ -169,11 +181,11 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
 
 			@Override
 			public void onClick(View v) {
-				Select_01 = 1;
-				if(setCheck01() == true) {
+                Select_01_1 = 1;
+				if(setCheck01_1() == true) {
 					((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.mipmap.bg_search_set_on);
-					((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.mipmap.bg_search_set_off);
-					((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					//((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					//((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.mipmap.bg_search_set_off);
 				}
 			}
 		});
@@ -182,11 +194,11 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
     		
     		@Override
     		public void onClick(View v) {
-    			Select_01 = 2;
-				if(setCheck01() == true) {
-					((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.mipmap.bg_search_set_off);
+                Select_01_2 = 2;
+				if(setCheck01_2() == true) {
+					//((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.mipmap.bg_search_set_off);
 					((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.mipmap.bg_search_set_on);
-					((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					//((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.mipmap.bg_search_set_off);
 				}
     		}
     	});
@@ -195,10 +207,10 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
     		
     		@Override
     		public void onClick(View v) {
-    			Select_01 = 3;
-				if(setCheck01() == true) {
-					((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.mipmap.bg_search_set_off);
-					((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.mipmap.bg_search_set_off);
+                Select_01_3 = 3;
+				if(setCheck01_3() == true) {
+					//((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.mipmap.bg_search_set_off);
+					//((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.mipmap.bg_search_set_off);
 					((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.mipmap.bg_search_set_on);
 				}
     		}
@@ -330,19 +342,49 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
 
     }
 
-    public boolean setCheck01(){
-		if(Select_01 == prevSelect_01){
-			Select_01 = 0;
-			((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.mipmap.bg_search_set_off);
-			((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.mipmap.bg_search_set_off);
-			((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.mipmap.bg_search_set_off);
+    public boolean setCheck01_1(){
+		if(Select_01_1 == prevSelect_01_1){
+			Select_01_1 = 0;
+            prevSelect_01_1 = Select_01_1;
+
+            ((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.mipmap.bg_search_set_off);
+			//((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.mipmap.bg_search_set_off);
+			//((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.mipmap.bg_search_set_off);
 			return false;
 		}else{
-			prevSelect_01 = Select_01;
+			prevSelect_01_1 = Select_01_1;
 			return true;
 		}
 
 	}
+    public boolean setCheck01_2(){
+        if(Select_01_2 == prevSelect_01_2){
+            Select_01_2 = 0;
+            prevSelect_01_2 = Select_01_2;
+            //((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.mipmap.bg_search_set_off);
+            ((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.mipmap.bg_search_set_off);
+            //((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.mipmap.bg_search_set_off);
+            return false;
+        }else{
+            prevSelect_01_2 = Select_01_2;
+            return true;
+        }
+
+    }
+    public boolean setCheck01_3(){
+        if(Select_01_3 == prevSelect_01_3){
+            Select_01_3 = 0;
+            prevSelect_01_3 = Select_01_3;
+            //((LinearLayout) findViewById(R.id.check_work01)).setBackgroundResource(R.mipmap.bg_search_set_off);
+            //((LinearLayout) findViewById(R.id.check_work02)).setBackgroundResource(R.mipmap.bg_search_set_off);
+            ((LinearLayout) findViewById(R.id.check_work03)).setBackgroundResource(R.mipmap.bg_search_set_off);
+            return false;
+        }else{
+            prevSelect_01_3 = Select_01_3;
+            return true;
+        }
+
+    }
 
 	public boolean setCheck02(){
 		if(Select_02 == prevSelect_02){
@@ -361,7 +403,9 @@ public class MainWordSelect extends AppCompatActivity implements CaulyAdViewList
 		}
 	}
 
-    int prevSelect_01 = 0;
+    int prevSelect_01_1 = 0;
+    int prevSelect_01_2 = 0;
+    int prevSelect_01_3 = 0;
     int prevSelect_02 = 0;
 
 
