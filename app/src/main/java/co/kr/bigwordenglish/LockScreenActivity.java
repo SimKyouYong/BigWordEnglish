@@ -9,7 +9,6 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -77,7 +76,7 @@ public class LockScreenActivity extends Activity implements TextToSpeech.OnInitL
 			initAdpie();
 		}
 
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+		//getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 		Log.v("ifeelbluu", "onCreate =====");
 
 //		ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
