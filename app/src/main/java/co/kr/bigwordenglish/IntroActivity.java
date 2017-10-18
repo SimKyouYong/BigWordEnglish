@@ -12,6 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -50,6 +53,9 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro_activity);
+        //추가한 라인
+        FirebaseMessaging.getInstance().subscribeToTopic("news");
+        FirebaseInstanceId.getInstance().getToken();
         setApp = getIntent().getStringExtra("setApp");
         init();
     }
@@ -94,11 +100,14 @@ public class IntroActivity extends AppCompatActivity {
                 }
             }else if(msg.arg1 == 1){
                 String res = ((String) msg.obj).trim();
-                if (res.equals("1")) //0 이면 내 서버 , 1 이면 다른서버
-//                new DownloadFileFullAsync(IntroActivity.this).execute(dataSet.SERVER + "admin/db/egDb.db");
-
-                new DownloadFileFullAsync(IntroActivity.this,dataSet.SERVERDB).execute(dataSet.SERVERDB);
-
+                if (res.equals("1")){
+                    //1 이면 내 서버 , 0 이면 다른서버
+                    Log.e("SKY", "DOWN URL :: " + dataSet.SERVERDB1);
+                    new DownloadFileFullAsync(IntroActivity.this,dataSet.SERVERDB1).execute(dataSet.SERVERDB1);
+                }else{
+                    Log.e("SKY", "DOWN URL :: " + dataSet.SERVERDB2);
+                    new DownloadFileFullAsync(IntroActivity.this,dataSet.SERVERDB2).execute(dataSet.SERVERDB2);
+                }
             }
 
         }

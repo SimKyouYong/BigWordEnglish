@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1046648386244",
+    "firebase_url": "https://bigdataenglish.firebaseio.com",
+    "project_id": "bigdataenglish",
+    "storage_bucket": "bigdataenglish.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1046648386244:android:ed3dd8eabf3406f5",
+        "android_client_info": {
+          "package_name": "co.kr.bigwordenglish"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1046648386244-b4338qm08o3op0iu525mo1vu6av6kfa6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD82-2pWsN0G6CqhY8vfBcH3gbDCPPN2bU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

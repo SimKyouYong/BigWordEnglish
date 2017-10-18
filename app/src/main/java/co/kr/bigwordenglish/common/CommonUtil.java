@@ -20,7 +20,8 @@ public class CommonUtil {
 	public static String getLevel_03_Q = "";
 	public String Local_Path;
     public String SERVER;
-    public String SERVERDB;
+    public String SERVERDB1;
+    public String SERVERDB2;
 
 	public static Typeface font = null;
 	public static void setFont(Context context) {
@@ -43,10 +44,12 @@ public class CommonUtil {
 	static {
 		_instance = new CommonUtil();
 		try {
-            _instance.SERVER = 	   		"http://snap40.cafe24.com/BigWordEgs/";
-            //_instance.SERVERDB = 	   		"http://shqrp5200.cafe24.com/egDb.db";
-            _instance.SERVERDB = 	   		"http://ec2-13-113-158-34.ap-northeast-1.compute.amazonaws.com/BigWordEgs/admin/db/egDb.db";
-			_instance.Local_Path = 	   	"/data/data/co.kr.bigwordenglish/databases";
+            _instance.SERVER    = 	   		"http://snap40.cafe24.com/BigWordEgs/";
+
+            _instance.SERVERDB1 = 	   		_instance.SERVER + "admin/db/egDb.db";       //snap40 cafe24
+            _instance.SERVERDB2 = 	   		"http://shqrp5200.cafe24.com/egDb.db";                  //shqrp5200
+
+			_instance.Local_Path = 	   	    "/data/data/co.kr.bigwordenglish/databases";
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

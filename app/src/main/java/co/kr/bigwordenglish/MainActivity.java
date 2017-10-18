@@ -21,6 +21,8 @@ import com.fsn.cauly.CaulyAdViewListener;
 import com.gomfactory.adpie.sdk.AdPieError;
 import com.gomfactory.adpie.sdk.AdPieSDK;
 import com.gomfactory.adpie.sdk.AdView;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,6 +85,9 @@ public class MainActivity extends AppCompatActivity implements CaulyAdViewListen
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_menu);
+
+
+
 		AdPieSDK.getInstance().initialize(getApplicationContext(), getString(R.string.mid));
 		adWrapper = (LinearLayout) findViewById(R.id.adWrapper);
 
